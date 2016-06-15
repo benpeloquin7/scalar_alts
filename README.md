@@ -1,2 +1,11 @@
 # scalar_alts
-Experiments, analysis, modeling for Scalar Implicature studies
+
+
+Description here
+
+## Experiments
+
+## Analysis
+
+## Modeling
+
