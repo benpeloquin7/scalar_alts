@@ -39,45 +39,41 @@ function shuffle (a) {
 }
 //############################## Helper functions ##############################	
 
-
-
-
-
 var sents = {
     scale: {
 		training1: {
-		    hi:  "<font color=\"blue\"><b>high</b></font>",
-		    low:  "<font color=\"blue\"><b>low</b></font>",
+		    strong:  "<font color=\"blue\"><b>high</b></font>",
+		    weak:  "<font color=\"blue\"><b>low</b></font>",
 		    before: " thought the food deserved a ",
 		    after: " rating."
 		},
 		liked_loved: {		   
-		    hi:  "<font color=\"blue\"><b>loved</b></font>",
-		    low:  "<font color=\"blue\"><b>liked</b></font>",
+		    strong:  "<font color=\"blue\"><b>loved</b></font>",
+		    weak:  "<font color=\"blue\"><b>liked</b></font>",
 		    before: " ",
 		    after: " the food."
 		},
 		good_excellent: {
-			hi:  "<font color=\"blue\"><b>excellent</b></font>",
-		    low:  "<font color=\"blue\"><b>good</b></font>",
+			strong:  "<font color=\"blue\"><b>excellent</b></font>",
+		    weak:  "<font color=\"blue\"><b>good</b></font>",
 		    before: " thought the food was ",
 		    after: "."
 		},
 		palatable_delicious: {
-			hi:  "<font color=\"blue\"><b>delicious</b></font>",
-		    low:  "<font color=\"blue\"><b>palatable</b></font>",
+			strong:  "<font color=\"blue\"><b>delicious</b></font>",
+		    weak:  "<font color=\"blue\"><b>palatable</b></font>",
 		    before: " thought the food was ",
 		    after: "."
 		},
 		memorable_unforgettable: {
-			hi:  "<font color=\"blue\"><b>unforgettable</b></font>",
-		    low:  "<font color=\"blue\"><b>memorable</b></font>",
+			strong:  "<font color=\"blue\"><b>unforgettable</b></font>",
+		    weak:  "<font color=\"blue\"><b>memorable</b></font>",
 		    before: " thought the food was ",
 		    after: "."
 		},
 		some_all: {
-			hi: "<font color=\"blue\"><b>all</b></font>",
-			low: "<font color=\"blue\"><b>some</b></font>",
+			strong: "<font color=\"blue\"><b>all</b></font>",
+			weak: "<font color=\"blue\"><b>some</b></font>",
 			before: "enjoyed ",
 		    after: " of the food they ate."
 		}
@@ -94,7 +90,7 @@ for(var i = 0; i < TOTAL_TRIALS; i++) {
 trials = shuffle(trials); 						// randomize trials
 var scales = Object.keys(sents.scale);			// array of target scales
 scales.shift(); 								// remove 'training1' trial from scales array
-var scale_degrees = ["hi", "low"];
+var scale_degrees = ["strong", "weak"];
 
 
 // Show the instructions slide -- this is what we want subjects to see first.
@@ -117,7 +113,7 @@ var experiment = {
 		gender:[]
     },
     
-    //End the experiment
+    // End the experiment
     end: function() {
 		showSlide("finished");
 		setTimeout(function() {
@@ -125,11 +121,13 @@ var experiment = {
 		}, 1500);
     },
 
+    // Remove user entered text
     reset_form: function() {
     	document.getElementById("alt1").value = "";
 		document.getElementById("alt2").value = "";
 		document.getElementById("alt3").value = "";	
     },
+ 	
  	// returns True if entry in form
     check_all_filled: function() {
     	var box_1 = document.getElementById("alt1");
@@ -137,6 +135,7 @@ var experiment = {
     	var box_3 = document.getElementById("alt3");
 		return(box_1.value != "" && box_2.value != "" && box_3.value != "");
     },
+    
     // checks that users have input only a single word
     check_correct_input: function() {
     	var box_1 = document.getElementById("alt1");
@@ -144,9 +143,10 @@ var experiment = {
     	var box_3 = document.getElementById("alt3");
 
 		return(experiment.single_word_response(box_1.value) &&
-				experiment.single_word_response(box_2.value) &&
-				experiment.single_word_response(box_3.value));
+			experiment.single_word_response(box_2.value) &&
+			experiment.single_word_response(box_3.value));
     },
+    
     // Checks if array of strings contains more than one 
     // string. If so checks for mistaken white spaces
     single_word_response: function(str) {
@@ -161,6 +161,7 @@ var experiment = {
     	} else return true;
     	return (num_words == 1) ? true : false;
     },
+    
     //Log response
     log_response: function() {
 		var all_filled = experiment.check_all_filled();
@@ -187,7 +188,7 @@ var experiment = {
 		return;
 	},
     
-    //Run every trial
+    // Run every trial
     next: function() {
     	experiment.reset_form();
     	
@@ -198,7 +199,7 @@ var experiment = {
 		
 		//Allow experiment to start if it's a turk worker OR if it's a test run
 		if (window.self == window.top || turk.workerId.length > 0) {
-		    //Clear the test message and adjust progress bar
+		    // Clear the test message and adjust progress bar
 		    $("#testMessage").html('');  
 		    $("#prog").attr("style","width:" +
 				    String(100 * ((TOTAL_TRIALS - trials.length)/TOTAL_TRIALS)) + "%");
@@ -206,11 +207,11 @@ var experiment = {
 
 		    if (TRAINING_ROUNDS == 2) {
 		     	current_scale = "training1";
-		     	degree = "hi";
+		     	degree = "strong";
 		     	TRAINING_ROUNDS--;
 		    } else if (TRAINING_ROUNDS == 1) {
 		    	current_scale = "training1";
-		     	degree = "low";
+		     	degree = "weak";
 		     	TRAINING_ROUNDS--;
 		    } else {
 			    current_trial = trials.shift();
