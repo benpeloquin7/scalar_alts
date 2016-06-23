@@ -150,7 +150,6 @@ var experiment = {
     	domain: [],
 		scale: [],
 		degree: [],
-		manipulation_level: [],
 		alt1: [],
 		alt2: [],
 		alt3: [],
