@@ -25,7 +25,7 @@
       <img src="../images/stanford.png" alt="Stanford University">
       <p id='logo-text'>Stanford Language and Cognition Lab</p>
       <p class="block-text">
-        In the following task you will see several sentences. In every sentence, one word will be highlighted in <font color="blue"><b>blue</b></font>. We want you to give us some other words that could have occurred instead of the highlighted word… Please just list the first three alternatives that come to mind - we’re interested in your spontaneous response.
+        In the following task you will see several sentences. In every sentence, one word will be highlighted in <font color="blue"><b>blue</b></font>. We want you to give us some other words that could have occurred instead of the highlighted word… Please consider the context in which the word was used and simply list the first three alternatives that come to mind - we’re interested in your spontaneous response!
       </p>
       <button type="button" onclick="this.blur(); experiment.next()">Start</button>
       
@@ -41,41 +41,40 @@
     <!-- The stage slide. -->
     <div class="slide" id="stage" align="center">
     
-    <!-- Progress bar -->
-    <div class="progress">  
-    <!-- The "style="width:X%"> is where you change the amount the bar is filled by replacing X with the % filled.  -->
-        <div id="prog" class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:0%">
-        </div>
+      <!-- Progress bar -->
+      <div class="progress">  
+      <!-- The "style="width:X%"> is where you change the amount the bar is filled by replacing X with the % filled.  -->
+          <div id="prog" class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+          </div>
 
-    </div>
-    <br>
-    
-    <!-- I have commented out elements like sent_context and speaker in case future iterations of this study change speakers or contexts.-->
-    <div align="center">
-      <p>Please consider the sentence below...</p>
+      </div>
       <br>
-     	<p id = "sent_question" style="font-size:16px">{{}}</p>
-     	<br>
-     	<p id = "target_word">{{}}</p>
-    </div>
+      <!-- I have commented out elements like sent_context and speaker in case future iterations of this study change speakers or contexts.-->
+      <div align="center">
+        <p>Please consider the sentence below...</p>
+        <br>
+       	<p id = "sent_question" style="font-size:16px">{{}}</p>
+       	<br>
+       	<p id = "target_word">{{}}</p>
+      </div>
 
-    <form id="get_alts" align="center">
-    	Alternative 1: <input type="text" id="alt1" value="alternative_1"><br><br>
-    	Alternative 2: <input type="text" id="alt2" value="alternative_2"><br><br>
-    	Alternative 3: <input type="text" id="alt3" value="alternative_3"><br><br>
-    </form>
-    <br>
-    <table align="center"><tr>
-      <td align="center">
-      	<button type="button" id="nextButton" onClick="experiment.log_response()">next</button>
-      </td> 
-      <tr>
+      <form id="get_alts" align="center">
+      	Alternative 1: <input type="text" id="alt1" value="alternative_1"><br><br>
+      	Alternative 2: <input type="text" id="alt2" value="alternative_2"><br><br>
+      	Alternative 3: <input type="text" id="alt3" value="alternative_3"><br><br>
+      </form>
+      <br>
+      <table align="center"><tr>
         <td align="center">
-          <div id="testMessage"></div>
-        </td>
-      </tr>
-    </table>
-  </div>
+        	<button type="button" id="nextButton" onClick="experiment.log_response()">next</button>
+        </td> 
+        <tr>
+          <td align="center">
+            <div id="testMessage"></div>
+          </td>
+        </tr>
+      </table>
+    </div>
 
    <!-- Debrief slide -->
    <!-- ============= -->

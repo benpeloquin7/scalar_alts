@@ -69,50 +69,53 @@ function shuffle (a) {
 // Current study
 // =========================================================
 
+var DOMAIN = "current_domain"
 // Stimuli
 // -------
 var sents = {
     scale: {
 		training: {
-		    strong:  "<font color=\"blue\"><b>high</b></font>",
-		    weak:  "<font color=\"blue\"><b>low</b></font>",
-		    before: " thought the food deserved a ",
+		    strong: "high",
+		    weak: "low",
+		    before: " thought the " + DOMAIN + " deserved a ",
 		    after: " rating."
 		},
 		bad_terrible: {
-			strong:  "<font color=\"blue\"><b>terrible</b></font>",
-		    weak:  "<font color=\"blue\"><b>bad</b></font>",
-		    before: " thought the food was ",
+		    strong: "terrible",
+		    weak: "bad",
+		    before: " thought the " + DOMAIN + " was ",
 		    after: "."
 		},
 		disliked_hated: {		   
-		    strong:  "<font color=\"blue\"><b>hated</b></font>",
-		    weak:  "<font color=\"blue\"><b>disliked</b></font>",
+		    // strong: "<font color=\"blue\"><b>hated</b></font>",
+		    // weak: "<font color=\"blue\"><b>disliked</b></font>",
+		    strong: "hated",
+		    weak: "disliked",
 		    before: " ",
-		    after: " the food."
+		    after: " the " + DOMAIN + "."
 		},
 		good_excellent: {
-			strong:  "<font color=\"blue\"><b>excellent</b></font>",
-		    weak:  "<font color=\"blue\"><b>good</b></font>",
-		    before: " thought the food was ",
+			strong: "excellent",
+			weak: "good",
+		    before: " thought the " + DOMAIN + " was ",
 		    after: "."
 		},
 		liked_loved: {		   
-		    strong:  "<font color=\"blue\"><b>loved</b></font>",
-		    weak:  "<font color=\"blue\"><b>liked</b></font>",
+		    strong: "loved",
+		    weak: "liked",
 		    before: " ",
-		    after: " the food."
+		    after: " the " + DOMAIN + "."
 		},
 		memorable_unforgettable: {
-			strong:  "<font color=\"blue\"><b>unforgettable</b></font>",
-		    weak:  "<font color=\"blue\"><b>memorable</b></font>",
-		    before: " thought the food was ",
+			strong: "unforgettable",
+			weak: "memorable",
+		    before: " thought the " + DOMAIN + " was ",
 		    after: "."
 		},
 		special_unique: {
-			strong:  "<font color=\"blue\"><b>unique</b></font>",
-		    weak:  "<font color=\"blue\"><b>special</b></font>",
-		    before: " thought the food was ",
+			strong: "unique",
+			weak: "special",
+		    before: " thought the " + DOMAIN + " was ",
 		    after: "."
 		}
     },
@@ -269,10 +272,19 @@ var experiment = {
 							 sents.scale[current_scale]["after"];
 		    
 		    // Display trial information
-		    $("#sent_question").html("\"In a recent restaurant review someone said they " +
-		    	sent_materials + "\"");
+		    // $("#sent_question").html("\"In a recent <b>restaurant review</b> someone said they " +
+		    // 	sent_materials + "\"");
+		    $("#sent_question").html("\"In a recent <b>" + DOMAIN + " review</b> someone said they " +
+		    	sents.scale[current_scale]["before"] +
+		    	"<font color=\"blue\"><b>" + 
+		    	sents.scale[current_scale][degree] +
+		    	"</b></font>" +
+		    	sents.scale[current_scale]["after"] +
+		    	"\"");
 		    $("#target_word").html("What are some other things they could have said instead of " +
-		    	sents.scale[current_scale][degree] + "?");
+		    	"'" +
+		    	sents.scale[current_scale][degree] +
+		    	"'?");
 		    $("#before").html(sents.scale[current_scale]["before"]);
 
 		    // Log Data
