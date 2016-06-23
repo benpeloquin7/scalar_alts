@@ -21,8 +21,8 @@ body {
 	margin-top: 2%;
 	margin-left: 2%;
 	padding: 1% 2% 1% 2%;
-	border-radius: 25px;
-    border: 2px solid #ADD8E6;
+	/*border-radius: 25px;
+    border: 2px solid #ADD8E6;*/
     padding: 20px; 
     /*background-color: #fafafa;*/
 }
@@ -41,7 +41,7 @@ input[type="radio"] {
 }
 
 button {
-	background: url(images/button-gradient.png);
+	background: url(../images/button-gradient.png);
 	border: 1px solid #999;
 	border-top: 1px solid #e0e0e0;
 	border-left: 1px solid #e0e0e0;
