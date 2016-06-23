@@ -1,5 +1,22 @@
-//############################## Helper functions ##############################
-// Shows slides. We're using jQuery here - the **$** is the jQuery selector function, which takes as input either a DOM element or a CSS selector string.
+//////////////
+//////////////
+////////////// empirical_alts_template.js
+////////////// 
+//////////////
+
+
+
+// =========================================================
+// Helpers
+// =========================================================
+
+
+// showSlide()
+//------------
+// Shows slides
+// We're using jQuery here - the **$** is the jQuery selector function,
+// which takes as input either a DOM element or a CSS selector string.
+//
 function showSlide(id) {
 	// Hide all slides
 	$(".slide").hide();
@@ -7,8 +24,14 @@ function showSlide(id) {
 	$("#"+id).show();
 }
 
+// random()
+// --------
 // Get random integers.
-// When called with no arguments, it returns either 0 or 1. When called with one argument, *a*, it returns a number in {*0, 1, ..., a-1*}. When called with two arguments, *a* and *b*, returns a random value in {*a*, *a + 1*, ... , *b*}.
+// When called with no arguments, it returns either 0 or 1.
+// When called with one argument, *a*, it returns a number in {*0, 1, ..., a-1*}.
+// When called with two arguments, *a* and *b*,
+// returns a random value in {*a*, *a + 1*, ... , *b*}.
+//
 function random(a,b) {
 	if (typeof b == "undefined") {
 		a = a || 2;
@@ -17,14 +40,18 @@ function random(a,b) {
 		return Math.floor(Math.random()*(b-a+1)) + a;
 	}
 }
-
-// Add a random selection function to all arrays (e.g., <code>[4,8,7].random()</code> could return 4, 8, or 7). This is useful for condition randomization.
+// Add a random selection function to all arrays
+// (e.g., <code>[4,8,7].random()</code> could return 4, 8, or 7).
+// This is useful for condition randomization.
 Array.prototype.random = function() {
   return this[random(this.length)];
 }
 
+// shuffle()
+// ---------
 // shuffle function - from stackoverflow?
 // shuffle ordering of argument array -- are we missing a parenthesis?
+//
 function shuffle (a) { 
 	var o = [];
 
@@ -37,19 +64,30 @@ function shuffle (a) {
 	 j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);	
 	return o;
 }
-//############################## Helper functions ##############################	
 
+// =========================================================
+// Current study
+// =========================================================
+
+// Stimuli
+// -------
 var sents = {
     scale: {
-		training1: {
+		training: {
 		    strong:  "<font color=\"blue\"><b>high</b></font>",
 		    weak:  "<font color=\"blue\"><b>low</b></font>",
 		    before: " thought the food deserved a ",
 		    after: " rating."
 		},
-		liked_loved: {		   
-		    strong:  "<font color=\"blue\"><b>loved</b></font>",
-		    weak:  "<font color=\"blue\"><b>liked</b></font>",
+		bad_terrible: {
+			strong:  "<font color=\"blue\"><b>terrible</b></font>",
+		    weak:  "<font color=\"blue\"><b>bad</b></font>",
+		    before: " thought the food was ",
+		    after: "."
+		},
+		disliked_hated: {		   
+		    strong:  "<font color=\"blue\"><b>hated</b></font>",
+		    weak:  "<font color=\"blue\"><b>disliked</b></font>",
 		    before: " ",
 		    after: " the food."
 		},
@@ -59,11 +97,11 @@ var sents = {
 		    before: " thought the food was ",
 		    after: "."
 		},
-		palatable_delicious: {
-			strong:  "<font color=\"blue\"><b>delicious</b></font>",
-		    weak:  "<font color=\"blue\"><b>palatable</b></font>",
-		    before: " thought the food was ",
-		    after: "."
+		liked_loved: {		   
+		    strong:  "<font color=\"blue\"><b>loved</b></font>",
+		    weak:  "<font color=\"blue\"><b>liked</b></font>",
+		    before: " ",
+		    after: " the food."
 		},
 		memorable_unforgettable: {
 			strong:  "<font color=\"blue\"><b>unforgettable</b></font>",
@@ -71,34 +109,40 @@ var sents = {
 		    before: " thought the food was ",
 		    after: "."
 		},
-		some_all: {
-			strong: "<font color=\"blue\"><b>all</b></font>",
-			weak: "<font color=\"blue\"><b>some</b></font>",
-			before: "enjoyed ",
-		    after: " of the food they ate."
+		special_unique: {
+			strong:  "<font color=\"blue\"><b>unique</b></font>",
+		    weak:  "<font color=\"blue\"><b>special</b></font>",
+		    before: " thought the food was ",
+		    after: "."
 		}
     },
 };
 
-//Trial condition params initializations ------------------->
-var TOTAL_TRIALS = 10;
-var TRAINING_ROUNDS = 2;
+// Trial data
+// ----------
+var TOTAL_TRIALS = (Object.keys(sents.scale).length - 1) * 2; 	// strong and weak items
+															   	// for all pairs except training		
+var TRAINING_ROUNDS = 2;									   	// 2 training rounds
 var trials = [];
 for(var i = 0; i < TOTAL_TRIALS; i++) {
 	trials.push(i);
 }
-trials = shuffle(trials); 						// randomize trials
-var scales = Object.keys(sents.scale);			// array of target scales
-scales.shift(); 								// remove 'training1' trial from scales array
-var scale_degrees = ["strong", "weak"];
+trials = shuffle(trials); 										// randomize trials
+var scales = Object.keys(sents.scale);							// array of target scales
+scales.shift(); 												// remove 'training1' trial from scales array
+var scale_degrees = ["strong", "weak"];							// store degrees
 
 
-// Show the instructions slide -- this is what we want subjects to see first.
+// Show instruction slide
+// ----------------------
+// (this is what we want subjects to see first.)
 showSlide("instructions");
 
-//###:-----------------MAIN EVENT-------------------:###
+// Main event
+// ----------
 var experiment = {
-    //Data object for logging responses, etc
+    
+    // Data log
     data: {
 		scale: [],
 		degree: [],
@@ -162,7 +206,7 @@ var experiment = {
     	return (num_words == 1) ? true : false;
     },
     
-    //Log response
+    // Log response
     log_response: function() {
 		var all_filled = experiment.check_all_filled();
 		var correct_input = experiment.check_correct_input();
@@ -197,20 +241,20 @@ var experiment = {
 			return experiment.debriefing();
 		}
 		
-		//Allow experiment to start if it's a turk worker OR if it's a test run
+		// Allow experiment to start if it's a turk worker OR if it's a test run
 		if (window.self == window.top || turk.workerId.length > 0) {
 		    // Clear the test message and adjust progress bar
-		    $("#testMessage").html('');  
+		    $("#testMessage").html("");  
 		    $("#prog").attr("style","width:" +
 				    String(100 * ((TOTAL_TRIALS - trials.length)/TOTAL_TRIALS)) + "%");
 		    
-
+		    // Current stimuli indices
 		    if (TRAINING_ROUNDS == 2) {
-		     	current_scale = "training1";
+		     	current_scale = "training";
 		     	degree = "strong";
 		     	TRAINING_ROUNDS--;
 		    } else if (TRAINING_ROUNDS == 1) {
-		    	current_scale = "training1";
+		    	current_scale = "training";
 		     	degree = "weak";
 		     	TRAINING_ROUNDS--;
 		    } else {
@@ -219,7 +263,7 @@ var experiment = {
 			    degree = scale_degrees[current_trial % 2];	
 		    }
 
-		    // compile sentence material
+		    // Compile sentence material
 			sent_materials = sents.scale[current_scale]["before"] + 
 							 sents.scale[current_scale][degree] +
 							 sents.scale[current_scale]["after"];
@@ -242,6 +286,7 @@ var experiment = {
     // Show debrief
     debriefing: function() {
     	showSlide("debriefing");
+		
 		// Get age
     	var select_age = '';
     	for (i = 18; i <= 100; i++) {
@@ -250,7 +295,7 @@ var experiment = {
     	$('#age').html(select_age);    	
     },
 
-    //###:-------------Log debrief data-------------:###
+    // Log debrief data
     submit_comments: function() {
 		experiment.data.language.push(document.getElementById("homelang").value);		// language
 		experiment.data.expt_aim.push(document.getElementById("expthoughts").value);	// thoughts
@@ -263,5 +308,4 @@ var experiment = {
     	}
 		experiment.end();
     }
-    //###:-------------Log debrief data-------------:###
 };
