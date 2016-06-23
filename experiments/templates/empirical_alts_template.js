@@ -69,7 +69,7 @@ function shuffle (a) {
 // Current study
 // =========================================================
 
-var DOMAIN = "current_domain"
+var DOMAIN = "restaurant"
 // Stimuli
 // -------
 var sents = {
