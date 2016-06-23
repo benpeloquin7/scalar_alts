@@ -147,6 +147,7 @@ var experiment = {
     
     // Data log
     data: {
+    	domain: [],
 		scale: [],
 		degree: [],
 		manipulation_level: [],
@@ -309,6 +310,7 @@ var experiment = {
 
     // Log debrief data
     submit_comments: function() {
+    	experiment.data.domain.push(DOMAIN);
 		experiment.data.language.push(document.getElementById("homelang").value);		// language
 		experiment.data.expt_aim.push(document.getElementById("expthoughts").value);	// thoughts
 		experiment.data.expt_gen.push(document.getElementById("expcomments").value);	// comments
