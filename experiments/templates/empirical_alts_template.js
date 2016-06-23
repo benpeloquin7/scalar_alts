@@ -293,7 +293,7 @@ var experiment = {
 		    
 		    showSlide("stage");
 		}
-    },
+    }, 
 
     // Show debrief
     debriefing: function() {
