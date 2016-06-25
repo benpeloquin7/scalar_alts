@@ -63,65 +63,7 @@ def process_word(word, d, cache, verbose = False):
 		if verbose: print alt + " is a correct word!"
 		new_alt = alt
 	return new_alt
-# def combineIncorrectSpellings(input_list, dist, cached): 
-# 	"""
-# 	Given input lst of alternatives and dist (numeric) calculate edit distance.
-# 	If edit distance is greater than 0 and less than 'dist' manually update data
-# 	"""
-	
-# 	lst = copy.deepcopy(input_list)
-# 	n = len(lst)
-# 	# All pairwise comparisons
-# 	for i in range(n - 1):
-# 		for j in range(i, n):
-# 			print("i: %s, j: %s" % (i, j))
-# 			edit_d = edit_distance(lst[i], lst[j])	# store edit distance
 
-# 			if ((edit_d > 0 and edit_d < dist) or\
-# 				(abs(len(lst[i]) - len(lst[j])) == 1) and lst[i][0] == lst[j][0]):	# single representation
-# 				combine_strings = str(lst[i]+'_'+lst[j])
-
-# 				## first check cache for existing values
-# 				if combine_strings in cached.keys():
-# 					if (cached[combine_strings] == "do-not-change"):
-# 						print("***Don't change pair: %s" % combine_strings)
-# 						continue
-# 					else:
-# 						print("cache[%s] =  %s" % (combine_strings, cached[combine_strings]))
-# 						lst[i] = cached[combine_strings]
-# 						lst[j] = cached[combine_strings]
-# 						continue
-# 				else:
-# 					print("--------------------------------------------------")
-# 					print("Editing... %s and %s" % (lst[i], lst[j]))
-# 					make_edit = raw_input("Make an edit here? ('y'/'n'): ")
-
-# 				# go into manual edit
-# 				if make_edit == 'y':
-# 					print("--------------------------")
-# 					print("*%s*,*%s*" % (lst[i], lst[j]))
-# 					print("--------------------------")
-# 					change = raw_input("'left word' is correct press 1; " +\
-# 						"'right word' is correct press 2; " + \
-# 						"Type correct spelling (or 0 for not a match): ")
-
-# 					if change == '1':
-# 						lst[j] = lst[i]
-# 						cached.update({combine_strings : lst[i]})
-# 						print("stored in cache")
-
-# 					elif change == '2':
-# 						lst[i] = lst[j]
-# 						cached.update({combine_strings : lst[j]})
-# 						print("stored in cache")
-# 					else:
-# 						lst[i] = change
-# 						lst[j] = change
-# 						cached.update({combine_strings : change})
-# 						print("stored in cache")
-# 				else:
-# 					cached.update({combine_strings : "do-not-change"})
-# 	return lst, cached
 
 def convertLower(lst):
 	"""
@@ -213,18 +155,14 @@ if __name__ == '__main__':
 	## Enchant english dict for spell checking
 	d = enchant.Dict("en_US")
 	edited_alts_data = copy.deepcopy(alts_data)
+
+	## For each scalar item, get alternatives generated
 	for scalar in alts_data.keys():
 		current_alts_list = alts_data[scalar]
 		edited_alts_list = []
+		## Spell check each alternative 
 		for alt in current_alts_list:
 			new_alt = process_word(alt, d, cache, True)
-			# proces
-			# if not check_spelling(alt, d):
-			# 	new_alt = change_word(alt, cache)
-			# else:
-			# 	print "Found "
-			# 	new_alt = alt
-
 			edited_alts_list.append(new_alt)
 
 		## Check that we have all the words
