@@ -137,7 +137,9 @@ alts_data = {
 if __name__ == '__main__':
 	args = sys.argv
 	if len(args) != 3:
-		print "Please re-run with dir file_path with alts data (for a particular domain)"
+		print "Please re-run with:"
+		print "1) dir file_path with alts data (for a particular domain)"
+		print "2) domain name"
 		exit(0)
 	
 	## Get directory / user inputed domain for checking
