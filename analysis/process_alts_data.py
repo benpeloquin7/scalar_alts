@@ -39,28 +39,27 @@ def change_word(word, cache = ""):
 	prompting user for input
 	"""
 	if word in cache:
-		print "--------------------"
-		print "====================="
 		print word + " found in cache. Replacements is " + cache[word]
 		return cache[word]
 	else:
-		print "--------------------"
-		print "====================="
 		prompt = "\t" + "'" + word + "'\n...not found in cache.\nPlease enter replacement: "
 		corrected_word = get_replacement(prompt)
 		print "Adding {" + word + ": " + corrected_word + "} to cache"
 		add_to_cache(word, corrected_word, cache)
 		return corrected_word
 
-def process_word(word, d, cache, verbose = False):
+def process_word(word, d, cache, target_scalar, verbose = False):
 	"""
 	Process a word
 	If word is mispelled check cache, then prompt user
 	"""
 	if not check_spelling(alt, d):
+		if verbose:
+			print "target scalar is '" + target_scalar + "'"
 		new_alt = change_word(alt, cache)	
 	else:
-		if verbose: print alt + " is a correct word!"
+		if verbose:
+			print alt + " is a correct word!"
 		new_alt = alt
 	return new_alt
 
@@ -153,7 +152,6 @@ if __name__ == '__main__':
 	with open(cache_path) as cache_file:
 		cache = json.load(cache_file)
 
-	
 	## Enchant english dict for spell checking
 	d = enchant.Dict("en_US")
 	edited_alts_data = copy.deepcopy(alts_data)
@@ -164,7 +162,7 @@ if __name__ == '__main__':
 		edited_alts_list = []
 		## Spell check each alternative 
 		for alt in current_alts_list:
-			new_alt = process_word(alt, d, cache, True)
+			new_alt = process_word(alt, d, cache, scalar, True)
 			edited_alts_list.append(new_alt)
 
 		## Check that we have all the words

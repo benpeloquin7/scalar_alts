@@ -1,0 +1,29 @@
+---
+title: "Untitled"
+author: "Ben Peloquin"
+date: "June 29, 2016"
+output: html_document
+---
+
+```{r envir, echo=FALSE}
+setwd("~/Desktop/Projects/scalar_alts/")
+```
+
+
+```{r load_packages, echo=FALSE, message=FALSE}
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(ggplot2)
+library(rjson)
+```
+
+
+```{r load_data}
+d <- as.data.frame(fromJSON(file="analysis/book_corrected.json"))
+d %>%
+  gather(scalar, response) %>%
+  group_by(scalar, response) %>%
+  summarise(count = n())
+```
+
