@@ -281,8 +281,16 @@ var experiment = {
 		    	"</b></font>" +
 		    	sents.scale[current_scale]["after"] +
 		    	"\"");
-		    $("#target_word").html("What are some other things they could have said instead of " +
-		    	"'" +
+		    // Secondary wording we tried for n=10 soft launch
+		    // ------------------------------------------------
+		    // $("#target_word").html("What are some other things they could have said instead of " +
+		    // 	"'" +
+		    // 	sents.scale[current_scale][degree] +
+		    // 	"'?");
+			// Original wording
+		    // ----------------
+			$("#target_word").html("If the person had <i>felt differently</i> about the " + DOMAIN +
+				", what other words could they have used instead of '" +
 		    	sents.scale[current_scale][degree] +
 		    	"'?");
 		    $("#before").html(sents.scale[current_scale]["before"]);
