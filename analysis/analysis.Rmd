@@ -6,6 +6,7 @@ output: html_document
 ---
 
 ```{r envir, echo=FALSE}
+rm(list=ls())
 setwd("~/Desktop/Projects/scalar_alts/")
 ```
 
@@ -18,12 +19,56 @@ library(ggplot2)
 library(rjson)
 ```
 
+```{r helpers}
+## Add domain here
+DOMAIN <- "book"
+
+alternatives_store <-
+  data.frame("bad"="bad_horrible",
+             "terrible"="bad_terrible",
+             "disliked"="disliked_hated",
+             "hated"="disliked_hated",
+             "good"="good_excellent",
+             "excellent"="good_excellent",
+             "liked"="liked_loved",
+             "loved"="liked_loved",
+             "memorable"="memorable_unforgettable",
+             "unforgettable"="memorable_unforgettable",
+             "special"="special_unique",
+             "unique"="special_unique",
+             "low"="low_high",
+             "high"="low_high")
+```
 
 ```{r load_data}
-d <- as.data.frame(fromJSON(file="analysis/book_corrected.json"))
-d %>%
+file <- paste0("analysis/", DOMAIN, "_corrected.json")
+d <- as.data.frame(fromJSON(file=file))
+```
+
+```{r prelim_process}
+d2 <- d %>%
   gather(scalar, response) %>%
   group_by(scalar, response) %>%
-  summarise(count = n())
+  summarise(count = n()) %>%
+  mutate(domain=DOMAIN)
+names(d2)[3] <- "cnt"
+
+ggplot(d2, aes(x=reorder(response, cnt), y=cnt)) +
+  geom_bar(position="dodge", stat="identity") +
+  facet_wrap(~scalar, scales="free") +
+   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
+
+```{r}
+d3 <- d2 %>%
+  rowwise %>%
+  mutate(scalar_pair=alternatives_store[[scalar]])
+
+ggplot(d3, aes(x=reorder(response, response), y=cnt)) +
+  geom_bar(position="dodge", stat="identity") +
+  facet_wrap(~scalar_pair, scales="free") +
+   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
 
