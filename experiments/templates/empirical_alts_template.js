@@ -289,7 +289,7 @@ var experiment = {
 		    // 	"'?");
 			// Original wording
 		    // ----------------
-			$("#target_word").html("If the person had <i>felt differently</i> about the " + DOMAIN +
+			$("#target_word").html("If the person had felt differently about the " + DOMAIN +
 				", what other words could they have used instead of '" +
 		    	sents.scale[current_scale][degree] +
 		    	"'?");
