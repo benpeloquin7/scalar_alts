@@ -41,7 +41,7 @@ alternatives_store <-
 ```
 
 ```{r load_data}
-file <- paste0("analysis/", DOMAIN, "_corrected.json")
+file <- paste0("analysis/corrected_data/", DOMAIN, "_corrected2.json")
 d <- as.data.frame(fromJSON(file=file))
 ```
 

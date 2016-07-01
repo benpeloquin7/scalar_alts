@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-06-30T00:50:21Z",
+    "AutoApprovalTime": "2016-06-30T00:50:17Z",
+    "AssignmentId": "3TPWUS5F891T826OYOTH2NJU54TWCH",
+    "WorkerId": "AN4XJ7FJVV1EA",
+    "answers": {
+        "data": {
+            "domain": [
+                "book"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "good_excellent",
+                "liked_loved",
+                "disliked_hated",
+                "disliked_hated",
+                "bad_terrible",
+                "special_unique",
+                "good_excellent",
+                "memorable_unforgettable",
+                "special_unique",
+                "bad_terrible",
+                "liked_loved",
+                "memorable_unforgettable"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "strong",
+                "weak"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "25"
+            ],
+            "expt_aim": [
+                "how we choose our words"
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "alt3": [
+                "excellent",
+                "mediocre",
+                "good",
+                "loved",
+                "detested",
+                "loved",
+                "okay",
+                "interesting",
+                "average",
+                "strange",
+                "average",
+                "disgusting",
+                "read",
+                "unforgettable"
+            ],
+            "alt2": [
+                "average",
+                "average",
+                "okay",
+                "enjoyed",
+                "liked",
+                "enjoyed",
+                "sad",
+                "unique",
+                "mediocre",
+                "unique",
+                "interesting",
+                "awful",
+                "liked",
+                "unique"
+            ],
+            "alt1": [
+                "low",
+                "high",
+                "alright",
+                "hated",
+                "hated",
+                "detested",
+                "good",
+                "extraordinary",
+                "okay",
+                "forgettable",
+                "strange",
+                "bad",
+                "hated",
+                "forgettable"
+            ]
+        }
+    },
+    "AcceptTime": "2016-06-30T00:41:49Z",
+    "HITId": "3YKP7CX6G2FSLYFNMEK8A3J8K3T7BO",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-06-30T00:45:17Z"
+}

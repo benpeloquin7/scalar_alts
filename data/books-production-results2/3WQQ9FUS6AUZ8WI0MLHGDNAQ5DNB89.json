@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-01T00:36:18Z",
+    "AutoApprovalTime": "2016-07-01T00:35:54Z",
+    "AssignmentId": "3WQQ9FUS6AUZ8WI0MLHGDNAQ5DNB89",
+    "WorkerId": "A130P4M9JPT4YA",
+    "answers": {
+        "data": {
+            "domain": [
+                "book"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "memorable_unforgettable",
+                "good_excellent",
+                "special_unique",
+                "liked_loved",
+                "disliked_hated",
+                "disliked_hated",
+                "good_excellent",
+                "bad_terrible",
+                "memorable_unforgettable",
+                "liked_loved",
+                "bad_terrible",
+                "special_unique"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "weak"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "46"
+            ],
+            "expt_aim": [
+                "to see how synonym recall would be affected as more examples shown?"
+            ],
+            "expt_gen": [
+                "This was much more difficult than I though it would be!"
+            ],
+            "alt3": [
+                "better",
+                "better",
+                "verbose",
+                "mediocre",
+                "cliched",
+                "hated",
+                "rejected",
+                "misjudged",
+                "magnificent",
+                "vaccuous",
+                "vibrant",
+                "loved",
+                "lame",
+                "different"
+            ],
+            "alt2": [
+                "abysmal",
+                "average",
+                "classic",
+                "gripping",
+                "extreme",
+                "tolerated",
+                "deplored",
+                "tolerated",
+                "brilliant",
+                "ridiculous",
+                "vital",
+                "disliked",
+                "ridiculous",
+                "unique"
+            ],
+            "alt1": [
+                "stellar",
+                "high",
+                "remarkable",
+                "brilliant",
+                "different",
+                "enjoyed",
+                "despised",
+                "hated",
+                "stellar",
+                "terrible",
+                "distinctive",
+                "enjoyed",
+                "horrendous",
+                "distinct"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-01T00:24:17Z",
+    "HITId": "3IVEC1GSLPZKSVYXLQGG7HB8PMFJ11",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-01T00:30:54Z"
+}

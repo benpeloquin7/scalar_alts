@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-01T00:35:18Z",
+    "AutoApprovalTime": "2016-07-01T00:34:58Z",
+    "AssignmentId": "3VELCLL3GKJ7ADAVS2UXH3E365A1FY",
+    "WorkerId": "A1WE7JOOWZSMHF",
+    "answers": {
+        "data": {
+            "domain": [
+                "book"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "memorable_unforgettable",
+                "good_excellent",
+                "memorable_unforgettable",
+                "special_unique",
+                "bad_terrible",
+                "liked_loved",
+                "disliked_hated",
+                "good_excellent",
+                "disliked_hated",
+                "special_unique",
+                "bad_terrible",
+                "liked_loved"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "strong",
+                "strong"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "25"
+            ],
+            "expt_aim": [
+                "synonyms"
+            ],
+            "expt_gen": [
+                "Too long, too little pay"
+            ],
+            "alt3": [
+                "amazing",
+                "crappy",
+                "spectacular",
+                "sweet",
+                "great",
+                "unforgettable",
+                "crap",
+                "appreciated",
+                "abhored",
+                "good",
+                "shunned",
+                "classic",
+                "crappy",
+                "adored"
+            ],
+            "alt2": [
+                "positive",
+                "lame",
+                "catchy",
+                "nice",
+                "unforgettable",
+                "otherwordly",
+                "awful",
+                "loved",
+                "hated",
+                "great",
+                "abhorred",
+                "different",
+                "bad",
+                "liked"
+            ],
+            "alt1": [
+                "great",
+                "poor",
+                "memorable",
+                "great",
+                "exceptional",
+                "different",
+                "terrible",
+                "enjoyed",
+                "unappreciated",
+                "amazing",
+                "disliked",
+                "amazing",
+                "awful",
+                "enjoyed"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-01T00:20:55Z",
+    "HITId": "3IVEC1GSLPZKSVYXLQGG7HB8PMFJ11",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-01T00:29:58Z"
+}

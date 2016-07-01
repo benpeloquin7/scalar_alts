@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-01T00:08:18Z",
+    "AutoApprovalTime": "2016-07-01T00:07:35Z",
+    "AssignmentId": "3TU5ZICBRD1MC2KP53E68C5PRDO8QI",
+    "WorkerId": "A38NPC8VV31BDH",
+    "answers": {
+        "data": {
+            "domain": [
+                "book"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "disliked_hated",
+                "memorable_unforgettable",
+                "special_unique",
+                "good_excellent",
+                "good_excellent",
+                "bad_terrible",
+                "disliked_hated",
+                "liked_loved",
+                "bad_terrible",
+                "memorable_unforgettable",
+                "special_unique",
+                "liked_loved"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "strong",
+                "strong",
+                "weak"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "22"
+            ],
+            "expt_aim": [
+                "seeing how many different words people use to express themselves "
+            ],
+            "expt_gen": [
+                "none"
+            ],
+            "alt3": [
+                "fantastic ",
+                "awful",
+                "abhor",
+                "impressive",
+                "memorable",
+                "amazing",
+                "astounding",
+                "ghastly ",
+                "repugnant ",
+                "magnificent",
+                "deplorable",
+                "haunting",
+                "special",
+                "respected "
+            ],
+            "alt2": [
+                "great",
+                "terrible ",
+                "disapproved",
+                "eventful",
+                "extraordinary",
+                "marvelous",
+                "remarkable ",
+                "terriable",
+                "sickening",
+                "awesome",
+                "bad",
+                "catchy",
+                "distinictive",
+                "admired"
+            ],
+            "alt1": [
+                "good",
+                "bad",
+                "hated",
+                "catchy",
+                "different",
+                "great",
+                "fantastic ",
+                "awful",
+                "dreadful",
+                "awe-inspiring",
+                "unimpressive",
+                "memorable",
+                "diffrent",
+                "loved"
+            ]
+        }
+    },
+    "AcceptTime": "2016-06-30T23:49:52Z",
+    "HITId": "3IVEC1GSLPZKSVYXLQGG7HB8PMFJ11",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-01T00:02:35Z"
+}

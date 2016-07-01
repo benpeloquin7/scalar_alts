@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-01T00:16:18Z",
+    "AutoApprovalTime": "2016-07-01T00:15:32Z",
+    "AssignmentId": "3TR2532VIPUIM1XOHYXZRXXC7N5J6F",
+    "WorkerId": "A1WNHGZ8S46T3C",
+    "answers": {
+        "data": {
+            "domain": [
+                "book"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "good_excellent",
+                "bad_terrible",
+                "disliked_hated",
+                "memorable_unforgettable",
+                "bad_terrible",
+                "special_unique",
+                "disliked_hated",
+                "memorable_unforgettable",
+                "liked_loved",
+                "good_excellent",
+                "liked_loved",
+                "special_unique"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "weak"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "53"
+            ],
+            "expt_aim": [
+                "Variety of word usage."
+            ],
+            "expt_gen": [
+                "This was very interesting and well done. Thanks!"
+            ],
+            "alt3": [
+                "top",
+                "negative",
+                "positive",
+                "incomprehensible",
+                "loathed",
+                "compelling",
+                "gibberish",
+                "rare",
+                "avoided",
+                "unforgettable",
+                "upheld",
+                "satisfying",
+                "devoured",
+                "rare"
+            ],
+            "alt2": [
+                "good",
+                "poor",
+                "compelling",
+                "difficult",
+                "reviled",
+                "hypnotic",
+                "trash",
+                "exotic",
+                "loathed",
+                "unique",
+                "devoured",
+                "extraordinary",
+                "absorbed",
+                "unique"
+            ],
+            "alt1": [
+                "positive",
+                "bad",
+                "interesting",
+                "negative",
+                "hated",
+                "memorable",
+                "awful",
+                "one-of-a-kind",
+                "disliked",
+                "special",
+                "loved",
+                "superlative",
+                "liked",
+                "epochal"
+            ]
+        }
+    },
+    "AcceptTime": "2016-06-30T23:59:28Z",
+    "HITId": "3IVEC1GSLPZKSVYXLQGG7HB8PMFJ11",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-01T00:10:32Z"
+}
