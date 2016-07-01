@@ -24,7 +24,7 @@ library(rjson)
 DOMAIN <- "book"
 
 alternatives_store <-
-  data.frame("bad"="bad_horrible",
+  data.frame("bad"="bad_terrible",
              "terrible"="bad_terrible",
              "disliked"="disliked_hated",
              "hated"="disliked_hated",
@@ -48,9 +48,12 @@ d <- as.data.frame(fromJSON(file=file))
 ```{r prelim_process}
 d2 <- d %>%
   gather(scalar, response) %>%
-  group_by(scalar, response) %>%
+  rowwise %>%
+  mutate(scalar_pair=alternatives_store[[scalar]]) %>%
+  group_by(scalar_pair, response) %>%
   summarise(count = n()) %>%
-  mutate(domain=DOMAIN)
+  mutate(domain=DOMAIN) %>%
+  arrange(scalar_pair, -count)
 names(d2)[3] <- "cnt"
 
 ggplot(d2, aes(x=reorder(response, cnt), y=cnt)) +
@@ -62,7 +65,13 @@ ggplot(d2, aes(x=reorder(response, cnt), y=cnt)) +
 ```{r}
 d3 <- d2 %>%
   rowwise %>%
-  mutate(scalar_pair=alternatives_store[[scalar]])
+  mutate(scalar_pair=alternatives_store[[scalar]]) %>%
+  group_by(scalar_pair, response) %>%
+  summarise(count=n()) %>%
+  arrange(-count) %>% View
+
+d3 %>%
+  arrange(scalar_pair, -cnt) %>% View
 
 ggplot(d3, aes(x=reorder(response, response), y=cnt)) +
   geom_bar(position="dodge", stat="identity") +
