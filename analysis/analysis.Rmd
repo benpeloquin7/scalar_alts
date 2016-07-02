@@ -12,16 +12,16 @@ setwd("~/Desktop/Projects/scalar_alts/")
 
 
 ```{r load_packages, echo=FALSE, message=FALSE}
+library(stringr)
+library(rjson)
+library(ggplot2)
 library(dplyr)
 library(tidyr)
-library(stringr)
-library(ggplot2)
-library(rjson)
 ```
 
 ```{r helpers}
 ## Add domain here
-DOMAIN <- "book"
+DOMAIN <- "restaurant"
 
 alternatives_store <-
   data.frame("bad"="bad_terrible",
@@ -41,7 +41,7 @@ alternatives_store <-
 ```
 
 ```{r load_data}
-file <- paste0("analysis/corrected_data/", DOMAIN, "_corrected2.json")
+file <- paste0("analysis/corrected_data/", DOMAIN, "_corrected.json")
 d <- as.data.frame(fromJSON(file=file))
 ```
 
@@ -56,10 +56,10 @@ d2 <- d %>%
   arrange(scalar_pair, -count)
 names(d2)[3] <- "cnt"
 
-ggplot(d2, aes(x=reorder(response, cnt), y=cnt)) +
+ggplot(d2, aes(x=reorder(response, response), y=cnt)) +
   geom_bar(position="dodge", stat="identity") +
-  facet_wrap(~scalar, scales="free") +
-   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  facet_wrap(~scalar_pair, scales="free") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 ```{r}
@@ -68,7 +68,7 @@ d3 <- d2 %>%
   mutate(scalar_pair=alternatives_store[[scalar]]) %>%
   group_by(scalar_pair, response) %>%
   summarise(count=n()) %>%
-  arrange(-count) %>% View
+  arrange(-count)
 
 d3 %>%
   arrange(scalar_pair, -cnt) %>% View
@@ -79,5 +79,16 @@ ggplot(d3, aes(x=reorder(response, response), y=cnt)) +
    theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+
+# Aggregate data and write to .csv
+```{r}
+d_wide <- d2 %>%
+  spread(scalar_pair, cnt) %>%
+  dplyr::select(-domain)
+
+d_wide[is.na(d_wide)] <- 0
+
+write.csv(d_wide, "analysis/restaurant_td_matrix.csv", row.names=FALSE)
+```
 
 
