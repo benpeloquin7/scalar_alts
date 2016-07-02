@@ -35,10 +35,13 @@ def kld(p, q):
     """ 
     return np.sum(p * np.log(p / q))
 
-## Testing
-# v1 = [4, 12, 7]
-# v2 = [2, 3, 7]
-# jsd(normalize(v1), normalize(v2))
+def diceCoef(u, v):
+    """
+    Dice Coefficent (Sorenson Index) :: 1 - \frac{2 * \sum_i(min(u_i, v_i))}{\sum_i(u_i + v_i)}
+    """
+    num = 2 * np.sum([min(u[i], v[i]) for i in range(len(u))])
+    denom = np.sum(np.array(u) + np.array(v))
+    return 1 - (num / denom)
 
 ## Modified from build() from Stanford's CS224U
 def build(src_filename, delimiter=',', header=True, quoting=csv.QUOTE_MINIMAL):
@@ -70,7 +73,6 @@ def build(src_filename, delimiter=',', header=True, quoting=csv.QUOTE_MINIMAL):
        input file has no header. The row names are assumed always 
        to be present in the leftmost column.    
     """
-    pdb.set_trace()
     reader = csv.reader(open(src_filename), delimiter=delimiter, quoting=quoting)
     colnames = None
     if header:
