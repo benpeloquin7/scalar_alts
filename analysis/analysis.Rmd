@@ -12,6 +12,7 @@ setwd("~/Desktop/Projects/scalar_alts/")
 
 
 ```{r load_packages, echo=FALSE, message=FALSE}
+library(lsa)
 library(stringr)
 library(rjson)
 library(ggplot2)
@@ -21,7 +22,7 @@ library(tidyr)
 
 ```{r helpers}
 ## Add domain here
-DOMAIN <- "restaurant"
+DOMAIN <- "movie"
 
 alternatives_store <-
   data.frame("bad"="bad_terrible",
@@ -38,14 +39,172 @@ alternatives_store <-
              "unique"="special_unique",
              "low"="low_high",
              "high"="low_high")
+
+inGlobalEnv <- function(item) {
+  item %in% ls(envir = .GlobalEnv)
+}
 ```
 
+```{r data_processing_fn}
+create_wd <- function(d, curr_domain) {
+  if (!inGlobalEnv("alternatives_store")) stop("`alternatives_store` must be in global env")
+  
+  d1 <- d %>%
+    gather(scalar, response) %>%
+    rowwise %>%
+    mutate(scalar_pair=alternatives_store[[scalar]]) %>%
+    group_by(scalar_pair, response) %>%
+    summarise(counts = n()) %>%
+    mutate(domain=DOMAIN) %>%
+    arrange(scalar_pair, -counts) %>%
+    spread(scalar_pair, counts) %>%
+    select(-domain)
+  
+  ## NAs to 0
+  d1[is.na(d1)] <- 0
+  ## Change names
+  names(d1) <- paste0(curr_domain, "_", names(d1))
+  
+  d1
+}
+```
+
+Write wd matrices
 ```{r load_data}
-file <- paste0("analysis/corrected_data/", DOMAIN, "_corrected.json")
-d <- as.data.frame(fromJSON(file=file))
+## Raw data
+restaurant_d <- as.data.frame(fromJSON(file="analysis/corrected_data/restaurant_corrected.json"))
+movie_d <- as.data.frame(fromJSON(file="analysis/corrected_data/movie_corrected.json"))
+book_d <- as.data.frame(fromJSON(file="analysis/corrected_data/book_corrected2.json"))
+play_d <- as.data.frame(fromJSON(file="analysis/corrected_data/play_corrected.json"))
+## Create wd matrices
+restaurant_wd <- create_wd(restaurant_d, "restaurant")
+movie_wd <- create_wd(movie_d, "movie")
+book_wd <- create_wd(book_d, "book")
+play_wd <- create_wd(book_d, "play")
+## Write wd matrices
+# write.csv(restaurant_wd, "analysis/restaurant_wd.csv")
+# write.csv(movie_wd, "analysis/movie_wd.csv")
+# write.csv(book_wd, "analysis/book_wd.csv")
+# write.csv(play_wd, "analysis/play_wd.csv")
 ```
 
-```{r prelim_process}
+# Prelim analysis
+```{r create_dfs, warning=FALSE}
+book_df <- book_d %>%
+  gather(scalar, response) %>%
+  rowwise %>%
+  mutate(scalar_pair=alternatives_store[[scalar]]) %>%
+  group_by(scalar_pair, response) %>%
+  summarise(counts = n()) %>%
+  mutate(domain="book") %>%
+  arrange(scalar_pair, -counts)
+
+movie_df <- movie_d %>%
+  gather(scalar, response) %>%
+  rowwise %>%
+  mutate(scalar_pair=alternatives_store[[scalar]]) %>%
+  group_by(scalar_pair, response) %>%
+  summarise(counts = n()) %>%
+  mutate(domain="movie") %>%
+  arrange(scalar_pair, -counts)
+
+play_df <- play_d %>%
+  gather(scalar, response) %>%
+  rowwise %>%
+  mutate(scalar_pair=alternatives_store[[scalar]]) %>%
+  group_by(scalar_pair, response) %>%
+  summarise(counts = n()) %>%
+  mutate(domain="play") %>%
+  arrange(scalar_pair, -counts)
+
+restaurant_df <- restaurant_d %>%
+  gather(scalar, response) %>%
+  rowwise %>%
+  mutate(scalar_pair=alternatives_store[[scalar]]) %>%
+  group_by(scalar_pair, response) %>%
+  summarise(counts = n()) %>%
+  mutate(domain="restaurant") %>%
+  arrange(scalar_pair, -counts)
+
+aggregate_df <- rbind(book_df, movie_df, play_df, restaurant_df)
+```
+
+```{r count_plots}
+aggregate_df %>%
+  filter(counts >= 6,
+         scalar_pair != "low_high") %>%
+  ggplot(aes(x=reorder(response, response), y=counts, fill=domain)) +
+    geom_bar(position="dodge", stat="identity") +
+    facet_wrap(~scalar_pair, scales="free") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+# Bootstrap sim measures
+```{r bootstrap_helpers}
+calc_sim <- function(measure, v1, v2) {
+  measure(v1, v2)
+}
+
+boot_vec <- function(countsVec, n = 1) {
+  as.vector(rmultinom(n, sum(countsVec), countsVec))
+}
+
+## bstrap_sims()
+## -------------
+## boostrap estimates for some similarity function `fn`
+## and two numeric vectors `v1`, `v2`
+##
+bstrap_sims <- function(fn, v1, v2,  n_sims=100) {
+  sapply(
+    seq(1, n_sims),
+    function(s) {
+      fn(boot_vec(v1), boot_vec(v2))
+    })
+}
+# bstrap_sims(cosine, a, b)
+
+
+## bstrap_similarity()
+## -------------------
+## see lsa::cosine() for inspiration
+##
+bstrap_similarity <- function(m, measure, n_sims=100) {
+  
+  ## see lsa::cosine() for inspiration
+  
+  sim_matrix <- array(0, c(ncol(m), ncol(m)))
+  sd_matrix <- array(0, c(ncol(m), ncol(m)))
+  col_names = colnames(m)
+  dimnames(sim_matrix) = list(col_names, col_names)
+  dimnames(sd_matrix) = list(col_names, col_names)
+  ## Just calcs upper right
+  for (i in 2:ncol(m)) {
+      for (j in 1:(i - 1)) {
+        v1 <- m[[i]]
+        v2 <- m[[j]]
+        sims <- bstrap_sims(measure, v1, v2, n_sims)
+        sim_matrix[i, j] = mean(sims)
+        sd_matrix[i, j] = sd(sims)
+      }
+  }
+  ## Complete matrix
+  sim_matrix <- sim_matrix + t(sim_matrix)
+  sd_matrix <- sd_matrix + t(sd_matrix)
+  diag(sim_matrix) <- 1
+  diag(sd_matrix) <- 0
+  
+  list("sim_matrix"=as.matrix(sim_matrix), "sd_matrix"=as.matrix(sd_matrix))
+}
+# bstrap_similarity(restaurant_wd[, -1], measure=cosine, n_sims=1000)
+```
+
+```{r}
+
+```
+
+
+# Old code save for now
+```{r prelim_process, eval=FALSE}
 d2 <- d %>%
   gather(scalar, response) %>%
   rowwise %>%
@@ -89,6 +248,44 @@ d_wide <- d2 %>%
 d_wide[is.na(d_wide)] <- 0
 
 write.csv(d_wide, "analysis/restaurant_td_matrix.csv", row.names=FALSE)
+```
+
+Output corrected alts data from domain to wd matrix...
+```{r}
+
+
+
+```
+
+
+```{r}
+restaurant_wd <- write.csv(restaurant_wd, "analysis/restaurant_wd.csv")
+read
+
+
+
+cosine(as.matrix(restaruant_wd[,-1]))
+
+cosine(as.matrix(test[, -1]))
+```
+
+```{r}
+test_1 <- c("a"= 1, "b" = 4, "c" = 3)
+attributes(test_1)
+boot_vec <- function(countsVec, n = 1) {
+  as.vector(rmultinom(n, sum(countsVec), countsVec))
+}
+
+boot_vec(test$restaurant_liked_loved, 1)
+
+cosine(boot_vec(test$restaurant_liked_loved), test$restaurant_liked_loved)
+
+
+
+
+names(test$restaurant_liked_loved) <- test$restaurant_response
+length(test$restaurant_liked_loved)
+
 ```
 
 
