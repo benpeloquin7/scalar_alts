@@ -69,7 +69,7 @@ function shuffle (a) {
 // Current study
 // =========================================================
 
-var DOMAIN = "movie"
+var DOMAIN = "play"
 
 // all domamains
 // -------------
