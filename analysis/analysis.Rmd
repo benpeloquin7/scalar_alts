@@ -55,7 +55,7 @@ create_wd <- function(d, curr_domain) {
     mutate(scalar_pair=alternatives_store[[scalar]]) %>%
     group_by(scalar_pair, response) %>%
     summarise(counts = n()) %>%
-    mutate(domain=DOMAIN) %>%
+    mutate(domain=curr_domain) %>%
     arrange(scalar_pair, -counts) %>%
     spread(scalar_pair, counts) %>%
     select(-domain)
@@ -82,10 +82,10 @@ movie_wd <- create_wd(movie_d, "movie")
 book_wd <- create_wd(book_d, "book")
 play_wd <- create_wd(book_d, "play")
 ## Write wd matrices
-# write.csv(restaurant_wd, "analysis/restaurant_wd.csv")
-# write.csv(movie_wd, "analysis/movie_wd.csv")
-# write.csv(book_wd, "analysis/book_wd.csv")
-# write.csv(play_wd, "analysis/play_wd.csv")
+# write.csv(restaurant_wd, "analysis/wd_matrices/restaurant_wd.csv")
+# write.csv(movie_wd, "analysis/wd_matrices/movie_wd.csv")
+# write.csv(book_wd, "analysis/wd_matrices/book_wd.csv")
+# write.csv(play_wd, "analysis/wd_matrices/play_wd.csv")
 ```
 
 # Prelim analysis
@@ -198,8 +198,61 @@ bstrap_similarity <- function(m, measure, n_sims=100) {
 # bstrap_similarity(restaurant_wd[, -1], measure=cosine, n_sims=1000)
 ```
 
-```{r}
+```{r jsd}
 
+m <- matrix(c(v1, v2), nrow=3)
+apply(m, MARGIN=2, smooth_vec)
+
+smooth_vec <- function(v, alpha=1/sum(v)) {
+  sapply(v, function(i) i + alpha)
+}
+norm_vec <- function(v) {
+  v / sum(v)
+}
+
+v1 <- c("a"=3, "b"=5, "c"=0)
+v2 <- c("a"=1, "b"=2, "c"=1)
+sum(v1 * log(v1/v2))
+
+## kld()
+## ----
+## D_{kl} = \sum_{i}P(i) * log(\frac{P(i)}{Q(i)})
+##
+kld <- function(v1, v2) {
+  sum(v1 * log(v1 / v2))
+}
+
+## jsd()
+## -----
+## Jensen-Shannon Distance        :: \sqrt(J-S Divergence)
+## JSD (Jensen-Shannon divergence :: JSD(P || Q) = 0.5 * D_{kl}(P||M) + 0.5 * D_{kl}(Q||M)
+jsd <- function(v1, v2) {
+  if (0 %in% v1 || 0 %in% v2) stop("zeros in one or both vectors, please smooth")
+  if (length(v1) != length(v2)) stop("vectors are different lenghts")
+  
+  v1_norm <- norm_vec(v1)
+  v2_norm <- norm_vec(v2)
+  m <- (v1_norm + v2_norm) / 2
+  js_divergence <- 0.5 * kld(v1_norm, m) + 0.5 * kld(v2_norm, m)
+  return(sqrt(js_divergence))
+}
+
+pair <- "good_excellent"
+test_jsd <- aggregate_df %>%
+  filter(scalar_pair == pair) %>%
+  mutate(scalar_pair_domain=paste0(scalar_pair, "_", domain)) %>%
+  select(domain, scalar_pair_domain, response, counts)
+test_jsd <- test_jsd[, -c(1, 2)] %>% spread(scalar_pair_domain, counts)
+test_jsd[is.na(test_jsd)] <- 0
+
+smoothed_m <- apply(apply(as.matrix(test_jsd[, -1]), MARGIN=2, smooth_vec), MARGIN=2, norm_vec)
+bstrap_similarity(smoothed_m, jsd, n_sims=10)
+smoothed_m %>% View
+
+0 %in% smoothed_m
+
+jsd(norm_vec(smooth_vec(aggregate_df2$bad_terrible_book)),
+    norm_vec(smooth_vec(aggregate_df2$bad_terrible_movie)))
 ```
 
 
