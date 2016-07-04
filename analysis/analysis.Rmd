@@ -22,7 +22,7 @@ library(tidyr)
 
 ```{r helpers}
 ## Add domain here
-DOMAIN <- "movie"
+# DOMAIN <- "movie"
 
 alternatives_store <-
   data.frame("bad"="bad_terrible",
@@ -70,26 +70,41 @@ create_wd <- function(d, curr_domain) {
 ```
 
 Write wd matrices
-```{r load_data}
+```{r load_data, warning=FALSE, message=FALSE}
 ## Raw data
 restaurant_d <- as.data.frame(fromJSON(file="analysis/corrected_data/restaurant_corrected.json"))
 movie_d <- as.data.frame(fromJSON(file="analysis/corrected_data/movie_corrected.json"))
 book_d <- as.data.frame(fromJSON(file="analysis/corrected_data/book_corrected2.json"))
 play_d <- as.data.frame(fromJSON(file="analysis/corrected_data/play_corrected.json"))
+album_d <- as.data.frame(fromJSON(file="analysis/corrected_data/album_corrected.json"))
+game_d <- as.data.frame(fromJSON(file="analysis/corrected_data/game_corrected.json"))
 ## Create wd matrices
-restaurant_wd <- create_wd(restaurant_d, "restaurant")
-movie_wd <- create_wd(movie_d, "movie")
+album_wd <- create_wd(book_d, "album")
 book_wd <- create_wd(book_d, "book")
+game_wd <- create_wd(book_d, "game")
+movie_wd <- create_wd(movie_d, "movie")
 play_wd <- create_wd(book_d, "play")
+restaurant_wd <- create_wd(restaurant_d, "restaurant")
 ## Write wd matrices
-# write.csv(restaurant_wd, "analysis/wd_matrices/restaurant_wd.csv")
-# write.csv(movie_wd, "analysis/wd_matrices/movie_wd.csv")
+# write.csv(album_wd, "analysis/wd_matrices/album_wd.csv")
 # write.csv(book_wd, "analysis/wd_matrices/book_wd.csv")
+# write.csv(game_wd, "analysis/wd_matrices/game_wd.csv")
+# write.csv(movie_wd, "analysis/wd_matrices/movie_wd.csv")
 # write.csv(play_wd, "analysis/wd_matrices/play_wd.csv")
+# write.csv(restaurant_wd, "analysis/wd_matrices/restaurant_wd.csv")
 ```
 
 # Prelim analysis
-```{r create_dfs, warning=FALSE}
+```{r create_dfs, warning=FALSE, message=FALSE}
+album_df <- album_d %>%
+  gather(scalar, response) %>%
+  rowwise %>%
+  mutate(scalar_pair=alternatives_store[[scalar]]) %>%
+  group_by(scalar_pair, response) %>%
+  summarise(counts = n()) %>%
+  mutate(domain="album") %>%
+  arrange(scalar_pair, -counts)
+
 book_df <- book_d %>%
   gather(scalar, response) %>%
   rowwise %>%
@@ -97,6 +112,15 @@ book_df <- book_d %>%
   group_by(scalar_pair, response) %>%
   summarise(counts = n()) %>%
   mutate(domain="book") %>%
+  arrange(scalar_pair, -counts)
+
+game_df <- game_d %>%
+  gather(scalar, response) %>%
+  rowwise %>%
+  mutate(scalar_pair=alternatives_store[[scalar]]) %>%
+  group_by(scalar_pair, response) %>%
+  summarise(counts = n()) %>%
+  mutate(domain="game") %>%
   arrange(scalar_pair, -counts)
 
 movie_df <- movie_d %>%
@@ -126,7 +150,7 @@ restaurant_df <- restaurant_d %>%
   mutate(domain="restaurant") %>%
   arrange(scalar_pair, -counts)
 
-aggregate_df <- rbind(book_df, movie_df, play_df, restaurant_df)
+aggregate_df <- rbind(album_df, book_df, game_df, movie_df, play_df, restaurant_df)
 ```
 
 ```{r count_plots}
@@ -180,9 +204,9 @@ bstrap_similarity <- function(m, measure, n_sims=100) {
   ## Just calcs upper right
   for (i in 2:ncol(m)) {
       for (j in 1:(i - 1)) {
-        v1 <- m[[i]]
-        v2 <- m[[j]]
-        sims <- bstrap_sims(measure, v1, v2, n_sims)
+        # v1 <- m[,i]
+        # v2 <- m[,j]
+        sims <- bstrap_sims(measure,  m[,i], m[,j], n_sims)
         sim_matrix[i, j] = mean(sims)
         sd_matrix[i, j] = sd(sims)
       }
