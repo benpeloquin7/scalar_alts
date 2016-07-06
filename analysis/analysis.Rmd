@@ -1,13 +1,17 @@
 ---
-title: "Untitled"
+title: "Empirical alts analysis"
 author: "Ben Peloquin"
 date: "June 29, 2016"
-output: html_document
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
 ---
 
 ```{r envir, echo=FALSE}
 rm(list=ls())
 setwd("~/Desktop/Projects/scalar_alts/")
+home_path <- "~/Desktop/Projects/scalar_alts/"
 ```
 
 
@@ -72,12 +76,12 @@ create_wd <- function(d, curr_domain) {
 Write wd matrices
 ```{r load_data, warning=FALSE, message=FALSE}
 ## Raw data
-restaurant_d <- as.data.frame(fromJSON(file="analysis/corrected_data/restaurant_corrected.json"))
-movie_d <- as.data.frame(fromJSON(file="analysis/corrected_data/movie_corrected.json"))
-book_d <- as.data.frame(fromJSON(file="analysis/corrected_data/book_corrected2.json"))
-play_d <- as.data.frame(fromJSON(file="analysis/corrected_data/play_corrected.json"))
-album_d <- as.data.frame(fromJSON(file="analysis/corrected_data/album_corrected.json"))
-game_d <- as.data.frame(fromJSON(file="analysis/corrected_data/game_corrected.json"))
+restaurant_d <- as.data.frame(fromJSON(file=paste0(home_path, "analysis/corrected_data/restaurant_corrected.json")))
+movie_d <- as.data.frame(fromJSON(file=paste0(home_path, "analysis/corrected_data/movie_corrected.json")))
+book_d <- as.data.frame(fromJSON(file=paste0(home_path, "analysis/corrected_data/book_corrected2.json")))
+play_d <- as.data.frame(fromJSON(file=paste0(home_path, "analysis/corrected_data/play_corrected.json")))
+album_d <- as.data.frame(fromJSON(file=paste0(home_path, "analysis/corrected_data/album_corrected.json")))
+game_d <- as.data.frame(fromJSON(file=paste0(home_path, "analysis/corrected_data/game_corrected.json")))
 ## Create wd matrices
 album_wd <- create_wd(book_d, "album")
 book_wd <- create_wd(book_d, "book")
@@ -95,6 +99,8 @@ restaurant_wd <- create_wd(restaurant_d, "restaurant")
 ```
 
 # Prelim analysis
+
+## Combine data from six domains
 ```{r create_dfs, warning=FALSE, message=FALSE}
 album_df <- album_d %>%
   gather(scalar, response) %>%
@@ -153,17 +159,34 @@ restaurant_df <- restaurant_d %>%
 aggregate_df <- rbind(album_df, book_df, game_df, movie_df, play_df, restaurant_df)
 ```
 
-```{r count_plots}
+## Plot top alternatives 
+```{r count_plots, warning=FALSE, message=FALSE}
 aggregate_df %>%
-  filter(counts >= 6,
+  filter(counts >= 10,
          scalar_pair != "low_high") %>%
   ggplot(aes(x=reorder(response, response), y=counts, fill=domain)) +
     geom_bar(position="dodge", stat="identity") +
     facet_wrap(~scalar_pair, scales="free") +
+    ylim(c(0, 80)) +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+## Top 5 alts by domain and scale
+```{r top_alts_table, results='asis'}
+top_alts <- aggregate_df %>%
+  filter(scalar_pair != "low_high") %>%
+  mutate(domain=as.factor(domain)) %>%
+  group_by(scalar_pair, domain) %>%
+  arrange(desc(counts)) %>%
+  slice(1:4)
+
+top_alts_tab <- xtable::xtable(top_alts)
+print(top_alts_tab, type="html")
+```
+
 # Bootstrap sim measures
+
+## Bootstrap helpers
 ```{r bootstrap_helpers}
 calc_sim <- function(measure, v1, v2) {
   measure(v1, v2)
@@ -192,18 +215,25 @@ bstrap_sims <- function(fn, v1, v2,  n_sims=100) {
 ## -------------------
 ## see lsa::cosine() for inspiration
 ##
-bstrap_similarity <- function(m, measure, n_sims=100) {
+bstrap_similarity <- function(m, measure, v2=NA, n_sims=100) {
   
-  ## see lsa::cosine() for inspiration
-  
+  ## Vectors
+  if (is.vector(m) & is.vector(v2)) {
+    warning("Identified two vectors, running vector operations")
+    sims <- bstrap_sims(measure, m, v2, n_sims)
+    return(list("mean_measure"=mean(sims), "sd_measure"=sd(sims)))
+  }
+
+  ## Matrix
+  warning("Identified a matrix, processing over matrix columns")
   sim_matrix <- array(0, c(ncol(m), ncol(m)))
   sd_matrix <- array(0, c(ncol(m), ncol(m)))
   col_names = colnames(m)
   dimnames(sim_matrix) = list(col_names, col_names)
   dimnames(sd_matrix) = list(col_names, col_names)
   ## Just calcs upper right
-  for (i in 2:ncol(m)) {
-      for (j in 1:(i - 1)) {
+  for (i in 1:ncol(m)) {
+      for (j in 1:ncol(m)) {
         # v1 <- m[,i]
         # v2 <- m[,j]
         sims <- bstrap_sims(measure,  as.integer(m[[i]]), as.integer(m[[j]]), n_sims)
@@ -212,31 +242,32 @@ bstrap_similarity <- function(m, measure, n_sims=100) {
       }
   }
   ## Complete matrix
-  sim_matrix <- sim_matrix + t(sim_matrix)
-  sd_matrix <- sd_matrix + t(sd_matrix)
-  diag(sim_matrix) <- 1
-  diag(sd_matrix) <- 0
+  # sim_matrix <- sim_matrix + t(sim_matrix)
+  # sd_matrix <- sd_matrix + t(sd_matrix)
+  # diag(sim_matrix) <- 1
+  # diag(sd_matrix) <- 0
   
   list("sim_matrix"=as.matrix(sim_matrix), "sd_matrix"=as.matrix(sd_matrix))
 }
-# bstrap_similarity(restaurant_wd[, -1], measure=cosine, n_sims=1000)
 ```
 
-```{r jsd}
-
-m <- matrix(c(v1, v2), nrow=3)
-apply(m, MARGIN=2, smooth_vec)
-
+## JSD helpers
+```{r jsd_helpers}
+## smooth_vec()
+## ------------
+## add 'alpha' smoothing to numeric vector
+##
 smooth_vec <- function(v, alpha=1/sum(v)) {
   sapply(v, function(i) i + alpha)
 }
+
+## norm_vec()
+## ----------
+## normalize vector
+##
 norm_vec <- function(v) {
   v / sum(v)
 }
-
-v1 <- c("a"=3, "b"=5, "c"=0)
-v2 <- c("a"=1, "b"=2, "c"=1)
-sum(v1 * log(v1/v2))
 
 ## kld()
 ## ----
@@ -265,7 +296,52 @@ jsd <- function(v1, v2, smooth=TRUE) {
   js_divergence <- 0.5 * kld(v1_norm, m) + 0.5 * kld(v2_norm, m)
   return(sqrt(js_divergence))
 }
+```
 
+## JSD across domains
+
+### Data
+```{r total_counts}
+counts_df <- aggregate_df %>%
+  filter(scalar_pair != "low_high") %>%
+  spread(domain, counts) %>%
+  rowwise %>%
+  mutate(total_counts=sum(album, book, game, movie, play, restaurant, na.rm=TRUE)) %>%
+  select(scalar_pair, response, total_counts) %>%
+  group_by(scalar_pair) %>%
+  arrange(scalar_pair, desc(total_counts))
+counts_wd <- counts_df %>% spread(scalar_pair, total_counts)
+counts_wd[is.na(counts_wd)] <- 0
+```
+
+### Plot
+```{r jsd_aggregate}
+jsd_counts <- bstrap_similarity(counts_wd[,-1], jsd, n_sims=100)
+jsd_plot_est <- as.data.frame(jsd_counts[[1]]) %>%
+  mutate(x=rownames(.)) %>%
+  gather(y, counts, -x)
+jsd_plot_sd <- as.data.frame(jsd_counts[[2]]) %>%
+  mutate(x=rownames(.)) %>%
+  gather(y, counts, -x)
+jsd_plot <- jsd_plot_est
+jsd_plot$sd <- jsd_plot_sd$counts
+jsd_plot <- jsd_plot %>%
+  rowwise %>%
+  mutate(err_high=counts + qt(0.975,df=100-1)*sd/sqrt(100),
+         err_low=counts - qt(0.975,df=100-1)*sd/sqrt(100))
+
+ggplot(jsd_plot, aes(x=x, y=counts, fill=y)) +
+  geom_bar(position=position_dodge(), stat="identity") +
+    geom_errorbar(aes(ymin=err_low, ymax=err_high), width=0.8, position=position_dodge(.9)) +
+  ylab("bootstrapped jensen-shannon distance") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+## Run JSD
+```{r jsd_run}
+set.seed(1)
+## prepare data
 pair <- "liked_loved"
 test_jsd <- aggregate_df %>%
   filter(scalar_pair == pair) %>%
@@ -274,14 +350,13 @@ test_jsd <- aggregate_df %>%
 test_jsd <- test_jsd[, -c(1, 2)] %>% spread(scalar_pair_domain, counts)
 test_jsd[is.na(test_jsd)] <- 0
 
+## run bstrapped jsd on matri
+jsd_matrix <- bstrap_similarity(test_jsd[,-1], jsd, n_sims=100)
 
-bstrap_similarity(test_jsd[,-1], jsd, n_sims=10)
-smoothed_m %>% View
+jsd_matrix[[1]]
 
-0 %in% smoothed_m
-
-jsd(norm_vec(smooth_vec(aggregate_df2$bad_terrible_book)),
-    norm_vec(smooth_vec(aggregate_df2$bad_terrible_movie)))
+## run bstrapped jsd on two vectors
+bstrap_similarity(test_jsd[[2]], v2=test_jsd[[4]], jsd, n_sims=100)
 ```
 
 
@@ -303,7 +378,7 @@ ggplot(d2, aes(x=reorder(response, response), y=cnt)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-```{r}
+```{r eval=FALSE}
 d3 <- d2 %>%
   rowwise %>%
   mutate(scalar_pair=alternatives_store[[scalar]]) %>%
@@ -322,7 +397,7 @@ ggplot(d3, aes(x=reorder(response, response), y=cnt)) +
 
 
 # Aggregate data and write to .csv
-```{r}
+```{r eval=FALSE}
 d_wide <- d2 %>%
   spread(scalar_pair, cnt) %>%
   dplyr::select(-domain)
@@ -332,42 +407,8 @@ d_wide[is.na(d_wide)] <- 0
 write.csv(d_wide, "analysis/restaurant_td_matrix.csv", row.names=FALSE)
 ```
 
-Output corrected alts data from domain to wd matrix...
+# R version
 ```{r}
-
-
-
+R.Version()
 ```
-
-
-```{r}
-restaurant_wd <- write.csv(restaurant_wd, "analysis/restaurant_wd.csv")
-read
-
-
-
-cosine(as.matrix(restaruant_wd[,-1]))
-
-cosine(as.matrix(test[, -1]))
-```
-
-```{r}
-test_1 <- c("a"= 1, "b" = 4, "c" = 3)
-attributes(test_1)
-boot_vec <- function(countsVec, n = 1) {
-  as.vector(rmultinom(n, sum(countsVec), countsVec))
-}
-
-boot_vec(test$restaurant_liked_loved, 1)
-
-cosine(boot_vec(test$restaurant_liked_loved), test$restaurant_liked_loved)
-
-
-
-
-names(test$restaurant_liked_loved) <- test$restaurant_response
-length(test$restaurant_liked_loved)
-
-```
-
 
