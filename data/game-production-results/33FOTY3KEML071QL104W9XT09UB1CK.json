@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-03T15:01:18Z",
+    "AutoApprovalTime": "2016-07-03T15:00:29Z",
+    "AssignmentId": "33FOTY3KEML071QL104W9XT09UB1CK",
+    "WorkerId": "A03922113RU44GENR8ATX",
+    "answers": {
+        "data": {
+            "domain": [
+                "game"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "liked_loved",
+                "bad_terrible",
+                "good_excellent",
+                "disliked_hated",
+                "good_excellent",
+                "memorable_unforgettable",
+                "bad_terrible",
+                "memorable_unforgettable",
+                "liked_loved",
+                "disliked_hated",
+                "special_unique",
+                "special_unique"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "weak",
+                "weak",
+                "strong"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "43"
+            ],
+            "expt_aim": [
+                "coming up with different words"
+            ],
+            "expt_gen": [
+                "worked to come up with different words, may have accidentally used synonyms on one screen"
+            ],
+            "alt3": [
+                "poor",
+                "A+",
+                "despised",
+                "lame",
+                "inferior",
+                "disliked",
+                "great",
+                "typical",
+                "well-executed",
+                "bland",
+                "deleted",
+                "applauded",
+                "trite",
+                "conventional"
+            ],
+            "alt2": [
+                "negative",
+                "5-star",
+                "hated",
+                "dumb",
+                "dull",
+                "detested",
+                "awesome",
+                "unoriginal",
+                "entertaining",
+                "trite",
+                "uninstalled",
+                "fancied",
+                "average",
+                "standard"
+            ],
+            "alt1": [
+                "low",
+                "excellent",
+                "disliked",
+                "boring",
+                "second-rate",
+                "loathed",
+                "fun",
+                "forgetable",
+                "wonderful",
+                "unimaginative",
+                "avoided",
+                "favored",
+                "cliched",
+                "stereotypical"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-03T14:38:11Z",
+    "HITId": "3KTCJ4SCVG1AT34IONT8N93PUHNM1O",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-03T14:55:29Z"
+}

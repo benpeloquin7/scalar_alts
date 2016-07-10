@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-03T00:35:18Z",
+    "AutoApprovalTime": "2016-07-03T00:35:04Z",
+    "AssignmentId": "31IBVUNM9SZNWPQTZGEMORLJVAWFVI",
+    "WorkerId": "ALWN8GJT5QPY7",
+    "answers": {
+        "data": {
+            "domain": [
+                "album"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "disliked_hated",
+                "bad_terrible",
+                "liked_loved",
+                "good_excellent",
+                "special_unique",
+                "memorable_unforgettable",
+                "memorable_unforgettable",
+                "bad_terrible",
+                "special_unique",
+                "good_excellent",
+                "disliked_hated",
+                "liked_loved"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "strong"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "25"
+            ],
+            "expt_aim": [
+                "synonyms of different words"
+            ],
+            "expt_gen": [
+                "nope"
+            ],
+            "alt3": [
+                "best",
+                "bad",
+                "unfond",
+                "tragic",
+                "respected",
+                "amazing",
+                "different",
+                "eventful",
+                "extraordinary",
+                "distrubing",
+                "unique",
+                "exceptional",
+                "detested",
+                "affectionate"
+            ],
+            "alt2": [
+                "top-level",
+                "poor",
+                "bad",
+                "trash",
+                "enjoyed",
+                "super",
+                "rare",
+                "remarkable",
+                "monumental",
+                "dreadful",
+                "exceptional",
+                "superlative",
+                "disliked",
+                "admiration"
+            ],
+            "alt1": [
+                "great",
+                "below-average",
+                "horrible",
+                "horrible",
+                "loved",
+                "great",
+                "exculsive",
+                "enduring",
+                "remarkable",
+                "atrocious",
+                "signficant",
+                "sterling",
+                "condemned",
+                "liked "
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-03T00:15:15Z",
+    "HITId": "334ZEL5JX6FYNQOOEMN5BEF3FHBSOP",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-03T00:30:04Z"
+}

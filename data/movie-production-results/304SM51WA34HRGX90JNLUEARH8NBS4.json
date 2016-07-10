@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-02T00:20:18Z",
+    "AutoApprovalTime": "2016-07-02T00:19:30Z",
+    "AssignmentId": "304SM51WA34HRGX90JNLUEARH8NBS4",
+    "WorkerId": "A228XFM30528FX",
+    "answers": {
+        "data": {
+            "domain": [
+                "movie"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "memorable_unforgettable",
+                "disliked_hated",
+                "liked_loved",
+                "liked_loved",
+                "good_excellent",
+                "special_unique",
+                "special_unique",
+                "bad_terrible",
+                "good_excellent",
+                "memorable_unforgettable",
+                "bad_terrible",
+                "disliked_hated"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "weak"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "49"
+            ],
+            "expt_aim": [
+                "How different words can be used to express a movie."
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "alt3": [
+                "good",
+                "good",
+                "confusing ",
+                "enjoyed",
+                "devised ",
+                "enjoyed",
+                "confussing",
+                "crazy",
+                "rare",
+                "interesting",
+                "unlikable ",
+                "strange",
+                "great",
+                "cherished "
+            ],
+            "alt2": [
+                "fair",
+                "fair",
+                "fantastic ",
+                "liked",
+                "disliked",
+                "disliked",
+                "weird",
+                "rare",
+                "long",
+                "fair",
+                "fair",
+                "confusing ",
+                "friendly",
+                "loved"
+            ],
+            "alt1": [
+                "low",
+                "high",
+                "boring",
+                "loved",
+                "hated",
+                "hated",
+                "bad",
+                "common",
+                "common",
+                "good",
+                "bad",
+                "forgettable",
+                "nice",
+                "liked"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-02T00:06:02Z",
+    "HITId": "3XEIP58NL0NNIH75WM1LFQ8C7R2ZLG",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-02T00:14:30Z"
+}

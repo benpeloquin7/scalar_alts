@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-01T16:47:18Z",
+    "AutoApprovalTime": "2016-07-01T16:46:28Z",
+    "AssignmentId": "3PPTZCWALQK1WYLCETEJLW2TQMBQZL",
+    "WorkerId": "A62LZWGKLMBT2",
+    "answers": {
+        "data": {
+            "domain": [
+                "restaurant"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "special_unique",
+                "memorable_unforgettable",
+                "liked_loved",
+                "memorable_unforgettable",
+                "good_excellent",
+                "disliked_hated",
+                "bad_terrible",
+                "bad_terrible",
+                "disliked_hated",
+                "special_unique",
+                "liked_loved",
+                "good_excellent"
+            ],
+            "language": [
+                "Hindi"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "weak"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "34"
+            ],
+            "expt_aim": [
+                "It was about how people change the words to change meaning of same sentence."
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "alt3": [
+                "good",
+                "ok",
+                "marvellous",
+                "good",
+                "admired",
+                "mesmerizing",
+                "lovable",
+                "enjoyed",
+                "average",
+                "good",
+                "liked",
+                "good",
+                "hated",
+                "average"
+            ],
+            "alt2": [
+                "average",
+                "average",
+                "excellent",
+                "excellent",
+                "hated",
+                "unique",
+                "memorable",
+                "hated",
+                "horrible",
+                "horrible",
+                "loved",
+                "unforgettable",
+                "disliked",
+                "bad"
+            ],
+            "alt1": [
+                "low",
+                "poor",
+                "good",
+                "unique",
+                "liked",
+                "memorable",
+                "good",
+                "loved",
+                "bad",
+                "ok",
+                "disliked",
+                "memorable",
+                "loved",
+                "excellent"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-01T16:34:41Z",
+    "HITId": "31J7RYECZLQQNLMXOBSTNWO0UCO1LS",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-01T16:41:28Z"
+}

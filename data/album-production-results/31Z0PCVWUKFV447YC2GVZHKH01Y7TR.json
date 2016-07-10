@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-03T00:48:18Z",
+    "AutoApprovalTime": "2016-07-03T00:47:44Z",
+    "AssignmentId": "31Z0PCVWUKFV447YC2GVZHKH01Y7TR",
+    "WorkerId": "A1OKRTF0JVITHL",
+    "answers": {
+        "data": {
+            "domain": [
+                "album"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "memorable_unforgettable",
+                "disliked_hated",
+                "memorable_unforgettable",
+                "liked_loved",
+                "bad_terrible",
+                "disliked_hated",
+                "good_excellent",
+                "liked_loved",
+                "special_unique",
+                "special_unique",
+                "bad_terrible",
+                "good_excellent"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "weak"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "48"
+            ],
+            "expt_aim": [
+                "How many words for good / bad can you come up with before quitting?"
+            ],
+            "expt_gen": [
+                "Interesting. Hope I gave you what you were looking for... Not sure what that was, but I do hope I helped."
+            ],
+            "alt3": [
+                "Average",
+                "Excellent",
+                "awesome",
+                "adored",
+                "noisey",
+                "resented",
+                "art",
+                "banned",
+                "horrid",
+                "scorned",
+                "boring",
+                "banal",
+                "admirable",
+                "raunchy"
+            ],
+            "alt2": [
+                "Low",
+                "Good",
+                "trash",
+                "loathed",
+                "painful",
+                "destroyed",
+                "haeadbangin",
+                "outlawed",
+                "horrible",
+                "revulsed",
+                "simple",
+                "worn-out",
+                "gnarly",
+                "crappy"
+            ],
+            "alt1": [
+                "Poor",
+                "mediocure",
+                "memoriable",
+                "loved",
+                "junk",
+                "burned",
+                "great",
+                "cheerished",
+                "unworthy",
+                "dissaproved",
+                "typical",
+                "habitual",
+                "choice",
+                "defective"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-03T00:31:27Z",
+    "HITId": "334ZEL5JX6FYNQOOEMN5BEF3FHBSOP",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-03T00:42:44Z"
+}

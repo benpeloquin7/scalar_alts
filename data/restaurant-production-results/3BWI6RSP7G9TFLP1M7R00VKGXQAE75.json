@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-01T16:29:18Z",
+    "AutoApprovalTime": "2016-07-01T16:28:50Z",
+    "AssignmentId": "3BWI6RSP7G9TFLP1M7R00VKGXQAE75",
+    "WorkerId": "A3B5UFOTPU1TQJ",
+    "answers": {
+        "data": {
+            "domain": [
+                "restaurant"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "special_unique",
+                "memorable_unforgettable",
+                "good_excellent",
+                "disliked_hated",
+                "bad_terrible",
+                "liked_loved",
+                "bad_terrible",
+                "special_unique",
+                "good_excellent",
+                "liked_loved",
+                "memorable_unforgettable",
+                "disliked_hated"
+            ],
+            "language": [
+                "English."
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "weak"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "35"
+            ],
+            "expt_aim": [
+                "I think it was about the choice of words we most commonly prefer to use."
+            ],
+            "expt_gen": [
+                "None."
+            ],
+            "alt3": [
+                "bad",
+                "great",
+                "everyday",
+                "common",
+                "insignificant",
+                "enjoyed",
+                "prime",
+                "disliked",
+                "awesome",
+                "hopeless",
+                "horible",
+                "disliked",
+                "dull",
+                "enjoyed"
+            ],
+            "alt2": [
+                "poor",
+                "prestigious",
+                "similar",
+                "dull",
+                "lowly",
+                "loved",
+                "excellent",
+                "loathed",
+                "excellent",
+                "boring",
+                "boring",
+                "loathed",
+                "cold",
+                "loved"
+            ],
+            "alt1": [
+                "low",
+                "high",
+                "common",
+                "forgettable",
+                "poor",
+                "liked",
+                "good",
+                "hated",
+                "terrific",
+                "insignificant",
+                "bad",
+                "hated",
+                "boring",
+                "liked"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-01T16:12:24Z",
+    "HITId": "31J7RYECZLQQNLMXOBSTNWO0UCO1LS",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-01T16:23:50Z"
+}

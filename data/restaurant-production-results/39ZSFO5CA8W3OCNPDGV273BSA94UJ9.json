@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-01T16:29:18Z",
+    "AutoApprovalTime": "2016-07-01T16:28:52Z",
+    "AssignmentId": "39ZSFO5CA8W3OCNPDGV273BSA94UJ9",
+    "WorkerId": "A3RRCLDVNSFS6H",
+    "answers": {
+        "data": {
+            "domain": [
+                "restaurant"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "liked_loved",
+                "disliked_hated",
+                "memorable_unforgettable",
+                "good_excellent",
+                "memorable_unforgettable",
+                "good_excellent",
+                "special_unique",
+                "special_unique",
+                "liked_loved",
+                "disliked_hated",
+                "bad_terrible",
+                "bad_terrible"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "weak"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "45"
+            ],
+            "expt_aim": [
+                "Synonyms"
+            ],
+            "expt_gen": [
+                "This was fun"
+            ],
+            "alt3": [
+                "elite",
+                "terrible",
+                "adored",
+                "chided",
+                "charming",
+                "fantastic",
+                "outstanding",
+                "fabulous",
+                "unparalled",
+                "unrivalled",
+                "relished",
+                "condemned",
+                "disgusting",
+                "terrible"
+            ],
+            "alt2": [
+                "superior",
+                "unsatisfying",
+                "relished",
+                "abhored",
+                "unique",
+                "tasty",
+                "unique",
+                "wonderful",
+                "distinctive",
+                "unparalled",
+                "coveted",
+                "shunned",
+                "repugant",
+                "yucky"
+            ],
+            "alt1": [
+                "outstanding ",
+                "substandard",
+                "enjoyed",
+                "hated",
+                "unforgettable",
+                "delicious",
+                "memorable",
+                "awesome",
+                "memorable",
+                "unique",
+                "adored",
+                "abhored",
+                "awful",
+                "gross"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-01T16:15:46Z",
+    "HITId": "31J7RYECZLQQNLMXOBSTNWO0UCO1LS",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-01T16:23:52Z"
+}

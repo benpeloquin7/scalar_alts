@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-02T00:05:18Z",
+    "AutoApprovalTime": "2016-07-02T00:05:03Z",
+    "AssignmentId": "3I3WADAZ9Q4048O7SSFZ7N0YANY5O0",
+    "WorkerId": "A12MGPNW8RX6VW",
+    "answers": {
+        "data": {
+            "domain": [
+                "movie"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "liked_loved",
+                "memorable_unforgettable",
+                "memorable_unforgettable",
+                "disliked_hated",
+                "disliked_hated",
+                "special_unique",
+                "liked_loved",
+                "good_excellent",
+                "bad_terrible",
+                "good_excellent",
+                "special_unique",
+                "bad_terrible"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "weak"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "46"
+            ],
+            "expt_aim": [
+                "How certain words influence us"
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "alt3": [
+                "Killer",
+                "Lousy",
+                "Disliked",
+                "Terrible",
+                "Great",
+                "Hated",
+                "Disliked",
+                "Great",
+                "Loved",
+                "Boring",
+                "Lousy",
+                "Boring",
+                "Weird",
+                "Great"
+            ],
+            "alt2": [
+                "Bad",
+                "B+",
+                "Loved",
+                "Amazing",
+                "Intriguing",
+                "Loved",
+                "Loved",
+                "Bad",
+                "Liked",
+                "Forgetable",
+                "Awesome",
+                "Great",
+                "Odd",
+                "Decent"
+            ],
+            "alt1": [
+                "Low",
+                "High",
+                "Hated",
+                "Forgettable",
+                "Forgettable",
+                "Liked",
+                "Liked",
+                "Odd",
+                "Hated",
+                "Terrible",
+                "Boring",
+                "Bad",
+                "Special",
+                "Alright"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-01T23:54:10Z",
+    "HITId": "3XEIP58NL0NNIH75WM1LFQ8C7R2ZLG",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-02T00:00:03Z"
+}

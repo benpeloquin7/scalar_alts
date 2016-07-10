@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-03T15:01:18Z",
+    "AutoApprovalTime": "2016-07-03T15:00:47Z",
+    "AssignmentId": "3AAJC4I4FGSKABHZJ3UAOVQ7CTXJZ5",
+    "WorkerId": "AFPZ1NBG02V3I",
+    "answers": {
+        "data": {
+            "domain": [
+                "game"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "special_unique",
+                "liked_loved",
+                "disliked_hated",
+                "bad_terrible",
+                "memorable_unforgettable",
+                "special_unique",
+                "bad_terrible",
+                "liked_loved",
+                "disliked_hated",
+                "good_excellent",
+                "memorable_unforgettable",
+                "good_excellent"
+            ],
+            "language": [
+                "english"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "strong",
+                "strong",
+                "strong",
+                "weak",
+                "weak"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "26"
+            ],
+            "expt_aim": [
+                "synonyms for different words"
+            ],
+            "expt_gen": [
+                "It was interesting"
+            ],
+            "alt3": [
+                "positive",
+                "moderate",
+                "outstanding",
+                "adored",
+                "disfavor",
+                "shoddy",
+                "striking",
+                "distinctive",
+                "deplorable",
+                "savored",
+                "despised",
+                "magnificent",
+                "illustrious",
+                "outstanding"
+            ],
+            "alt2": [
+                "good",
+                "meager",
+                "uncommon",
+                "enjoyed",
+                "distaste",
+                "faulty",
+                "extraordinary",
+                "remarkable",
+                "horrific",
+                "relished",
+                "detested",
+                "wonderful",
+                "notable",
+                "amazing"
+            ],
+            "alt1": [
+                "favorable",
+                "skimpy",
+                "exceptional",
+                "admire",
+                "hated",
+                "poor",
+                "haunting",
+                "special",
+                "dreadful",
+                "idolized",
+                "loathed",
+                "superb",
+                "historic",
+                "awesome"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-03T14:43:53Z",
+    "HITId": "3KTCJ4SCVG1AT34IONT8N93PUHNM1O",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-03T14:55:47Z"
+}

@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-01T17:15:18Z",
+    "AutoApprovalTime": "2016-07-01T17:14:47Z",
+    "AssignmentId": "3A4NIXBJ76ZQ6U6G7ZGTW87Q1C9LMD",
+    "WorkerId": "A2L7S6RZOZ6NM9",
+    "answers": {
+        "data": {
+            "domain": [
+                "restaurant"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "good_excellent",
+                "special_unique",
+                "liked_loved",
+                "memorable_unforgettable",
+                "memorable_unforgettable",
+                "good_excellent",
+                "disliked_hated",
+                "bad_terrible",
+                "liked_loved",
+                "bad_terrible",
+                "disliked_hated",
+                "special_unique"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "strong"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "23"
+            ],
+            "expt_aim": [
+                "Word choices"
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "alt3": [
+                "Decent",
+                "Bad",
+                "bad",
+                "Bad",
+                "Disliked",
+                "excellent",
+                "Delicious ",
+                "Tasty",
+                "Enjoyed",
+                "Horrible",
+                "Hated",
+                "Great",
+                "Liked",
+                "Enjoyable"
+            ],
+            "alt2": [
+                "Mediocre",
+                "Great",
+                "Horrible",
+                "Good",
+                "Hated",
+                "enjoyable",
+                "Enjoyable",
+                "Horrible",
+                "Loved",
+                "Great",
+                "Loved",
+                "Spectacular",
+                "Enjoyed",
+                "Special "
+            ],
+            "alt1": [
+                "Low",
+                "High",
+                "Spectacular",
+                "Unique",
+                "Enjoyed",
+                "great",
+                "memorable",
+                "Bad",
+                "Hated",
+                "Good",
+                "Enjoyed",
+                "Awful",
+                "Loved",
+                "Different"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-01T17:07:06Z",
+    "HITId": "31J7RYECZLQQNLMXOBSTNWO0UCO1LS",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-01T17:09:47Z"
+}

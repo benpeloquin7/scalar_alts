@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-03T00:31:18Z",
+    "AutoApprovalTime": "2016-07-03T00:30:29Z",
+    "AssignmentId": "3TMFV4NEP8ERWZGBHCDC01NBFFLW8S",
+    "WorkerId": "A3EC6OO74XULN8",
+    "answers": {
+        "data": {
+            "domain": [
+                "album"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "special_unique",
+                "memorable_unforgettable",
+                "bad_terrible",
+                "liked_loved",
+                "bad_terrible",
+                "liked_loved",
+                "good_excellent",
+                "good_excellent",
+                "disliked_hated",
+                "disliked_hated",
+                "special_unique",
+                "memorable_unforgettable"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "strong"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "27"
+            ],
+            "expt_aim": [
+                "if we're more likely to think of negative terms vs positive ones?"
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "alt3": [
+                "amazing",
+                "bad",
+                "inventive",
+                "unique",
+                "horrid",
+                "adored",
+                "amazing",
+                "hated",
+                "horrible",
+                "likeable",
+                "loved",
+                "adored",
+                "different",
+                "unique"
+            ],
+            "alt2": [
+                "awful",
+                "small",
+                "boring",
+                "interesting",
+                "awful",
+                "hated",
+                "horrid",
+                "adored",
+                "wonderful",
+                "ok",
+                "liked",
+                "liked",
+                "unique",
+                "forgettable"
+            ],
+            "alt1": [
+                "low",
+                "high",
+                "different",
+                "forgettable ",
+                "good",
+                "liked",
+                "awful",
+                "loved",
+                "amazing",
+                "bad",
+                "hated",
+                "loved",
+                "amazing",
+                "memorable"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-03T00:22:06Z",
+    "HITId": "334ZEL5JX6FYNQOOEMN5BEF3FHBSOP",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-03T00:25:29Z"
+}

@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-02T00:28:18Z",
+    "AutoApprovalTime": "2016-07-02T00:27:56Z",
+    "AssignmentId": "3AZHRG4CU4KCNC9KCOPV2P6WYOS03G",
+    "WorkerId": "ATB9VOR75W6P3",
+    "answers": {
+        "data": {
+            "domain": [
+                "movie"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "special_unique",
+                "good_excellent",
+                "good_excellent",
+                "liked_loved",
+                "bad_terrible",
+                "bad_terrible",
+                "special_unique",
+                "disliked_hated",
+                "memorable_unforgettable",
+                "disliked_hated",
+                "memorable_unforgettable",
+                "liked_loved"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "strong",
+                "weak",
+                "weak",
+                "weak"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "49"
+            ],
+            "expt_aim": [
+                "Language study"
+            ],
+            "expt_gen": [
+                "That was a lot of work for 20 cents.  "
+            ],
+            "alt3": [
+                "bad",
+                "excellent",
+                "bad",
+                "horrible",
+                "horrible",
+                "loathed",
+                "enjoyable",
+                "terrific",
+                "unoriginal",
+                "enjoyed",
+                "endearing ",
+                "enjoyed",
+                "unmemorable ",
+                "loathed"
+            ],
+            "alt2": [
+                "poor",
+                "high",
+                "boring",
+                "poor",
+                "brutal",
+                "disliked",
+                "excellent",
+                "excellent",
+                "dull",
+                "cherished",
+                "fantastic",
+                "loved ",
+                "dull",
+                "hated"
+            ],
+            "alt1": [
+                "low",
+                "good",
+                "dull",
+                "bad",
+                "bad",
+                "hated",
+                "good",
+                "great",
+                "boring",
+                "loved",
+                "memorable",
+                "liked",
+                "forgetful ",
+                "disliked"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-02T00:17:29Z",
+    "HITId": "3XEIP58NL0NNIH75WM1LFQ8C7R2ZLG",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-02T00:22:56Z"
+}

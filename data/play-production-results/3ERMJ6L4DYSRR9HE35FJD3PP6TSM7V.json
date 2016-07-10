@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-02T03:50:18Z",
+    "AutoApprovalTime": "2016-07-02T03:49:26Z",
+    "AssignmentId": "3ERMJ6L4DYSRR9HE35FJD3PP6TSM7V",
+    "WorkerId": "A1M3Q3LX6ECCG0",
+    "answers": {
+        "data": {
+            "domain": [
+                "play"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "bad_terrible",
+                "memorable_unforgettable",
+                "good_excellent",
+                "special_unique",
+                "liked_loved",
+                "bad_terrible",
+                "special_unique",
+                "disliked_hated",
+                "liked_loved",
+                "disliked_hated",
+                "memorable_unforgettable",
+                "good_excellent"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "strong"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "24"
+            ],
+            "expt_aim": [
+                "When you see a certain word what words come to mind?"
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "alt3": [
+                "new",
+                "horrible",
+                "great",
+                "long",
+                "warm",
+                "cool",
+                "watched",
+                "interesting",
+                "dumb",
+                "enjoyed",
+                "saw",
+                "enjoyed",
+                "lame",
+                "interesting"
+            ],
+            "alt2": [
+                "fair",
+                "better",
+                "funny",
+                "uninteresting",
+                "boring",
+                "good",
+                "liked",
+                "good",
+                "different",
+                "loved",
+                "disliked",
+                "loved",
+                "pointless",
+                "okay"
+            ],
+            "alt1": [
+                "low",
+                "high",
+                "good",
+                "forgettable",
+                "bad",
+                "boring",
+                "hated",
+                "bad",
+                "boring",
+                "liked",
+                "hated",
+                "liked",
+                "boring",
+                "good"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-02T03:40:26Z",
+    "HITId": "3EFNPKWBMSO90SBQMMKTD5B9PYV30H",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-02T03:44:26Z"
+}

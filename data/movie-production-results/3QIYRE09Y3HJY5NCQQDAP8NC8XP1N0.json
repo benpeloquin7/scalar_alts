@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-02T00:17:18Z",
+    "AutoApprovalTime": "2016-07-02T00:16:21Z",
+    "AssignmentId": "3QIYRE09Y3HJY5NCQQDAP8NC8XP1N0",
+    "WorkerId": "A74EYSZ2A1Z3V",
+    "answers": {
+        "data": {
+            "domain": [
+                "movie"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "good_excellent",
+                "memorable_unforgettable",
+                "special_unique",
+                "good_excellent",
+                "disliked_hated",
+                "liked_loved",
+                "liked_loved",
+                "memorable_unforgettable",
+                "special_unique",
+                "bad_terrible",
+                "disliked_hated",
+                "bad_terrible"
+            ],
+            "language": [
+                "english"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "55"
+            ],
+            "expt_aim": [
+                "movie reviews"
+            ],
+            "expt_gen": [
+                "no"
+            ],
+            "alt3": [
+                "respectful",
+                "bland",
+                "wonderful",
+                "smart",
+                "thoughtful",
+                "thoughtful",
+                "ugh",
+                "good",
+                "admired",
+                "good",
+                "thouhtful",
+                "poor",
+                "yuck",
+                "bad"
+            ],
+            "alt2": [
+                "quality",
+                "nonsense",
+                "positive",
+                "remarkable",
+                "memories",
+                "memorable",
+                "dislike",
+                "admired",
+                "adored",
+                "thoughtful",
+                "memorable",
+                "bad",
+                "hated",
+                "disliked"
+            ],
+            "alt1": [
+                "moral",
+                "poor",
+                "great",
+                "moments",
+                "quality",
+                "positive",
+                "yuck",
+                "loved ",
+                "liked",
+                "memorable",
+                "good",
+                "hated",
+                "poor",
+                "hated"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-02T00:06:04Z",
+    "HITId": "3XEIP58NL0NNIH75WM1LFQ8C7R2ZLG",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-02T00:11:21Z"
+}

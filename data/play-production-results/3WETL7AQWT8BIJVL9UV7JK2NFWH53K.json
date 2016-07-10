@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-02T04:51:18Z",
+    "AutoApprovalTime": "2016-07-02T04:50:46Z",
+    "AssignmentId": "3WETL7AQWT8BIJVL9UV7JK2NFWH53K",
+    "WorkerId": "A1M8GE34UYSUCB",
+    "answers": {
+        "data": {
+            "domain": [
+                "play"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "disliked_hated",
+                "bad_terrible",
+                "good_excellent",
+                "good_excellent",
+                "memorable_unforgettable",
+                "disliked_hated",
+                "special_unique",
+                "liked_loved",
+                "bad_terrible",
+                "liked_loved",
+                "special_unique",
+                "memorable_unforgettable"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "strong"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "34"
+            ],
+            "expt_aim": [
+                "Vocabulary "
+            ],
+            "expt_gen": [
+                "Some words seemed repetitive. "
+            ],
+            "alt3": [
+                "outstanding ",
+                "bad",
+                "bad",
+                "atrocious ",
+                "intersting",
+                "amazing",
+                "moving",
+                "uneventful ",
+                "exclusive",
+                "positive",
+                "boring",
+                "heart-warming",
+                "capturing ",
+                "awesome"
+            ],
+            "alt2": [
+                "good",
+                "sub-par",
+                "horrible ",
+                "terrible",
+                "enjoyable",
+                "outstanding ",
+                "enjoyable ",
+                "unintersting ",
+                "lasting ",
+                "fun",
+                "waste",
+                "joyful",
+                "imaginative ",
+                "amazing "
+            ],
+            "alt1": [
+                "exceptional ",
+                "poor",
+                "atrocious ",
+                "horrible ",
+                "wonderful",
+                "remarkable ",
+                "lasting",
+                "boring",
+                "enjoyable",
+                "enjoyed",
+                "horrible",
+                "ecstatic ",
+                "diffrent",
+                "lasting"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-02T04:32:52Z",
+    "HITId": "3EFNPKWBMSO90SBQMMKTD5B9PYV30H",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-02T04:45:46Z"
+}

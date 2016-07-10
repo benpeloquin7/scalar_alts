@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-03T00:25:18Z",
+    "AutoApprovalTime": "2016-07-03T00:24:46Z",
+    "AssignmentId": "35L9RVQFCOI7X6SZPGSHVQVDXI0HUT",
+    "WorkerId": "A3G6M0DR9IX32J",
+    "answers": {
+        "data": {
+            "domain": [
+                "album"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "special_unique",
+                "good_excellent",
+                "disliked_hated",
+                "bad_terrible",
+                "memorable_unforgettable",
+                "liked_loved",
+                "special_unique",
+                "good_excellent",
+                "bad_terrible",
+                "disliked_hated",
+                "memorable_unforgettable",
+                "liked_loved"
+            ],
+            "language": [
+                "english"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "weak"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "42"
+            ],
+            "expt_aim": [
+                "music people might like or dislike"
+            ],
+            "expt_gen": [
+                "a learning experience"
+            ],
+            "alt3": [
+                "logical",
+                "poor",
+                "remarkable",
+                "intolerable",
+                "admired",
+                "spellbound",
+                "disgusting",
+                "scorned",
+                "upalled",
+                "bad",
+                "special",
+                "cared",
+                "stupid",
+                "unappealing"
+            ],
+            "alt2": [
+                "adequate",
+                "dull",
+                "different",
+                "sour",
+                "enjoyed",
+                "appealing",
+                "forgettable",
+                "hate",
+                "lousy",
+                "lousy",
+                "astounding",
+                "admired",
+                "remember",
+                "appaled"
+            ],
+            "alt1": [
+                "better",
+                "unacceptable",
+                "uncommon",
+                "stale",
+                "loved",
+                "wonderful",
+                "rejectable",
+                "disliked ",
+                "common",
+                "terrible",
+                "great",
+                "loved",
+                "forget",
+                "despies"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-02T23:56:18Z",
+    "HITId": "334ZEL5JX6FYNQOOEMN5BEF3FHBSOP",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-03T00:19:46Z"
+}

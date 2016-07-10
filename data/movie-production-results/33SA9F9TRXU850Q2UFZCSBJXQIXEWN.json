@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-02T00:24:18Z",
+    "AutoApprovalTime": "2016-07-02T00:24:08Z",
+    "AssignmentId": "33SA9F9TRXU850Q2UFZCSBJXQIXEWN",
+    "WorkerId": "A1CIW92DX5V8FD",
+    "answers": {
+        "data": {
+            "domain": [
+                "movie"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "bad_terrible",
+                "disliked_hated",
+                "good_excellent",
+                "memorable_unforgettable",
+                "memorable_unforgettable",
+                "liked_loved",
+                "disliked_hated",
+                "special_unique",
+                "bad_terrible",
+                "special_unique",
+                "good_excellent",
+                "liked_loved"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "weak"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "72"
+            ],
+            "expt_aim": [
+                "Synonym substitutes"
+            ],
+            "expt_gen": [
+                "Difficult to come up with alternate words for some of our most used words.  I do rather well in writing and expressing myself but this was a challenging study for me."
+            ],
+            "alt3": [
+                "superior",
+                "bad",
+                "horrible",
+                "detested",
+                "enjoyable",
+                "sentimental",
+                "provocative",
+                "preferred",
+                "disapproved",
+                "worthwhile",
+                "worthless",
+                "outstanding",
+                "awesome",
+                "recommended"
+            ],
+            "alt2": [
+                "excellent",
+                "mediocre",
+                "uninteresting",
+                "unpleasant",
+                "pleasant",
+                "insightful",
+                "pleasant",
+                "liked",
+                "misunderstood",
+                "meaningful",
+                "uninteresting",
+                "excellent",
+                "marvelous",
+                "saw"
+            ],
+            "alt1": [
+                "outstanding",
+                "inferior",
+                "awful",
+                "disliked",
+                "interesting",
+                "perceptive",
+                "enjoyable",
+                "enjoyed",
+                "hated",
+                "excellent",
+                "terrible",
+                "superior",
+                "wonderful",
+                "enjoyed"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-02T00:03:07Z",
+    "HITId": "3XEIP58NL0NNIH75WM1LFQ8C7R2ZLG",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-02T00:19:08Z"
+}
