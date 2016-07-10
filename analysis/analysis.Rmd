@@ -12,6 +12,7 @@ output:
 rm(list=ls())
 setwd("~/Desktop/Projects/scalar_alts/")
 home_path <- "~/Desktop/Projects/scalar_alts/"
+set.seed(1)
 ```
 
 
@@ -178,7 +179,7 @@ top_alts <- aggregate_df %>%
   mutate(domain=as.factor(domain)) %>%
   group_by(scalar_pair, domain) %>%
   arrange(desc(counts)) %>%
-  slice(1:4)
+  slice(1:5)
 
 top_alts_tab <- xtable::xtable(top_alts)
 print(top_alts_tab, type="html")
@@ -241,11 +242,6 @@ bstrap_similarity <- function(m, measure, v2=NA, n_sims=100) {
         sd_matrix[i, j] = sd(sims)
       }
   }
-  ## Complete matrix
-  # sim_matrix <- sim_matrix + t(sim_matrix)
-  # sd_matrix <- sd_matrix + t(sd_matrix)
-  # diag(sim_matrix) <- 1
-  # diag(sd_matrix) <- 0
   
   list("sim_matrix"=as.matrix(sim_matrix), "sd_matrix"=as.matrix(sd_matrix))
 }
@@ -340,71 +336,33 @@ ggplot(jsd_plot, aes(x=x, y=counts, fill=y)) +
 
 ## Run JSD
 ```{r jsd_run}
-set.seed(1)
-## prepare data
-pair <- "liked_loved"
-test_jsd <- aggregate_df %>%
-  filter(scalar_pair == pair) %>%
+jsd_within_scale <- function(scale_name, n_sims=100) {
+  test_jsd <- aggregate_df %>%
+  filter(scalar_pair == scale_name) %>%
   mutate(scalar_pair_domain=paste0(scalar_pair, "_", domain)) %>%
   select(domain, scalar_pair_domain, response, counts)
-test_jsd <- test_jsd[, -c(1, 2)] %>% spread(scalar_pair_domain, counts)
-test_jsd[is.na(test_jsd)] <- 0
+  test_jsd <- test_jsd[, -c(1, 2)] %>% spread(scalar_pair_domain, counts)
+  test_jsd[is.na(test_jsd)] <- 0
+  
+  ## run bstrapped jsd on matrix
+  bstrap_similarity(test_jsd[,-1], jsd, n_sims=n_sims)
+}
 
-## run bstrapped jsd on matri
-jsd_matrix <- bstrap_similarity(test_jsd[,-1], jsd, n_sims=100)
+convert_to_df <- function(m) {
+  m %>%
+    as.data.frame %>%
+    mutate(x=rownames(.)) %>%
+    gather(domain, jsd, -x)
+}
 
-jsd_matrix[[1]]
-
-## run bstrapped jsd on two vectors
-bstrap_similarity(test_jsd[[2]], v2=test_jsd[[4]], jsd, n_sims=100)
-```
-
-
-# Old code save for now
-```{r prelim_process, eval=FALSE}
-d2 <- d %>%
-  gather(scalar, response) %>%
-  rowwise %>%
-  mutate(scalar_pair=alternatives_store[[scalar]]) %>%
-  group_by(scalar_pair, response) %>%
-  summarise(count = n()) %>%
-  mutate(domain=DOMAIN) %>%
-  arrange(scalar_pair, -count)
-names(d2)[3] <- "cnt"
-
-ggplot(d2, aes(x=reorder(response, response), y=cnt)) +
-  geom_bar(position="dodge", stat="identity") +
-  facet_wrap(~scalar_pair, scales="free") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-```
-
-```{r eval=FALSE}
-d3 <- d2 %>%
-  rowwise %>%
-  mutate(scalar_pair=alternatives_store[[scalar]]) %>%
-  group_by(scalar_pair, response) %>%
-  summarise(count=n()) %>%
-  arrange(-count)
-
-d3 %>%
-  arrange(scalar_pair, -cnt) %>% View
-
-ggplot(d3, aes(x=reorder(response, response), y=cnt)) +
-  geom_bar(position="dodge", stat="identity") +
-  facet_wrap(~scalar_pair, scales="free") +
-   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-```
-
-
-# Aggregate data and write to .csv
-```{r eval=FALSE}
-d_wide <- d2 %>%
-  spread(scalar_pair, cnt) %>%
-  dplyr::select(-domain)
-
-d_wide[is.na(d_wide)] <- 0
-
-write.csv(d_wide, "analysis/restaurant_td_matrix.csv", row.names=FALSE)
+d_within_scales <- data.frame(x=NA, domain=NA, jsd=NA)
+for (scale in alternatives_store) {
+  scale <- as.character(scale)
+  if (scale != "low_high") {
+    d_within_scales <- rbind(d_within_scales,
+        convert_to_df(jsd_within_scale(scale, n_sims=10)[[1]]))  
+  }
+}
 ```
 
 # R version
