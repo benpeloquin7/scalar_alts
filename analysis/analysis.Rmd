@@ -237,13 +237,29 @@ top_alts <- aggregate_df %>%
   mutate(domain=as.factor(domain)) %>%
   group_by(scalar_pair, domain) %>%
   arrange(desc(counts)) %>%
-  slice(1:6) 
+  slice(1:6)
 
 knitr::kable(top_alts)
+
+## Can we look at the aggregate top alts?
+length(unique(top_alts$response))
 
 # top_alts_tab <- xtable::xtable(top_alts)
 # print(top_alts_tab, type="html")
 ```
+
+Aggregate across domains
+```{r}
+top_aggregate_counts <- aggregate_df %>%
+  filter(scalar_pair != "low_high") %>%
+  mutate(domain=as.factor(domain)) %>%
+  group_by(scalar_pair, response) %>%
+  summarise(agg_count=sum(counts)) %>%
+  arrange(desc(agg_count)) %>%
+  slice(1:6)
+knitr::kable(top_aggregate_counts)
+```
+
 
 # Bootstrap sim measures
 
@@ -454,6 +470,7 @@ for (scale in alternatives_store) {
         convert_to_df(jsd_within_scale(scale, n_sims=100)[[1]]))  
   }
 }
+d_within_scales <- d_within_scales[-1, ]
 ```
 
 
