@@ -406,7 +406,7 @@ jsd <- function(v1, v2, smooth=TRUE) {
 }
 ```
 
-## Aggregate JSD across scales
+## Aggregate JSD across scales -- look at domains
 
 Which domains are most different from eachother?
 ```{r create_domains_wd}
@@ -420,14 +420,14 @@ domains_wd[is.na(domains_wd)] <- 0
 
 ```{r run_jsd_on_domains}
 jsd_domains <- bstrap_similarity(domains_wd[,-1], jsd, n_sims=100)
-jsd_est <- jsd_domains[[1]]
-jsd_est_df <- jsd_est %>% data.frame() %>%
+jsd_domains_est <- jsd_domains[[1]]
+jsd_domains_df <- jsd_domains_est %>% data.frame() %>%
   mutate(domain1=row.names(.)) %>%
   gather(key=domain2, value=jsd, -c(domain1))
 ```
 
 ```{r domains_heatmap}
-ggplot(jsd_est_df, aes(x=domain1, y=domain2)) + 
+ggplot(jsd_domains_df, aes(x=domain1, y=domain2)) + 
   geom_tile(aes(fill=jsd), col="white") +
   scale_fill_gradient(low="white", high="steelblue")
 ```
@@ -436,17 +436,78 @@ This is suprisingly unhelpful... But if we look really closely it looks like `re
 
 Just looking at the table
 ```{r}
-knitr::kable(jsd_est)
+knitr::kable(jsd_domains_df)
 ```
 
 So yes, the largest Jensen-Shannon distance is between `restaurant` and `book`.
+
+## Aggregate JSD across domains -- look at scales
+
+Which scales are most different from eachother?
+```{r create_scales_wd}
+scales_df <- aggregate_df %>%
+  select(scalar_pair, response, counts) %>%
+  group_by(scalar_pair, response) %>%
+  summarise(total_counts=sum(counts))
+scales_wd <- scales_df %>% spread(scalar_pair, total_counts)
+scales_wd[is.na(scales_wd)] <- 0
+```
+
+```{r run_jsd_on_scales}
+jsd_scales <- bstrap_similarity(scales_wd[,-1], jsd, n_sims=100)
+jsd_scale_est <- jsd_scales[[1]]
+jsd_scale_df <- jsd_scale_est %>% data.frame() %>%
+  mutate(scale1=row.names(.)) %>%
+  gather(key=scale2, value=jsd, -c(scale1))
+```
+
+```{r scales_heatmap}
+ggplot(jsd_scale_df, aes(x=scale1, y=scale2)) + 
+  geom_tile(aes(fill=jsd), col="white") +
+  scale_fill_gradient(low="white", high="steelblue") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+Just looking at the table
+```{r}
+knitr::kable(jsd_scale_df)
+```
+
+```{r combining_scale_domain_df}
+jsd_cmbd_df <- read.csv("/Users/benpeloquin/Desktop/Projects/scalar_alts/analysis/cache/jsd_cmbd_df.csv")
+if (!inGlobalEnv("jsd_cmbd_df")) {
+  cmbd_wd <- aggregate_df %>%
+  mutate(cmbd=paste0(domain, "_", scalar_pair)) %>%
+  select(cmbd, response, counts) %>%
+  spread(cmbd, counts)
+  cmbd_wd[is.na(cmbd_wd)] <- 0
+  
+  jsd_cmbd <- bstrap_similarity(cmbd_wd[,-1], jsd, n_sims=100)
+  jsd_cmbd_est <- jsd_cmbd[[1]]
+  jsd_cmbd_df <- jsd_cmbd_est %>% data.frame() %>%
+    mutate(item1=row.names(.)) %>%
+    gather(key=item2, value=jsd, -c(item1))
+  
+  write.csv(jsd_cmbd_df, "analysis/cache/jsd_cmbd_df.csv")
+}
+```
+
+```{r cmbd_heatmap, eval=FALSE}
+ggplot(jsd_cmbd_df, aes(x=item1, y=item2)) + 
+  geom_tile(aes(fill=jsd), col="white") +
+  scale_fill_gradient(low="white", high="steelblue") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+# Old analysis, keep for now
 
 ## Aggregate JSD across domains
 
 ### Data
 
 We're going to collapse over scales, grouping all alts generated for a given scale
-```{r total_counts, message=FALSE, warning=FALSE}
+```{r total_counts, message=FALSE, warning=FALSE, eval=FALSE}
 counts_df <- aggregate_df %>%
   filter(scalar_pair != "low_high") %>%
   spread(domain, counts) %>%
@@ -460,7 +521,7 @@ counts_wd[is.na(counts_wd)] <- 0
 ```
 
 ### Plotting JSD
-```{r jsd_aggregate, message=FALSE, warning=FALSE}
+```{r jsd_aggregate, message=FALSE, warning=FALSE, eval=FALSE}
 jsd_counts <- bstrap_similarity(counts_wd[,-1], jsd, n_sims=100)
 jsd_plot_est <- as.data.frame(jsd_counts[[1]]) %>%
   mutate(x=rownames(.)) %>%
@@ -479,7 +540,7 @@ jsd_plot <- jsd_plot %>%
          err_low=counts - qt(0.975,df=100-1)*sd/sqrt(100))
 ```
 
-```{r aggregate_jsd_plot1}
+```{r aggregate_jsd_plot1, eval=FALSE}
 jsd_plot %>%
   mutate(same=x==y) %>%
   ggplot(aes(x=x, y=counts, fill=y)) +
@@ -491,7 +552,7 @@ jsd_plot %>%
 ```
 
 ## Run JSD within scales
-```{r jsd_run, message=FALSE, warning=FALSE}
+```{r jsd_run, message=FALSE, warning=FALSE, eval=FALSE}
 jsd_within_scale <- function(scale_name, n_sims=100) {
   if (!inGlobalEnv("aggregate_df")) {
     error("aggregate_df not in global env!")
@@ -528,7 +589,7 @@ d_within_scales <- d_within_scales[-1, ]
 
 
 Modify a little to undo the scalar-pair-domain string I needed to create to create the WD matrix
-```{r jsd_withing_scale_data}
+```{r jsd_withing_scale_data, eval=FALSE}
 get_scale_pair_pat <- "_(?:album|book|game|movie|play|restaurant)"
 get_domain_pat <- ".+_"
 
@@ -542,7 +603,7 @@ d_practice <- d_within_scales %>%
 
 
 Why are there two estimates here????
-```{r jsd_withing_scale_plot1}
+```{r jsd_withing_scale_plot1, eval=FALSE}
 ggplot(d_practice, aes(x=domain1, y=jsd, col=scale1)) +
   geom_point(alpha=0.4) +
   facet_grid(~domain2) +
@@ -550,7 +611,7 @@ ggplot(d_practice, aes(x=domain1, y=jsd, col=scale1)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-```{r jsd_withing_scale_plot2}
+```{r jsd_withing_scale_plot2, eval=FALSE}
 ggplot(d_practice, aes(x=reorder(scale1, jsd), y=jsd, col=domain2)) +
   geom_point(alpha=0.4) +
   # geom_line(group=1) +
