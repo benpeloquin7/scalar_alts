@@ -1,0 +1,34 @@
+---
+title: "L0-Analysis"
+author: "Ben Peloquin"
+date: "July 22, 2016"
+output: html_document
+---
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+
+Working through experimental set-up
+```{r}
+NUM_ITEMS <- 105
+trials <- sample.int(n=NUM_ITEMS, size=NUM_ITEMS)
+
+trial_meta <- function(n) {
+  item <- n %% 21
+  stars <- n %% 5
+  c("item"=item, "stars"=stars)
+}
+
+d_trials <- data.frame(t(as.matrix(sapply(trials, trial_meta))))
+d_trials %>%
+  mutate(stars=stars + 1) %>%
+  arrange(item)
+  
+
+
+```
+
