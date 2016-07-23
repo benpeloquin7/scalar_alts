@@ -9,7 +9,8 @@
 // Helpers
 // -------
 
-// Shows slides. We're using jQuery here - the **$** is the jQuery selector function, which takes as input either a DOM element or a CSS selector string.
+// Shows slides. We're using jQuery here - the **$** is the jQuery selector function,
+// which takes as input either a DOM element or a CSS selector string.
 function showSlide(id) {
 	// Hide all slides
 	$(".slide").hide();
@@ -18,7 +19,9 @@ function showSlide(id) {
 }
 
 // Get random integers.
-// When called with no arguments, it returns either 0 or 1. When called with one argument, *a*, it returns a number in {*0, 1, ..., a-1*}. When called with two arguments, *a* and *b*, returns a random value in {*a*, *a + 1*, ... , *b*}.
+// When called with no arguments, it returns either 0 or 1.
+// When called with one argument, *a*, it returns a number in {*0, 1, ..., a-1*}.
+// When called with two arguments, *a* and *b*, returns a random value in {*a*, *a + 1*, ... , *b*}.
 function random(a,b) {
 	if (typeof b == "undefined") {
 		a = a || 2;
@@ -28,7 +31,8 @@ function random(a,b) {
 	}
 }
 
-// Add a random selection function to all arrays (e.g., <code>[4,8,7].random()</code> could return 4, 8, or 7). This is useful for condition randomization.
+// Add a random selection function to all arrays (e.g., <code>[4,8,7].random()</code>
+// could return 4, 8, or 7). This is useful for condition randomization.
 Array.prototype.random = function() {
   return this[random(this.length)];
 }
