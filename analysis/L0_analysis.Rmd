@@ -24,11 +24,8 @@ trial_meta <- function(n) {
 }
 
 d_trials <- data.frame(t(as.matrix(sapply(trials, trial_meta))))
-d_trials %>%
+d_trials <- d_trials %>%
   mutate(stars=stars + 1) %>%
   arrange(item)
-  
-
-
 ```
 
