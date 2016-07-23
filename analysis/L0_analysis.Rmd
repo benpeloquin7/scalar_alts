@@ -2,18 +2,20 @@
 title: "L0-Analysis"
 author: "Ben Peloquin"
 date: "July 22, 2016"
-output: html_document
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
 ---
 
-```{r}
+```{r packages}
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 ```
 
-
 Working through experimental set-up
-```{r}
+```{r expt_setup}
 NUM_ITEMS <- 105
 trials <- sample.int(n=NUM_ITEMS, size=NUM_ITEMS)
 
@@ -29,3 +31,26 @@ d_trials <- d_trials %>%
   arrange(item)
 ```
 
+# Analysis
+
+## Data pre-processing (combine domains, data-typing)
+```{r data_preprocessing}
+# read.csv()
+```
+
+## Plots by scalar pairs and domains
+```{r plots1}
+# ggplot()
+```
+
+## Does domain predict response? Logistic regression
+
+Null hypothesis is there are no differences between domain (i.e. domain should not significantly predict response).
+```{r test_domain_differences}
+# glm()
+```
+
+## Secondary analysis -- any target items appear to be more flexible to `domain` than others???
+```{r test_sensitivity}
+
+```
