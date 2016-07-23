@@ -1,4 +1,14 @@
-//############################## Helper functions ##############################
+/////////////
+/////////////
+///////////// L0 literal listener scalar implicature studies
+///////////// Authors: Ben Peloquin, Mike Frank
+/////////////
+/////////////
+
+
+// Helpers
+// -------
+
 // Shows slides. We're using jQuery here - the **$** is the jQuery selector function, which takes as input either a DOM element or a CSS selector string.
 function showSlide(id) {
 	// Hide all slides
@@ -37,74 +47,84 @@ function shuffle (a) {
 	 j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);	
 	return o;
 }
-//############################## Helper functions ##############################	
 
-var sents = {
-    scale: {
-		training1: {
-		    //hi1:  "thought the food deserved a <b>very high</b> rating?",
-		    hi2:  "thought the food deserved a <b>high</b> rating?",
-		    low1:  "thought the food deserved a <b>low</b> rating?"
-		    //low2:  "thought the food deserved a <b>very low</b> rating?"
-		},
-		liked_loved: {		   
-		    hi1:  "<b>loved</b> the food?",
-		    hi2:  "<b>liked</b> the food?",
-		    low1:  "<b>disliked</b> the food?",
-		    low2:  "<b>hated</b> the food?",
-		},
-		good_excellent: {
-			hi1:  "thought the food was <b>excellent</b>?",
-		    hi2:  "thought the food was <b>good</b>?",
-		    low1:  "thought the food was <b>bad</b>?",
-		    low2:  "thought the food was <b>terrible</b>?"
-		},
-		palatable_delicious: {
-			hi1:  "thought the food was <b>delicious</b>?",
-		    hi2:  "thought the food was <b>palatable</b>?",
-		    low1:  "thought the food was <b>gross</b>?",
-		    low2:  "thought the food was <b>disgusting</b>?"
-		},
-	memorable_unforgettable: {
-			hi1:  "thought the food was <b>unforgettable</b>?",
-		    hi2:  "thought the food was <b>memorable</b>?",
-		    low1:  "thought the food was <b>bland</b>?",
-		    low2:  "thought the food was <b>forgettable</b>?"
-		},
-		some_all: {
-			hi1: "enjoyed <b>all</b> of the food they ate?",
-			hi2: "enjoyed <b>most</b> of the food they ate?",
-			low1: "enjoyed <b>some</b> of the food they ate?",
-			low2: "enjoyed <b>none</b> of the food they ate?"
-		}
-    },
-};
+// Experiment
+// ----------
 
-//Trial condition params initializations ------------------->
-var TOTAL_TRIALS = 102;
+// Set current domain
+var DOMAIN = "restaurant"; // Change this between expt's
+var NUM_ITEMS = 21
+var NUM_STARS = 5
+var training_stimuli = ["high", "low"];
+var verbs = 	[
+				"loved",
+				"liked",
+				"tolerated",
+				"disliked",
+				"hated"
+				];
+var non_verbs = [
+				"great",
+				"good",
+				"okay",
+				"bad",
+				"terrible",
+				"excellent",
+				"average",
+				"unforgettable",
+				"memorable",
+				"ordinary",
+				"boring",
+				"forgettable",
+				"special",
+				"unique",
+				"common",
+				"different"
+				];
+function verb_sent(target_scalar, domain) {
+	return "<b>" + target_scalar + "</b> the " + domain + "?";
+}
+function non_verb_sent(target_scalar, domain) {
+	return "thought the " + domain + " was <b>" + target_scalar + "</b>?";
+}
+function training_sent(target_scalar, domain) {
+	return "thought the " + domain + " deserved a <b>" + target_scalar + "</b> rating?";
+}
+function create_sent(target_scalar, domain) {
+	// training trial
+	if (training_stimuli.indexOf(target_scalar) != -1) {
+		return training_sent(target_scalar, domain);
+	}
+	// verbs
+	else if (verbs.indexOf(target_scalar) != -1) {
+		return verb_sent(target_scalar, domain);
+	}
+	// non-verbs
+	else {
+		return non_verb_sent(target_scalar, domain);
+	}
+}
+
+// Should do this in a better way
+var all_stimuli = training_stimuli.concat(verbs, non_verbs);
+
+// Trial params
+var TOTAL_TRIALS = all_stimuli.length;
 var trials = [];
 for(var i = TOTAL_TRIALS; i > 0; --i) {
 	trials.push(i);
 }
-var scales = Object.keys(sents.scale);
-var scale_degrees = ["hi1", "hi2", "low1", "low2"];
-var manipulation = ["20", "40", "60", "80", "100"];
-//var totalTrials = trials.length;
-//Trial condition params initializations ------------------->
+var star_amount = ["20", "40", "60", "80", "100"];
 
-
-
-// Show the instructions slide -- this is what we want subjects to see first.
+// Instructions slide
 showSlide("instructions");
 
-//###:-----------------MAIN EVENT-------------------:###
+// Experiment
 var experiment = {
-    //Data object for logging responses, etc
     data: {
-		scale: [],
-		degree: [],
-		manipulation_level: [],
-		judgment: [],
+		item: [], 			// scalar item (i.e. good or excellent)
+		stars: [],			// # of stars displayed (i.e. 1-5 stars)
+		judgment: [],		// participant response (i.e. "yes" or "no")
 		language: [],
 		expt_aim: [],
 		expt_gen: [],
@@ -112,7 +132,7 @@ var experiment = {
 		gender:[]
     },
     
-    //End the experiment
+    // End the experiment
     end: function() {
 		showSlide("finished");
 		setTimeout(function() {
@@ -120,7 +140,7 @@ var experiment = {
 		}, 1500);
     },
 
-    //Log response
+    // Log response
     log_response: function() {
 		var response_logged = false;
 		//Array of radio buttons
@@ -129,7 +149,7 @@ var experiment = {
 		// Loop through radio buttons
 		for (i = 0; i < radio.length; i++) {
 		    if (radio[i].checked) {
-				experiment.data.judgment.push(radio[i].value);
+				experiment.data.judgment.push(radio[i].value); // log response
 				response_logged = true;		    
 		    }
 		}
@@ -149,64 +169,55 @@ var experiment = {
 					   '</font>');
 		}
 	},
-    
-    //Run every trial
+    // Go to next trial
     next: function() {
-    	//If no trials are left go to debriefing
+    	// If no trials are left go to debriefing
 		if (!trials.length) {
 			return experiment.debriefing();
 		}
-		
-		//Allow experiment to start if it's a turk worker OR if it's a test run
+		// Allow experiment to start if it's a turk worker OR if it's a test run
 		if (window.self == window.top || turk.workerId.length > 0) {
-		    //Clear the test message and adjust progress bar
+		    // Clear the test message and adjust progress bar
 		    $("#testMessage").html('');  
 		    $("#prog").attr("style","width:" +
 				    String(100 * ((TOTAL_TRIALS - trials.length)/TOTAL_TRIALS)) + "%");
 		    
-		    //Trial params ---------------------------->
-		    if(trials.length > 100) {
-		    	// training #1: 'hi2' == "high" with 5 stars
-		    	if (trials.length == 102) {
-			    	trials.shift();
-			    	current_scale = scales[0];
-			    	degree = "hi2";
-			    	manipulation_level = "100";
-			    } // training #2: 'low1' == "low" with 1 star
+		    // Training trials
+		    if(trials.length > TOTAL_TRIALS - training_stimuli.length) {
+		    	// First training trial
+		    	if (trials.length == TOTAL_TRIALS) {
+			    	current_trial_num = trials.shift(); // "high"
+			    	all_stimuli.shift()      			// remove "high"
+			    	current_scalar = "high";
+			    	current_star = "100";
+			    } // Second training trial
 			    else {
-			    	trials.shift();
-			    	current_scale = scales[0];
-			    	degree = "low1";
-			    	manipulation_level = "20";
+			    	current_trial_num = trials.shift(); // "low"
+			    	all_stimuli.shift()					// remove "low"
+			    	current_scalar = "low";
+			    	current_star = "20";
 		    	} 
-		    } else if (trials.length == 100) {
-		    	trials = shuffle(trials); 
-		    	current_trial = trials.shift();
-		    	current_scale = scales[(Math.floor(current_trial / 10)) % 5 + 1];
-		    	degree = scale_degrees[current_trial % 4];
-		    	manipulation_level = manipulation[current_trial % 5];
+		    } 
+		    // Actual trials
+		    else if (trials.length == TOTAL_TRIALS - training_stimuli.length) {
+		    	trials = shuffle(trials); // Randomize trials here (only once)
+		    	current_trial_num = trials.shift();
+		    	current_scalar = all_stimuli[current_trial_num % NUM_ITEMS];
+			    current_star = star_amount[current_trial_num % NUM_STARS];
 		    } else {
-		    	current_trial = trials.shift();
-		    	current_scale = scales[(Math.floor(current_trial / 10)) % 5 + 1];
-		    	degree = scale_degrees[current_trial % 4];
-		    	manipulation_level = manipulation[current_trial % 5];
+		    	current_trial_num = trials.shift();
+		    	current_scalar = all_stimuli[current_trial_num % NUM_ITEMS];
+			    current_star = star_amount[current_trial_num % NUM_STARS];
 		    }
-			sent_materials = sents.scale[current_scale][degree];
-		    //Trial params ---------------------------->
+			sent_materials = create_sent(current_scalar, DOMAIN)
 
+		    // Display trials
+			$(".rating-stars").attr("style", "width: " + current_star + "%");
+		    $("#sent_question").html("Do you think the person " + sent_materials);
 
-		    //Display Trials -------------------------->
-			$(".rating-stars").attr("style","width: " +
-							    manipulation_level + "%");
-		    $("#sent_question").html("Do you think the person "+
-					     sent_materials);
-		    //Display Trials -------------------------->
-
-		    //Log Data -------------------------------->
-		    experiment.data.scale.push(current_scale);
-		    experiment.data.degree.push(degree);
-		    experiment.data.manipulation_level.push(manipulation_level);
-		    //Log Data -------------------------------->
+		    // Log data
+		    experiment.data.item.push(current_scalar);
+		    experiment.data.stars.push(current_star);
 		    
 		    showSlide("stage");
 		}
@@ -223,7 +234,7 @@ var experiment = {
     	$('#age').html(select_age);    	
     },
 
-    //###:-------------Log debrief data-------------:###
+    // Log debrief data
     submit_comments: function() {
 		experiment.data.language.push(document.getElementById("homelang").value);		// language
 		experiment.data.expt_aim.push(document.getElementById("expthoughts").value);	// thoughts
@@ -236,5 +247,4 @@ var experiment = {
     	}
 		experiment.end();
     }
-    //###:-------------Log debrief data-------------:###
 };
