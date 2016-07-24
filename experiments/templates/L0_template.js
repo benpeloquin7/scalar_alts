@@ -54,11 +54,12 @@ function shuffle (a) {
 
 // Experiment
 // ----------
-
-// Set current domain
 var DOMAIN = "restaurant"; // Change this between expt's
-var NUM_ITEMS = 21
-var NUM_STARS = 5
+var NUM_ITEMS = 21;
+var NUM_STARS = 5;
+var NUM_TRAINING_TRIALS = 2;
+var NUM_NON_TRAINING_TRIALS = NUM_ITEMS * NUM_STARS;
+var TOTAL_TRIALS = NUM_TRAINING_TRIALS + NUM_NON_TRAINING_TRIALS;
 var training_stimuli = ["high", "low"];
 var verbs = 	[
 				"loved",
@@ -109,11 +110,11 @@ function create_sent(target_scalar, domain) {
 	}
 }
 
-// Should do this in a better way
+// All stimuli without random ordering
 var all_stimuli = training_stimuli.concat(verbs, non_verbs);
 
 // Trial params
-var TOTAL_TRIALS = all_stimuli.length;
+// var TOTAL_TRIALS = all_stimuli.length;
 var trials = [];
 for(var i = TOTAL_TRIALS; i > 0; --i) {
 	trials.push(i);
@@ -161,13 +162,13 @@ var experiment = {
 		if (response_logged) {
 		    nextButton.blur();
 		    
-		    //Uncheck radio buttons
+		    // Uncheck radio buttons
 		    for (i = 0; i < radio.length; i++) {
 				radio[i].checked = false
 		    }
 		    experiment.next(); //Move to next condition
 		} else {
-			//Else respondent didn't make a response
+			// Else respondent didn't make a response
 		    $("#testMessage").html('<font color="red">' + 
 					   'Please make a response!' + 
 					   '</font>');
@@ -187,24 +188,22 @@ var experiment = {
 				    String(100 * ((TOTAL_TRIALS - trials.length)/TOTAL_TRIALS)) + "%");
 		    
 		    // Training trials
-		    if(trials.length > TOTAL_TRIALS - training_stimuli.length) {
+		    if(trials.length > TOTAL_TRIALS - NUM_TRAINING_TRIALS) {
 		    	// First training trial
 		    	if (trials.length == TOTAL_TRIALS) {
-			    	current_trial_num = trials.shift(); // "high"
-			    	all_stimuli.shift()      			// remove "high"
-			    	current_scalar = "high";
+			    	current_trial_num = trials.shift();   	// "high"
+			    	current_scalar = all_stimuli.shift(); 	// remove "high";
 			    	current_star = "100";
 			    } // Second training trial
 			    else {
-			    	current_trial_num = trials.shift(); // "low"
-			    	all_stimuli.shift()					// remove "low"
-			    	current_scalar = "low";
+			    	current_trial_num = trials.shift();		// "low"
+			    	current_scalar = all_stimuli.shift();	// remove "low"
 			    	current_star = "20";
 		    	} 
 		    } 
 		    // Actual trials
 		    else if (trials.length == TOTAL_TRIALS - training_stimuli.length) {
-		    	trials = shuffle(trials); // Randomize trials here (only once)
+		    	trials = shuffle(trials); // Randomize remaining trials here (only once)
 		    	current_trial_num = trials.shift();
 		    	current_scalar = all_stimuli[current_trial_num % NUM_ITEMS];
 			    current_star = star_amount[current_trial_num % NUM_STARS];
