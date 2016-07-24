@@ -1,6 +1,6 @@
 ---
 title: "Scalar alternatives analysis"
-author: "Ben Peloquin"
+author: "Ben Peloquin & Mike Frank"
 date: "July 22, 2016"
 output:
   html_document:
@@ -8,14 +8,18 @@ output:
     toc_depth: 4
 ---
 
-```{r packages}
+Packages
+```{r packages, warning=FALSE, message=FALSE}
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 ```
 
-Working through experimental set-up
+Experimental set-up notes
+
+Note: this is not a part of pre-registration analysis
 ```{r expt_setup}
+## Literal listener trials
 NUM_ITEMS <- 105
 trials <- sample.int(n=NUM_ITEMS, size=NUM_ITEMS)
 
@@ -31,26 +35,157 @@ d_trials <- d_trials %>%
   arrange(item)
 ```
 
-# Analysis
+# Stimuli
+```{r data_helpers}
+## global data
+NUM_ITEMS <- 21 ## number of individual target scalars (some are shared)
+DOMAINS <- c("album", "book", "game", "play", "movie", "restaurant")
+## scales
+bad_terrible <-            c("terrible", "bad", "okay", "good", "great")
+liked_loved <-             c("hated", "disliked", "tolerated", "liked", "loved")
+good_excellent <-          c("terrible", "bad", "average", "good", "excellent")
+memorable_unforgettable <- c("forgettable", "boring", "ordinary", "memorable", "unforgettable")
+special_unique <-          c("boring", "different", "common", "special", "unique")
+```
 
-## Data pre-processing (combine domains, data-typing)
-```{r data_preprocessing}
+
+# Literal Listener (L0) analysis 
+
+## Experimental set-up
+
+Literal listener studies provide approximate literal semantic data for our target scalar items. 
+
+We're testing 5 scales, each containing 5 items, across 6 domains (see `Stimuli` section above). Since some words are shared between scales we have 21 unique words. See `Stimuli` section above.
+
+Data for domains is between subjects -- subjects only provide responses in the context of one domain at a time (providing 5 * 21 = 105 responses).
+
+Data for individual words is within subjects -- subjects provide five ratings for each word (one judgement for each star rating 1-5 stars).
+
+Response is a binary `yes`/`no` response if the target word is compatible with the displayed star-rating.
+
+<br>
+<center>
+  <br>
+  <img src="/Users/benpeloquin/Desktop/Projects/scalar_alts/admin/pre-registration/L0_design.png"
+  width="500px" height="200px" style='border:1px solid #000000'>
+  <br>
+  <caption>Example trial from L0 Literal listener study.</caption>
+  <br>
+</center>
+<br>
+
+## Data pre-processing (combine domains, data-typing).
+```{r L0_data_preprocessing}
 # read.csv()
 ```
 
-## Plots by scalar pairs and domains
-```{r plots1}
+## Primary analysis - domain level differences
+
+### Plots by scalar pairs and domains
+```{r L0_domain_differences_plot}
 # ggplot()
 ```
 
-## Does domain predict response? Logistic regression
+### Does domain predict response?
 
-Null hypothesis is there are no differences between domain (i.e. domain should not significantly predict response).
-```{r test_domain_differences}
+Statistical test: Logistic regression
+
+Is `domain` a sigificant predictor of response.
+
+Null hypothesis is there are no differences between domain (i.e. domain should not significantly predict response after controlling for `target_word`).
+```{r L0_domain_differences_test}
 # glm()
 ```
 
-## Secondary analysis -- any target items appear to be more flexible to `domain` than others???
-```{r test_sensitivity}
+## Secondary analysis -- word level differences
 
+### Plots by word and domains (line chart, facets by word, lines are literal semantics for each domain)
+```{r L0_word_sensitivity_plot}
+# ggplot()
+```
+
+### Statistical test
+
+- Logistic regression on data subset for each word
+
+H0: domain should not predict response.
+```{r L0_word_sensitivity_test1}
+# glm()
+```
+
+- Chi-square test of independence
+```{r L0_word_sensitivity_test2}
+# chisq.test()
+```
+
+# Pragmatic Listener (L1) analysis 
+
+## Experimental set-up
+
+Pragmatic listener studies provide pragmatic interpretations for our target scalar items. 
+
+We're testing 5 scales, each containing 5 items, across 6 domains (see `stimuli` section above). Since some words are shared between scales we have 21 unique words.
+
+Data for domains is between subjects -- subjects only provide responses in the context of one domain at a time (providing 1 * 21 = 21 responses).
+
+Data for individual words is within subjects -- subjects provide one rating for each word.
+
+Response is a rating between 1-5 stars.
+
+<br>
+<center>
+  <br>
+  <img src="/Users/benpeloquin/Desktop/Projects/scalar_alts/admin/pre-registration/L1_design.png"
+  width="500px" height="200px" style='border:1px solid #000000'>
+  <br>
+  <caption>Example trial from L1 Pragmatic listener study.</caption>
+  <br>
+</center>
+<br>
+
+
+## Data pre-processing (combine domains, data-typing).
+```{r L1_data_preprocessing}
+# read.csv()
+```
+
+## Primary analysis -- domain level differences
+
+### Plots by scalar pairs and domains
+```{r L1_domain_differences_plot}
+# ggplot()
+```
+
+### Does domain predict response?
+
+Statistical test: Multiple regression
+
+Is `domain` a sigificant predictor of response.
+
+Null hypothesis is there are no differences between domain (i.e. domain should not significantly predict response).
+```{r L1_domain_differences_test}
+# glm()
+```
+
+## Secondary analysis -- word level differences
+
+### Plots by word and domains (line chart, facets by word, lines are pragmatic judgments for each domain)
+```{r L1_word_sensitivity_plot}
+# ggplot()
+```
+
+### Statistical tests
+
+Null hypothesis is scalar word pragmatic judgment distributions should not differ by domain.
+
+- Multiple regression on data subset
+
+Domain should not predict response when controlling for `target_word`
+```{r L1_word_sensitivity_test1}
+# glm()
+```
+
+We don't expect to see any statistical differences.
+```{r L1_word_sensitivity_test2}
+# chisq.test()
 ```
