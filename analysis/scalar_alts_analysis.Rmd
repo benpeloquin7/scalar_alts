@@ -1,5 +1,5 @@
 ---
-title: "L0-Analysis"
+title: "Scalar alternatives analysis"
 author: "Ben Peloquin"
 date: "July 22, 2016"
 output:
