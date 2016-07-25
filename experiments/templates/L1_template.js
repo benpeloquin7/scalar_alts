@@ -87,7 +87,7 @@ var non_verbs = [
 				"different"
 				];
 function verb_sent(target_scalar, domain) {
-	return "<b>" + target_scalar + "</b> the " + domain + "?";
+	return "<b>" + target_scalar + "</b> the " + domain + ".";
 }
 function non_verb_sent(target_scalar, domain) {
 	return "thought the " + domain + " was <b>" + target_scalar + "</b>.";
