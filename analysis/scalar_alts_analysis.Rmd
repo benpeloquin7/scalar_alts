@@ -49,7 +49,7 @@ special_unique <-          c("boring", "different", "common", "special", "unique
 ```
 
 
-# Literal Listener (L0) analysis 
+# 1) Literal Listener (L0) analysis 
 
 ## Experimental set-up
 
@@ -66,7 +66,7 @@ Response is a binary `yes`/`no` response if the target word is compatible with t
 <br>
 <center>
   <br>
-  <img src="/Users/benpeloquin/Desktop/Projects/scalar_alts/admin/pre-registration/L0_design.png"
+  <img src="/Users/benpeloquin/Desktop/Projects/scalar_alts/pre-registration/L0_design.png"
   width="500px" height="200px" style='border:1px solid #000000'>
   <br>
   <caption>Example trial from L0 Literal listener study.</caption>
@@ -118,7 +118,7 @@ H0: domain should not predict response.
 # chisq.test()
 ```
 
-# Pragmatic Listener (L1) analysis 
+# 2) Pragmatic Listener (L1) analysis 
 
 ## Experimental set-up
 
@@ -135,7 +135,7 @@ Response is a rating between 1-5 stars.
 <br>
 <center>
   <br>
-  <img src="/Users/benpeloquin/Desktop/Projects/scalar_alts/admin/pre-registration/L1_design.png"
+  <img src="/Users/benpeloquin/Desktop/Projects/scalar_alts/pre-registration/L1_design.png"
   width="500px" height="200px" style='border:1px solid #000000'>
   <br>
   <caption>Example trial from L1 Pragmatic listener study.</caption>
@@ -188,4 +188,38 @@ Domain should not predict response when controlling for `target_word`
 We don't expect to see any statistical differences.
 ```{r L1_word_sensitivity_test2}
 # chisq.test()
+```
+
+
+# 3) RSA comparison with human judgments
+
+-- Using L0 literal semantics as input to RSA how well can we fit the L1 pragmatic listener judgments varying the alternative sets available to the model?
+
+## Basic RSA
+
+-- `depth=1`, `alpha=1` 2-alt vs 3-alt vs 4-alt vs 5-alt models
+
+-- Standard theory predicts that listeners need only consider entailment alternatives in order to generate the implicature (2-alt model)
+
+-- Test: do we see better model fit (correlation) by adding more alternatives?
+```{r basic_rsa_test}
+# rsa.runDf_grouped()
+```
+
+## Tuned RSA
+
+-- `depth=fit`, `alpha=fit` 2-alt vs 3-alt vs 4-alt vs 5-alt models
+
+-- Standard theory predicts that listeners need only consider entailment alternatives in order to generate the implicature (2-alt model)
+
+-- Test: do we see better model fit (correlation) by adding more alternatives?
+```{r basic_rsa_plot}
+# rsa.tuneDepthAlpha()
+```
+
+## Secondary analysis
+
+-- Any particular domains are scalar families harder for RSA to fit? Why?
+```{r}
+# ggplot()
 ```

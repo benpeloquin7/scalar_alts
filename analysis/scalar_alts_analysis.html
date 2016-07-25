@@ -125,7 +125,7 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#stimuli">Stimuli</a></li>
-<li><a href="#literal-listener-l0-analysis">Literal Listener (L0) analysis</a><ul>
+<li><a href="#literal-listener-l0-analysis">1) Literal Listener (L0) analysis</a><ul>
 <li><a href="#experimental-set-up">Experimental set-up</a></li>
 <li><a href="#data-pre-processing-combine-domains-data-typing.">Data pre-processing (combine domains, data-typing).</a></li>
 <li><a href="#primary-analysis---domain-level-differences">Primary analysis - domain level differences</a><ul>
@@ -137,7 +137,7 @@ $(document).ready(function () {
 <li><a href="#statistical-test">Statistical test</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#pragmatic-listener-l1-analysis">Pragmatic Listener (L1) analysis</a><ul>
+<li><a href="#pragmatic-listener-l1-analysis">2) Pragmatic Listener (L1) analysis</a><ul>
 <li><a href="#experimental-set-up-1">Experimental set-up</a></li>
 <li><a href="#data-pre-processing-combine-domains-data-typing.-1">Data pre-processing (combine domains, data-typing).</a></li>
 <li><a href="#primary-analysis-domain-level-differences">Primary analysis – domain level differences</a><ul>
@@ -148,6 +148,11 @@ $(document).ready(function () {
 <li><a href="#plots-by-word-and-domains-line-chart-facets-by-word-lines-are-pragmatic-judgments-for-each-domain">Plots by word and domains (line chart, facets by word, lines are pragmatic judgments for each domain)</a></li>
 <li><a href="#statistical-tests">Statistical tests</a></li>
 </ul></li>
+</ul></li>
+<li><a href="#rsa-comparison-with-human-judgments">3) RSA comparison with human judgments</a><ul>
+<li><a href="#basic-rsa">Basic RSA</a></li>
+<li><a href="#tuned-rsa">Tuned RSA</a></li>
+<li><a href="#secondary-analysis">Secondary analysis</a></li>
 </ul></li>
 </ul>
 </div>
@@ -185,7 +190,7 @@ memorable_unforgettable &lt;- c(&quot;forgettable&quot;, &quot;boring&quot;, &qu
 special_unique &lt;-          c(&quot;boring&quot;, &quot;different&quot;, &quot;common&quot;, &quot;special&quot;, &quot;unique&quot;)</code></pre>
 </div>
 <div id="literal-listener-l0-analysis" class="section level1">
-<h1>Literal Listener (L0) analysis</h1>
+<h1>1) Literal Listener (L0) analysis</h1>
 <div id="experimental-set-up" class="section level2">
 <h2>Experimental set-up</h2>
 <p>Literal listener studies provide approximate literal semantic data for our target scalar items.</p>
@@ -242,7 +247,7 @@ Example trial from L0 Literal listener study.
 </div>
 </div>
 <div id="pragmatic-listener-l1-analysis" class="section level1">
-<h1>Pragmatic Listener (L1) analysis</h1>
+<h1>2) Pragmatic Listener (L1) analysis</h1>
 <div id="experimental-set-up-1" class="section level2">
 <h2>Experimental set-up</h2>
 <p>Pragmatic listener studies provide pragmatic interpretations for our target scalar items.</p>
@@ -295,6 +300,29 @@ Example trial from L1 Pragmatic listener study.
 <p>We don’t expect to see any statistical differences.</p>
 <pre class="r"><code># chisq.test()</code></pre>
 </div>
+</div>
+</div>
+<div id="rsa-comparison-with-human-judgments" class="section level1">
+<h1>3) RSA comparison with human judgments</h1>
+<p>– Using L0 literal semantics as input to RSA how well can we fit the L1 pragmatic listener judgments varying the alternative sets available to the model?</p>
+<div id="basic-rsa" class="section level2">
+<h2>Basic RSA</h2>
+<p>– <code>depth=1</code>, <code>alpha=1</code> 2-alt vs 3-alt vs 4-alt vs 5-alt models</p>
+<p>– Standard theory predicts that listeners need only consider entailment alternatives in order to generate the implicature (2-alt model)</p>
+<p>– Test: do we see better model fit (correlation) by adding more alternatives?</p>
+<pre class="r"><code># rsa.runDf_grouped()</code></pre>
+</div>
+<div id="tuned-rsa" class="section level2">
+<h2>Tuned RSA</h2>
+<p>– <code>depth=fit</code>, <code>alpha=fit</code> 2-alt vs 3-alt vs 4-alt vs 5-alt models</p>
+<p>– Standard theory predicts that listeners need only consider entailment alternatives in order to generate the implicature (2-alt model)</p>
+<p>– Test: do we see better model fit (correlation) by adding more alternatives?</p>
+<pre class="r"><code># rsa.tuneDepthAlpha()</code></pre>
+</div>
+<div id="secondary-analysis" class="section level2">
+<h2>Secondary analysis</h2>
+<p>– Any particular domains are scalar families harder for RSA to fit? Why?</p>
+<pre class="r"><code># ggplot()</code></pre>
 </div>
 </div>
 
