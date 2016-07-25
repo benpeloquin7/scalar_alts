@@ -1,0 +1,42 @@
+Author(s)
+Ben Peloquin (Stanford University) - bpeloqui@stanford.edu
+Mike Frank (Stanford University) - mcfrank@stanford.edu
+Make sure all email addresses are correct, otherwise authors will not have access to this submission and it will never be approved.
+
+Submission
+1) What's the main question being asked or hypothesis being tested in this study?
+1) Domain does not predict literal listener or pragmatic listener judgments
+2) Literal semantics will vary between words within scalar families and between families
+3) Model fit will improve with the addition of alternatives
+
+2) Describe the key dependent variable(s) specifying how they will be measured.
+1) Literal semantics - binary "yes"/"no" response testing a words compatibility with a given star-rating
+2) Pragmatic judgments - 5-star rating testing a words meaning given a context (domain)
+3) Model fit (correlation) between RSA with literal semantics as input and human Pragmatic judgments
+
+3) How many and which conditions will participants be assigned to?
+Literal semantics: 6 conditions between subjects (six different domains, e.g. "restaurant" vs "book" vs "play"...)
+Pragmatic judgments: 6 conditions between subjects (six different domains, e.g. "restaurant" vs "book" vs "play"...)
+
+4) Specify exactly which analyses you will conduct to examine the main question/hypothesis.
+Literal semantics: Logistic regression / Mixed effects logistic regression assessing whether "domain" predicts response (e.g. "yes"/"no")
+Pragmatic judgments: Linear regression / Mixed effects regression assessing whether "domain" predicts rating (1-5 stars)
+Correlation between RSA model predictions and human pragmatic judgments while varying set of alternatives available to the model.
+
+5) Any secondary analyses?
+Literal semantics: Individual word sensitivities. Logistic regression on subset of data (single word)
+Pragmatic judgments: Individual word sensitivities. Linear regression on subset of data (single word)
+
+6) How many observations will be collected or what will determine sample size?
+No need to justify decision, but be precise about exactly how the number will be determined.
+Literal semantics: n~50 (minus some who may not pass training trials) in each condition so n~300 total.
+Pragmatic judgments: n~50 in each condition so n~300 total.
+
+7) Anything else you would like to pre-register? 
+(e.g., data exclusions, variables collected for exploratory purposes, unusual analyses planned?)
+Data exclusions:
+Participants do not pass two training trials. (This exclusion criteria will be used in both literal semantics and pragmatic judgment tasks).
+Participants must be native English speakers.
+
+8) Have any data been collected for this study already?
+No, no data have been collected for this study yet
