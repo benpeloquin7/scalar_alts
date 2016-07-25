@@ -57,9 +57,9 @@ Literal listener studies provide approximate literal semantic data for our targe
 
 We're testing 5 scales, each containing 5 items, across 6 domains (see `Stimuli` section above). Since some words are shared between scales we have 21 unique words. See `Stimuli` section above.
 
-Data for domains is between subjects -- subjects only provide responses in the context of one domain at a time (providing 5 * 21 = 105 responses).
+Data for domains is between subjects -- subjects only provide responses in the context of one domain at a time.
 
-Data for individual words is within subjects -- subjects provide five ratings for each word (one judgement for each star rating 1-5 stars).
+Data for individual words is within subjects -- subjects provide five ratings for each word (one judgment for each star rating 1-5 stars for a total of 5 * 21 = 105 responses for each participant).
 
 Response is a binary `yes`/`no` response if the target word is compatible with the displayed star-rating.
 
@@ -126,9 +126,9 @@ Pragmatic listener studies provide pragmatic interpretations for our target scal
 
 We're testing 5 scales, each containing 5 items, across 6 domains (see `stimuli` section above). Since some words are shared between scales we have 21 unique words.
 
-Data for domains is between subjects -- subjects only provide responses in the context of one domain at a time (providing 1 * 21 = 21 responses).
+Data for domains is between subjects -- subjects only provide responses in the context of one domain at a time.
 
-Data for individual words is within subjects -- subjects provide one rating for each word.
+Data for individual words is within subjects -- subjects provide one rating for each word (providing 1 * 21 = 21 responses per particpant).
 
 Response is a rating between 1-5 stars.
 
@@ -201,7 +201,7 @@ We don't expect to see any statistical differences.
 
 -- Standard theory predicts that listeners need only consider entailment alternatives in order to generate the implicature (2-alt model)
 
--- Test: do we see better model fit (correlation) by adding more alternatives?
+-- Test: do we see better model fit (correlation) by adding more alternatives and tuning hyper-parameters?
 ```{r basic_rsa_test}
 # rsa.runDf_grouped()
 ```
