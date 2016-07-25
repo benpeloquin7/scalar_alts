@@ -215,6 +215,7 @@ var experiment = {
 			sent_materials = create_sent(current_scalar, DOMAIN)
 
 		    // Display trials
+		    $("#domain").html("When rating a " + DOMAIN + " someone gave this many stars: ");
 			$(".rating-stars").attr("style", "width: " + current_star + "%");
 		    $("#sent_question").html("Do you think the person " + sent_materials);
 
