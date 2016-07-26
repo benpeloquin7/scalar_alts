@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-03T14:25:18Z",
+    "AutoApprovalTime": "2016-07-03T14:24:33Z",
+    "AssignmentId": "3Z7EFSHGN9E8X2BE8TP346X1E9PCXM",
+    "WorkerId": "A2RJ4X5YB3DDI0",
+    "answers": {
+        "data": {
+            "domain": [
+                "game"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "special_unique",
+                "disliked_hated",
+                "bad_terrible",
+                "good_excellent",
+                "memorable_unforgettable",
+                "good_excellent",
+                "disliked_hated",
+                "memorable_unforgettable",
+                "liked_loved",
+                "liked_loved",
+                "special_unique",
+                "bad_terrible"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "weak"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "29"
+            ],
+            "expt_aim": [
+                "Possibly whether people focus on positive or negative words?"
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "alt3": [
+                "excellent",
+                "bad",
+                "enthralling",
+                "liked",
+                "wonderful",
+                "silly",
+                "memorable",
+                "trite",
+                "despised",
+                "noteworthy",
+                "adored",
+                "disliked",
+                "fresh",
+                "horrible"
+            ],
+            "alt2": [
+                "poor",
+                "awful",
+                "exciting",
+                "hated",
+                "great",
+                "alright",
+                "dull",
+                "average",
+                "loved",
+                "exceptional",
+                "liked",
+                "applauded",
+                "original",
+                "awful"
+            ],
+            "alt1": [
+                "low",
+                "great",
+                "unique",
+                "loved",
+                "awful",
+                "okay",
+                "boring",
+                "mediocre",
+                "adored",
+                "unremarkable",
+                "hated",
+                "hate",
+                "banal",
+                "terrible"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-03T14:13:59Z",
+    "HITId": "3KTCJ4SCVG1AT34IONT8N93PUHNM1O",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-03T14:19:33Z"
+}

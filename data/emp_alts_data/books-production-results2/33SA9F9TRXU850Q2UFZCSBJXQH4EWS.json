@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-01T00:42:18Z",
+    "AutoApprovalTime": "2016-07-01T00:41:51Z",
+    "AssignmentId": "33SA9F9TRXU850Q2UFZCSBJXQH4EWS",
+    "WorkerId": "A2K2LIKI9D6H56",
+    "answers": {
+        "data": {
+            "domain": [
+                "book"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "liked_loved",
+                "liked_loved",
+                "bad_terrible",
+                "good_excellent",
+                "memorable_unforgettable",
+                "good_excellent",
+                "disliked_hated",
+                "special_unique",
+                "memorable_unforgettable",
+                "special_unique",
+                "bad_terrible",
+                "disliked_hated"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "strong"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "20"
+            ],
+            "expt_aim": [
+                "adjectives"
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "alt3": [
+                "good",
+                "favorable",
+                "enjoyed",
+                "lameneted",
+                "overpriced",
+                "outstanding",
+                "petty",
+                "long-winded",
+                "praised",
+                "meaningless",
+                "condescending",
+                "doubtful",
+                "funny",
+                "idolized"
+            ],
+            "alt2": [
+                "unfavorable",
+                "abysmal",
+                "despised",
+                "disdained",
+                "verbose",
+                "useless",
+                "unforgettable",
+                "meaningless",
+                "loved",
+                "worthless",
+                "baseless",
+                "pedestrian",
+                "contradictory",
+                "disdained"
+            ],
+            "alt1": [
+                "low",
+                "high",
+                "hated",
+                "hated",
+                "useless",
+                "trivial",
+                "meaningless",
+                "worthless",
+                "hated",
+                "useless",
+                "trivial",
+                "common",
+                "good",
+                "loathed"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-01T00:32:41Z",
+    "HITId": "3IVEC1GSLPZKSVYXLQGG7HB8PMFJ11",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-01T00:36:51Z"
+}

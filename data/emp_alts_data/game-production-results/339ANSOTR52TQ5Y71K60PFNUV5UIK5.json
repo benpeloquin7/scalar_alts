@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-03T14:47:18Z",
+    "AutoApprovalTime": "2016-07-03T14:46:57Z",
+    "AssignmentId": "339ANSOTR52TQ5Y71K60PFNUV5UIK5",
+    "WorkerId": "AD368A1RHHRC3",
+    "answers": {
+        "data": {
+            "domain": [
+                "game"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "special_unique",
+                "bad_terrible",
+                "special_unique",
+                "liked_loved",
+                "bad_terrible",
+                "disliked_hated",
+                "disliked_hated",
+                "memorable_unforgettable",
+                "good_excellent",
+                "memorable_unforgettable",
+                "liked_loved",
+                "good_excellent"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "weak"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "68"
+            ],
+            "expt_aim": [
+                "To find out what influences a person's language skills."
+            ],
+            "expt_gen": [
+                "none"
+            ],
+            "alt3": [
+                "poor",
+                "excellent",
+                "unsatisfactory",
+                "outstanding",
+                "depressing",
+                "abhorred",
+                "excellent",
+                "admired",
+                "wanted",
+                "unsatisfactory",
+                "horrible",
+                "excellent",
+                "forgot",
+                "boring"
+            ],
+            "alt2": [
+                "unsatisfactory",
+                "superior",
+                "unoriginal",
+                "superior",
+                "unoriginal",
+                "disliked",
+                "satifactory",
+                "loved",
+                "liked",
+                "dull",
+                "unsatisfactory",
+                "admirable",
+                "hated",
+                "uninspiring"
+            ],
+            "alt1": [
+                "low",
+                "high",
+                "boring",
+                "good",
+                "sad",
+                "hated",
+                "good",
+                "liked",
+                "loved",
+                "uninspiring",
+                "bad",
+                "inspiring",
+                "disliked",
+                "bad"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-03T14:30:53Z",
+    "HITId": "3KTCJ4SCVG1AT34IONT8N93PUHNM1O",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-03T14:41:57Z"
+}

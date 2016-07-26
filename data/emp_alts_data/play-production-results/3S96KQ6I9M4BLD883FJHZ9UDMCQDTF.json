@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-02T03:20:18Z",
+    "AutoApprovalTime": "2016-07-02T03:19:28Z",
+    "AssignmentId": "3S96KQ6I9M4BLD883FJHZ9UDMCQDTF",
+    "WorkerId": "A34QVV6QUHYMST",
+    "answers": {
+        "data": {
+            "domain": [
+                "play"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "special_unique",
+                "disliked_hated",
+                "memorable_unforgettable",
+                "memorable_unforgettable",
+                "liked_loved",
+                "bad_terrible",
+                "disliked_hated",
+                "good_excellent",
+                "bad_terrible",
+                "liked_loved",
+                "special_unique",
+                "good_excellent"
+            ],
+            "language": [
+                "e"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "strong",
+                "weak",
+                "weak"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "30"
+            ],
+            "expt_aim": [
+                "words"
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "alt3": [
+                "large",
+                "lesser",
+                "lovley",
+                "yuck",
+                "mindblowing",
+                "hope",
+                "crush",
+                "guilt",
+                "unwated",
+                "wonderful",
+                "bad",
+                "peace",
+                "goals",
+                "kind"
+            ],
+            "alt2": [
+                "soar",
+                "small",
+                "creative",
+                "offten",
+                "new",
+                "love",
+                "wonderful",
+                "mean",
+                "unknow",
+                "great",
+                "yuck",
+                "feeling",
+                "success",
+                "mindsprit"
+            ],
+            "alt1": [
+                "flying",
+                "deep",
+                "different",
+                "hated",
+                "good",
+                "merory",
+                "near",
+                "horriable",
+                "dilked",
+                "good",
+                "ew",
+                "happy",
+                "good",
+                "heart"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-02T03:07:04Z",
+    "HITId": "3EFNPKWBMSO90SBQMMKTD5B9PYV30H",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-02T03:14:28Z"
+}

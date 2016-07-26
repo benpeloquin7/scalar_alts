@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-06-30T23:43:18Z",
+    "AutoApprovalTime": "2016-06-30T23:42:33Z",
+    "AssignmentId": "3JV9LGBJWTEYK5DR9OYQBKRN0VHGOW",
+    "WorkerId": "ALZPOT5R8BMMD",
+    "answers": {
+        "data": {
+            "domain": [
+                "book"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "bad_terrible",
+                "disliked_hated",
+                "special_unique",
+                "liked_loved",
+                "memorable_unforgettable",
+                "liked_loved",
+                "good_excellent",
+                "bad_terrible",
+                "disliked_hated",
+                "memorable_unforgettable",
+                "special_unique",
+                "good_excellent"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "33"
+            ],
+            "expt_aim": [
+                "How large someone's vocabulary is and what words do they associate with different adjectives?"
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "alt3": [
+                "excellent",
+                "fair",
+                "interesting",
+                "loved",
+                "mundane ",
+                "detested",
+                "terrible",
+                "disliked",
+                "crummy",
+                "interesting",
+                "cherished",
+                "tedious",
+                "conventional",
+                "awful"
+            ],
+            "alt2": [
+                "quality",
+                "poor",
+                "exciting",
+                "liked",
+                "boring",
+                "disliked",
+                "unremarkable",
+                "hated",
+                "awful",
+                "acceptable",
+                "prized",
+                "boring ",
+                "common",
+                "bland"
+            ],
+            "alt1": [
+                "good",
+                "bad",
+                "great",
+                "enjoyed",
+                "interesting",
+                "hated",
+                "boring",
+                "detested",
+                "dreadful ",
+                "satisfying",
+                "loved",
+                "bland",
+                "generic",
+                "poor"
+            ]
+        }
+    },
+    "AcceptTime": "2016-06-30T23:26:20Z",
+    "HITId": "3IVEC1GSLPZKSVYXLQGG7HB8PMFJ11",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-06-30T23:37:33Z"
+}

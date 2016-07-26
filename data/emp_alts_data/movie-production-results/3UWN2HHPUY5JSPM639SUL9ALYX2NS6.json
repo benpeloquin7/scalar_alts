@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-02T00:32:18Z",
+    "AutoApprovalTime": "2016-07-02T00:31:53Z",
+    "AssignmentId": "3UWN2HHPUY5JSPM639SUL9ALYX2NS6",
+    "WorkerId": "A1ZP3TH01HZM42",
+    "answers": {
+        "data": {
+            "domain": [
+                "movie"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "good_excellent",
+                "bad_terrible",
+                "special_unique",
+                "memorable_unforgettable",
+                "disliked_hated",
+                "liked_loved",
+                "memorable_unforgettable",
+                "liked_loved",
+                "bad_terrible",
+                "disliked_hated",
+                "good_excellent",
+                "special_unique"
+            ],
+            "language": [
+                "english"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "strong"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "36"
+            ],
+            "expt_aim": [
+                "unsure"
+            ],
+            "expt_gen": [
+                "it was fun"
+            ],
+            "alt3": [
+                "wonderful",
+                "poor",
+                "silly",
+                "stupid",
+                "favorable",
+                "rare",
+                "adored",
+                "loathed",
+                "great",
+                "admired",
+                "lousy",
+                "cursed",
+                "exemplary",
+                "unusual"
+            ],
+            "alt2": [
+                "bad",
+                "horrible",
+                "cheesy",
+                "dumb",
+                "passionate",
+                "unique",
+                "liked",
+                "cherished",
+                "extraordinary",
+                "disliked",
+                "dreadful",
+                "detested",
+                "marvelous",
+                "different"
+            ],
+            "alt1": [
+                "low",
+                "excellent",
+                "awesome",
+                "ridiculous",
+                "romantic",
+                "forgettable",
+                "loved",
+                "hated",
+                "remarkable",
+                "appreciated",
+                "awful",
+                "desired",
+                "fantastic",
+                "peculiar"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-02T00:13:09Z",
+    "HITId": "3XEIP58NL0NNIH75WM1LFQ8C7R2ZLG",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-02T00:26:53Z"
+}

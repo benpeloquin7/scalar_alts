@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-02T03:48:18Z",
+    "AutoApprovalTime": "2016-07-02T03:47:44Z",
+    "AssignmentId": "34MAJL3QP4NTM0RLVPCXESW9F0L34C",
+    "WorkerId": "AVJSMT58WUUSE",
+    "answers": {
+        "data": {
+            "domain": [
+                "play"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "liked_loved",
+                "memorable_unforgettable",
+                "bad_terrible",
+                "disliked_hated",
+                "special_unique",
+                "bad_terrible",
+                "good_excellent",
+                "good_excellent",
+                "special_unique",
+                "memorable_unforgettable",
+                "liked_loved",
+                "disliked_hated"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "weak"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "31"
+            ],
+            "expt_aim": [
+                "synonyms"
+            ],
+            "expt_gen": [
+                "No."
+            ],
+            "alt3": [
+                "weak",
+                "bottom",
+                "loved",
+                "outstanding",
+                "dismal",
+                "feared",
+                "complex",
+                "dismal",
+                "robust",
+                "excellent",
+                "outstanding",
+                "shattering",
+                "loved",
+                "unamicable"
+            ],
+            "alt2": [
+                "relevant",
+                "weak",
+                "enjoyed",
+                "impressive",
+                "offensive",
+                "scorned",
+                "significant",
+                "horrible",
+                "outstanding",
+                "great",
+                "significant",
+                "meaningful",
+                "liked",
+                "scorned"
+            ],
+            "alt1": [
+                "strong",
+                "dismal",
+                "admired",
+                "amazing",
+                "horrible",
+                "disliked",
+                "interesting",
+                "terrible",
+                "amazing",
+                "strong",
+                "unique",
+                "scarring",
+                "enjoyed",
+                "hated"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-02T03:35:13Z",
+    "HITId": "3EFNPKWBMSO90SBQMMKTD5B9PYV30H",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-02T03:42:44Z"
+}

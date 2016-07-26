@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-02T03:57:18Z",
+    "AutoApprovalTime": "2016-07-02T03:56:42Z",
+    "AssignmentId": "3RXCAC0YIRPVZDQB279UEY1NLRM8GW",
+    "WorkerId": "A2DD8FY0EPDWO",
+    "answers": {
+        "data": {
+            "domain": [
+                "play"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "memorable_unforgettable",
+                "disliked_hated",
+                "memorable_unforgettable",
+                "liked_loved",
+                "bad_terrible",
+                "disliked_hated",
+                "good_excellent",
+                "special_unique",
+                "liked_loved",
+                "good_excellent",
+                "bad_terrible",
+                "special_unique"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "strong"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "30"
+            ],
+            "expt_aim": [
+                "I think this survey was about word choice for similar words of an antonym feeling. "
+            ],
+            "expt_gen": [
+                "None"
+            ],
+            "alt3": [
+                "negative",
+                "high",
+                "dull",
+                "loved",
+                "unimaginative",
+                "abhorred",
+                "tasteful",
+                "liked",
+                "bad",
+                "predictable",
+                "disliked",
+                "poor",
+                "outstanding",
+                "interesting"
+            ],
+            "alt2": [
+                "bad",
+                "okay",
+                "bad",
+                "enjoyed",
+                "bad",
+                "hated",
+                "good",
+                "loved",
+                "distasteful",
+                "typical",
+                "abhorred",
+                "awful",
+                "excellent",
+                "special"
+            ],
+            "alt1": [
+                "low",
+                "good",
+                "boring",
+                "liked",
+                "boring",
+                "disliked",
+                "enjoyable",
+                "enjoyed",
+                "horrible",
+                "average",
+                "hated",
+                "bad",
+                "good",
+                "different"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-02T03:37:34Z",
+    "HITId": "3EFNPKWBMSO90SBQMMKTD5B9PYV30H",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-02T03:51:42Z"
+}

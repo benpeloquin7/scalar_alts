@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-02T00:17:18Z",
+    "AutoApprovalTime": "2016-07-02T00:16:50Z",
+    "AssignmentId": "3S06PH7KSR4ACTWZ1WZ7T3BIUTN1DI",
+    "WorkerId": "AKGTYHAIZW21R",
+    "answers": {
+        "data": {
+            "domain": [
+                "movie"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "bad_terrible",
+                "good_excellent",
+                "bad_terrible",
+                "special_unique",
+                "good_excellent",
+                "special_unique",
+                "memorable_unforgettable",
+                "memorable_unforgettable",
+                "disliked_hated",
+                "disliked_hated",
+                "liked_loved",
+                "liked_loved"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "weak"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "26"
+            ],
+            "expt_aim": [
+                "Exploring people's vocabularies."
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "alt3": [
+                "great",
+                "terrific",
+                "great",
+                "decent",
+                "boring",
+                "stupid",
+                "slow",
+                "decent",
+                "bad",
+                "awful",
+                "enjoyed",
+                "adored",
+                "liked",
+                "detested"
+            ],
+            "alt2": [
+                "terrible",
+                "so-so",
+                "average",
+                "awful",
+                "okay",
+                "cliche",
+                "terrible",
+                "boring",
+                "boring",
+                "unremarkable",
+                "liked",
+                "loved",
+                "disliked",
+                "adored"
+            ],
+            "alt1": [
+                "low",
+                "high",
+                "okay",
+                "terrible",
+                "awesome",
+                "average",
+                "terrific",
+                "average",
+                "forgettable",
+                "forgetable",
+                "loved",
+                "liked",
+                "hated",
+                "loved"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-02T00:04:30Z",
+    "HITId": "3XEIP58NL0NNIH75WM1LFQ8C7R2ZLG",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-02T00:11:50Z"
+}

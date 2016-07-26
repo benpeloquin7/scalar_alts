@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-02T00:16:18Z",
+    "AutoApprovalTime": "2016-07-02T00:15:41Z",
+    "AssignmentId": "3AWETUDC92SOF0XT1L9ACUB7ZD7IZP",
+    "WorkerId": "A31681CCEVDIH3",
+    "answers": {
+        "data": {
+            "domain": [
+                "movie"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "bad_terrible",
+                "special_unique",
+                "memorable_unforgettable",
+                "bad_terrible",
+                "good_excellent",
+                "disliked_hated",
+                "liked_loved",
+                "disliked_hated",
+                "good_excellent",
+                "special_unique",
+                "liked_loved",
+                "memorable_unforgettable"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "strong"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "28"
+            ],
+            "expt_aim": [
+                "I have no idea."
+            ],
+            "expt_gen": [
+                "Nope, thank you!"
+            ],
+            "alt3": [
+                "five-star",
+                "higher",
+                "amazing",
+                "un-interesting",
+                "slow",
+                "uplifting",
+                "awful",
+                "despised",
+                "disliked",
+                "dispised",
+                "inspiring",
+                "repetitive",
+                "loved",
+                "boring"
+            ],
+            "alt2": [
+                "poor",
+                "high",
+                "marvelous",
+                "dull",
+                "tiresome",
+                "wonderful",
+                "cool",
+                "adored",
+                "abhorred",
+                "loved",
+                "fantastic",
+                "tiresome",
+                "hated",
+                "tiresome"
+            ],
+            "alt1": [
+                "low",
+                "better",
+                "disastrous",
+                "boring",
+                "forgettable",
+                "exciting",
+                "remarkable",
+                "loved",
+                "hated",
+                "liked",
+                "great",
+                "slow",
+                "disliked",
+                "dull"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-02T00:04:52Z",
+    "HITId": "3XEIP58NL0NNIH75WM1LFQ8C7R2ZLG",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-02T00:10:41Z"
+}

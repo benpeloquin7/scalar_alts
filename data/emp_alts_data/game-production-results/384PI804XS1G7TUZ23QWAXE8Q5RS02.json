@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-03T15:12:18Z",
+    "AutoApprovalTime": "2016-07-03T15:11:41Z",
+    "AssignmentId": "384PI804XS1G7TUZ23QWAXE8Q5RS02",
+    "WorkerId": "ATDTDYACIYC97",
+    "answers": {
+        "data": {
+            "domain": [
+                "game"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "liked_loved",
+                "memorable_unforgettable",
+                "memorable_unforgettable",
+                "disliked_hated",
+                "special_unique",
+                "good_excellent",
+                "disliked_hated",
+                "liked_loved",
+                "good_excellent",
+                "special_unique",
+                "bad_terrible",
+                "bad_terrible"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "strong",
+                "strong",
+                "weak"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "52"
+            ],
+            "expt_aim": [
+                "Creativity"
+            ],
+            "expt_gen": [
+                "none"
+            ],
+            "alt3": [
+                "zero",
+                "average",
+                "panned",
+                "awesome",
+                "short",
+                "loathed",
+                "colorful",
+                "amazing",
+                "broke",
+                "discarded",
+                "fast-paced",
+                "flat",
+                "monotonous",
+                "outstanding"
+            ],
+            "alt2": [
+                "mature",
+                "terrible",
+                "shared",
+                "awful",
+                "repetetive",
+                "hated",
+                "complicated",
+                "idiotic",
+                "liked",
+                "rated",
+                "unbelievable",
+                "better",
+                "brief",
+                "special"
+            ],
+            "alt1": [
+                "low",
+                "high",
+                "hated",
+                "forgetable",
+                "memorable",
+                "loved",
+                "unremarkable",
+                "bad",
+                "returned",
+                "mastered",
+                "derivative",
+                "new",
+                "nice",
+                "tedious"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-03T14:54:53Z",
+    "HITId": "3KTCJ4SCVG1AT34IONT8N93PUHNM1O",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-03T15:06:41Z"
+}

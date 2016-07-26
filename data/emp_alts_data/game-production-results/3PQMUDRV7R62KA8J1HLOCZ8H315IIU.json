@@ -1,0 +1,113 @@
+{
+    "ApprovalTime": "2016-07-03T14:34:18Z",
+    "AutoApprovalTime": "2016-07-03T14:33:20Z",
+    "AssignmentId": "3PQMUDRV7R62KA8J1HLOCZ8H315IIU",
+    "WorkerId": "A1ST467V7LXC3P",
+    "answers": {
+        "data": {
+            "domain": [
+                "game"
+            ],
+            "scale": [
+                "training",
+                "training",
+                "special_unique",
+                "disliked_hated",
+                "special_unique",
+                "memorable_unforgettable",
+                "good_excellent",
+                "disliked_hated",
+                "bad_terrible",
+                "good_excellent",
+                "liked_loved",
+                "bad_terrible",
+                "liked_loved",
+                "memorable_unforgettable"
+            ],
+            "language": [
+                "English"
+            ],
+            "degree": [
+                "strong",
+                "weak",
+                "weak",
+                "strong",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "strong",
+                "weak",
+                "weak",
+                "strong"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "39"
+            ],
+            "expt_aim": [
+                "Trying to find key words most people use"
+            ],
+            "expt_gen": [
+                "my first few selections, I believe I may have done the opposite of what was asked, I got the hang of it about two selections in or so."
+            ],
+            "alt3": [
+                "positive",
+                "negative",
+                "exceptional",
+                "liked",
+                "repetitive",
+                "predictable",
+                "bad",
+                "liked",
+                "exceptional",
+                "dull",
+                "loathed",
+                "amazing",
+                "loathed",
+                "forgettable"
+            ],
+            "alt2": [
+                "good",
+                "unfavorable",
+                "rare",
+                "loved",
+                "dull",
+                "boring",
+                "awful",
+                "enjoyed",
+                "amazing",
+                "mediocre",
+                "disliked",
+                "great",
+                "hated",
+                "dull"
+            ],
+            "alt1": [
+                "favorable",
+                "bad",
+                "unique",
+                "enjoyed",
+                "boring",
+                "forgettable",
+                "terrible",
+                "loved",
+                "wonderful",
+                "bad",
+                "hated",
+                "good",
+                "disliked",
+                "boring"
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-03T14:23:23Z",
+    "HITId": "3KTCJ4SCVG1AT34IONT8N93PUHNM1O",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-03T14:28:20Z"
+}
