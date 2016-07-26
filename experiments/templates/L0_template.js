@@ -54,7 +54,7 @@ function shuffle (a) {
 
 // Experiment
 // ----------
-var DOMAIN = "restaurant"; // Change this between expt's
+var DOMAIN = "book"; // Change this between expt's
 var NUM_ITEMS = 21;
 var NUM_STARS = 5;
 var NUM_TRAINING_TRIALS = 2;
