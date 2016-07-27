@@ -13,7 +13,11 @@ Packages
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(rjson)
+library(binom)
+source("/Users/benpeloquin/Desktop/Projects/scalar_alts/analysis/useful_dplyr.R")
 ```
+
 
 Experimental set-up notes
 
@@ -46,8 +50,51 @@ liked_loved <-             c("hated", "disliked", "tolerated", "liked", "loved")
 good_excellent <-          c("terrible", "bad", "average", "good", "excellent")
 memorable_unforgettable <- c("forgettable", "boring", "ordinary", "memorable", "unforgettable")
 special_unique <-          c("boring", "different", "common", "special", "unique")
+
+## valence
+map_word_type <- function(word) {
+  hi2 <- c("great", "loved", "excellent", "unforgettable", "unique")
+  hi1 <- c("good", "liked", "memorable", "special")
+  mid <- c("okay", "tolerated", "average", "ordinary", "common")
+  low1 <- c("bad", "disliked", "bad", "boring", "different")
+  low2 <- c("terrible", "hated", "terrible", "forgettable", "boring")
+  
+  if (word %in% hi2) "hi2"
+  else if (word %in% hi1) "hi1"
+  else if (word %in% mid) "mid"
+  else if (word %in% low1) "low1"
+  else if (word %in% low2) "low2"
+  else "training"
+}
 ```
 
+Helpers
+```{r}
+## get_data_single_L0_file()
+## -------------------------
+## read in a single file from L0
+##
+get_data_single_L0_file <- function(file, domain=NA) {
+  if (is.na(domain)) error("Must enter domain")
+  d_raw <- fromJSON(file=file)
+  d_answers <- data.frame(d_raw$answers)
+  pattern <- "data\\."
+  colnames(d_answers) <- sub(pattern, "", colnames(d_answers))
+  d_answers <- d_answers %>%
+    mutate(study="L0",
+           language=as.character(language),
+           domain=domain,
+           item=as.character(item),
+           age=as.numeric(as.character(age)),
+           stars=as.numeric(as.character(stars))/20,
+           judgment=as.numeric(judgment)-1,
+           worker_id=d_raw$WorkerId)
+  d_answers$word_type <- sapply(d_answers$item, map_word_type)
+  d_answers <- d_answers %>%
+    select(worker_id, study, domain, word_type, item, stars, judgment, age, gender, expt_aim, expt_gen, language)
+  d_answers
+}
+```
 
 # 1) Literal Listener (L0) analysis 
 
@@ -74,9 +121,102 @@ Response is a binary `yes`/`no` response if the target word is compatible with t
 </center>
 <br>
 
+```{r data_processing_helpers}
+## filter_df() 
+## -----------
+## filtered literal semantics df
+##
+filter_df <- function(d, verbose=TRUE) {
+  bad_ids <- d %>%
+    filter(word_type == "training") %>%
+    group_by(worker_id) %>%
+    summarise(training_perf=sum(judgment)) %>%
+    filter(training_perf != 2) ## filter out anyone who doesn't pass both training trials or took the study mult times
+  ## Filtered data
+  d_filtered <- d %>%
+    filter(!(worker_id %in% bad_ids$worker_id),
+           word_type != "training")
+  
+  if (verbose) {
+    num_participants <- 50
+    warning(paste0(num_participants - length(unique(d_filtered$worker_id)),
+                   " of ", num_participants, " filtered out."))
+  }
+  
+  d_filtered
+}
+# head(filter_df(d_L0))
+
+## create_domain_df() 
+## ------------------
+## create a single domain level df
+##
+create_domain_df <- function(domain=NA, dir_path=NA, filter=TRUE, verbose=TRUE) {
+  if (is.na(domain) | is.na(dir_path)) error("Need to pass `domain` and `dir_path` args")
+  
+  ## Data hold
+  d <- data.frame(worker_id=c(),
+                   study=c(),
+                   domain=c(),
+                   word_type=c(),
+                   item=c(),
+                   stars=c(),
+                   judgment=c(),
+                   age=c(),
+                   gender=c(),
+                   expt_aim=c(),
+                   expt_gen=c(),
+                   language=c())
+  dir_path <- paste0("/Users/benpeloquin/Desktop/Projects/scalar_alts/data/L0_data/", domain, "/")
+  
+  ## Add files
+  files <- list.files(dir_path)
+  if (verbose) warning(paste0("Currently reading in files for ", domain, "..."))
+  for (file in files) {
+    d <- rbind(d, get_data_single_L0_file(paste0(dir_path, file), domain))
+  }
+  
+  ## Check for filtering
+  if (filter) return_df <- filter_df(d, verbose=verbose)
+  else return_df <- d
+  
+  return_df
+}
+
+## construct_dir_path()
+## --------------------
+## Construct path to data dir for literal listener or pragmatic listener judgments
+##
+create_dir_path <- function(domain, L0=TRUE) {
+  if (L0) paste0("/Users/benpeloquin/Desktop/Projects/scalar_alts/data/L0_data/", domain, "/")
+  else paste0("/Users/benpeloquin/Desktop/Projects/scalar_alts/data/L1_data/", domain, "/")
+}
+```
+
+
 ## Data pre-processing (combine domains, data-typing).
 ```{r L0_data_preprocessing}
-# read.csv()
+d_restaurant <- create_domain_df("restaurant", dir_path=create_dir_path("restaurant"), filter=TRUE, verbose=TRUE)
+d_book <- create_domain_df("book", dir_path=create_dir_path("book"), filter=TRUE, verbose=TRUE)
+d_agg <- rbind(d_restaurant, d_book)
+```
+
+Literal semantics plot
+```{r L0_plot}
+## Literal semantics
+d_agg_sems <- d_agg %>%
+  group_by(domain, item, stars) %>%
+  summarise(avg_judgment=mean(judgment),
+            ci_low=binom.confint(sum(judgment), length(judgment))$lower[3],
+            ci_high=binom.confint(sum(judgment), length(judgment))$upper[3])
+```
+
+```{r plot_literal_semantics}
+ggplot(d_agg_sems, aes(x=stars, y=avg_judgment, col=domain)) +
+  geom_line() +
+  geom_errorbar(aes(ymax=ci_high, ymin=ci_low), width=0) +
+  # geom_pointrange(aes(ymax=ci_high, ymin=ci_low)) +
+  facet_wrap(~item)
 ```
 
 ## Primary analysis - domain level differences
