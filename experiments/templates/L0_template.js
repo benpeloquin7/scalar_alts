@@ -54,7 +54,7 @@ function shuffle (a) {
 
 // Experiment
 // ----------
-var DOMAIN = "book"; // Change this between expt's
+var DOMAIN = "album"; // Change this between expt's
 var NUM_ITEMS = 21;
 var NUM_STARS = 5;
 var NUM_TRAINING_TRIALS = 2;
@@ -215,7 +215,7 @@ var experiment = {
 			sent_materials = create_sent(current_scalar, DOMAIN)
 
 		    // Display trials
-		    $("#domain").html("When rating a " + DOMAIN + " someone gave this many stars: ");
+		    $("#domain").html("When rating an " + DOMAIN + " someone gave this many stars: ");
 			$(".rating-stars").attr("style", "width: " + current_star + "%");
 		    $("#sent_question").html("Do you think the person " + sent_materials);
 
