@@ -15,6 +15,7 @@ library(tidyr)
 library(ggplot2)
 library(rjson)
 library(binom)
+library(lme4)
 source("/Users/benpeloquin/Desktop/Projects/scalar_alts/analysis/useful_dplyr.R")
 ```
 
@@ -193,7 +194,6 @@ create_dir_path <- function(domain, L0=TRUE) {
 }
 ```
 
-
 ## Data pre-processing (combine domains, data-typing).
 ```{r L0_data_preprocessing}
 d_restaurant <- create_domain_df("restaurant", dir_path=create_dir_path("restaurant"), filter=TRUE, verbose=TRUE)
@@ -205,19 +205,28 @@ Literal semantics plot
 ```{r L0_plot}
 ## Literal semantics
 d_agg_sems <- d_agg %>%
-  group_by(domain, item, stars) %>%
+  group_by(domain, item, word_type, stars) %>%
   summarise(avg_judgment=mean(judgment),
             ci_low=binom.confint(sum(judgment), length(judgment))$lower[3],
-            ci_high=binom.confint(sum(judgment), length(judgment))$upper[3])
+            ci_high=binom.confint(sum(judgment), length(judgment))$upper[3]) 
 ```
 
-```{r plot_literal_semantics}
+```{r plot_literal_semantics1}
 ggplot(d_agg_sems, aes(x=stars, y=avg_judgment, col=domain)) +
   geom_line() +
   geom_errorbar(aes(ymax=ci_high, ymin=ci_low), width=0) +
   # geom_pointrange(aes(ymax=ci_high, ymin=ci_low)) +
   facet_wrap(~item)
 ```
+
+```{r plot_literal_semantics2}
+ggplot(d_agg_sems, aes(x=stars, y=avg_judgment, col=item)) +
+  geom_line() +
+  geom_errorbar(aes(ymax=ci_high, ymin=ci_low), width=0) +
+  # geom_pointrange(aes(ymax=ci_high, ymin=ci_low)) +
+  facet_wrap(~word_type+domain)
+```
+
 
 ## Primary analysis - domain level differences
 
@@ -234,7 +243,11 @@ Is `domain` a sigificant predictor of response.
 
 Null hypothesis is there are no differences between domain (i.e. domain should not significantly predict response after controlling for `target_word`).
 ```{r L0_domain_differences_test}
-# glm()
+d_agg <- d_agg %>%
+  mutate(worker_id=as.factor(worker_id),
+         item=as.factor(item))
+summary(glm(judgment~item+domain, family="binomial", data=d_agg))
+summary(glmer(judgment~domain+(1|item)+(1|worker_id), data=d_agg))
 ```
 
 ## Secondary analysis -- word level differences
