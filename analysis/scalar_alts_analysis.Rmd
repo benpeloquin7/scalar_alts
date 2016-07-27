@@ -196,8 +196,13 @@ create_dir_path <- function(domain, L0=TRUE) {
 
 ## Data pre-processing (combine domains, data-typing).
 ```{r L0_data_preprocessing}
-d_restaurant <- create_domain_df("restaurant", dir_path=create_dir_path("restaurant"), filter=TRUE, verbose=TRUE)
+# d_album <- create_domain_df("album", dir_path=create_dir_path("album"), filter=TRUE, verbose=TRUE)
 d_book <- create_domain_df("book", dir_path=create_dir_path("book"), filter=TRUE, verbose=TRUE)
+# d_game <- create_domain_df("game", dir_path=create_dir_path("game"), filter=TRUE, verbose=TRUE)
+# d_movie <- create_domain_df("movie", dir_path=create_dir_path("movie"), filter=TRUE, verbose=TRUE)
+# d_play <- create_domain_df("play", dir_path=create_dir_path("play"), filter=TRUE, verbose=TRUE)
+d_restaurant <- create_domain_df("restaurant", dir_path=create_dir_path("restaurant"), filter=TRUE, verbose=TRUE)
+
 d_agg <- rbind(d_restaurant, d_book)
 ```
 
@@ -224,7 +229,7 @@ ggplot(d_agg_sems, aes(x=stars, y=avg_judgment, col=item)) +
   geom_line() +
   geom_errorbar(aes(ymax=ci_high, ymin=ci_low), width=0) +
   # geom_pointrange(aes(ymax=ci_high, ymin=ci_low)) +
-  facet_wrap(~word_type+domain)
+  facet_grid(domain~word_type)
 ```
 
 
