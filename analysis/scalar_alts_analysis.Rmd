@@ -16,6 +16,8 @@ library(ggplot2)
 library(rjson)
 library(binom)
 library(lme4)
+library(lmerTest)
+library(rrrsa)
 source("/Users/benpeloquin/Desktop/Projects/scalar_alts/analysis/useful_dplyr.R")
 ```
 
@@ -51,6 +53,11 @@ liked_loved <-             c("hated", "disliked", "tolerated", "liked", "loved")
 good_excellent <-          c("terrible", "bad", "average", "good", "excellent")
 memorable_unforgettable <- c("forgettable", "boring", "ordinary", "memorable", "unforgettable")
 special_unique <-          c("boring", "different", "common", "special", "unique")
+all_scales <- data.frame("bad_terrible"=bad_terrible,
+                         "liked_loved"=liked_loved,
+                         "good_excellent"=good_excellent,
+                         "memorable_unforgettable"=memorable_unforgettable,
+                         "special_unique"=special_unique)
 
 ## valence
 map_word_type <- function(word) {
@@ -196,14 +203,14 @@ create_dir_path <- function(domain, L0=TRUE) {
 
 ## Data pre-processing (combine domains, data-typing).
 ```{r L0_data_preprocessing}
-# d_album <- create_domain_df("album", dir_path=create_dir_path("album"), filter=TRUE, verbose=TRUE)
+d_album <- create_domain_df("album", dir_path=create_dir_path("album"), filter=TRUE, verbose=TRUE)
 d_book <- create_domain_df("book", dir_path=create_dir_path("book"), filter=TRUE, verbose=TRUE)
-# d_game <- create_domain_df("game", dir_path=create_dir_path("game"), filter=TRUE, verbose=TRUE)
+d_game <- create_domain_df("game", dir_path=create_dir_path("game"), filter=TRUE, verbose=TRUE)
 # d_movie <- create_domain_df("movie", dir_path=create_dir_path("movie"), filter=TRUE, verbose=TRUE)
-# d_play <- create_domain_df("play", dir_path=create_dir_path("play"), filter=TRUE, verbose=TRUE)
+d_play <- create_domain_df("play", dir_path=create_dir_path("play"), filter=TRUE, verbose=TRUE)
 d_restaurant <- create_domain_df("restaurant", dir_path=create_dir_path("restaurant"), filter=TRUE, verbose=TRUE)
 
-d_agg <- rbind(d_restaurant, d_book)
+d_agg <- rbind(d_album, d_book, d_game, d_play, d_restaurant)
 ```
 
 Literal semantics plot
@@ -213,7 +220,9 @@ d_agg_sems <- d_agg %>%
   group_by(domain, item, word_type, stars) %>%
   summarise(avg_judgment=mean(judgment),
             ci_low=binom.confint(sum(judgment), length(judgment))$lower[3],
-            ci_high=binom.confint(sum(judgment), length(judgment))$upper[3]) 
+            ci_high=binom.confint(sum(judgment), length(judgment))$upper[3]) %>%
+  ungroup %>%
+  mutate(domain=as.factor(domain))
 ```
 
 ```{r plot_literal_semantics1}
@@ -232,6 +241,13 @@ ggplot(d_agg_sems, aes(x=stars, y=avg_judgment, col=item)) +
   facet_grid(domain~word_type)
 ```
 
+```{r}
+d_bored <- d_agg %>%
+  filter(item == "boring")
+head(d_bored)
+summary(glm(judgment~domain+stars, family="binomial", data=d_bored))
+
+```
 
 ## Primary analysis - domain level differences
 
@@ -355,13 +371,85 @@ We don't expect to see any statistical differences.
 
 ## Basic RSA
 
+Delta function -normalize literal semantics
+```{r}
+norm_vec <- function(v) v / sum(v)
+normalize_semantics <- function(d) {
+  norm_vec(d$avg_judgment)
+}
+test_s <- "V5"
+pattern <- "V([1-5])"
+gsub(pattern, replacement = "\\1", x = test_s)
+d_L0_sems <- plyr::ddply(.data=d_agg_sems, .variables=c("domain", "item"), .fun=normalize_semantics) %>%
+  gather(stars, sems, -c(domain, item)) %>%
+  rowwise %>%
+  mutate(stars=as.numeric(gsub(pattern, "\\1", stars))) %>%
+  arrange(domain, item, stars)
+```
+
+
+```{r}
+d_L0_sems_long <- d_L0_sems %>%
+  spread(stars, sems)
+
+d_L0_scales <- data.frame(domain=c(),
+                          item=c(),
+                          scale=c(),
+                          "1"=c(),
+                          "2"=c(),
+                          "3"=c(),
+                          "4"=c(),
+                          "5"=c())
+for (domain in DOMAINS) {
+  for (scale in names(all_scales)) {
+    for (item in all_scales[[scale]]) {
+      print("item:")
+      print(item)
+      print("----------------------")
+      
+      curr_row <- d_L0_sems_long[which(d_L0_sems_long$item==item & d_L0_sems_long$domain==domain),] %>%
+        mutate(scale=scale)
+      d_L0_scales <- rbind(d_L0_scales, curr_row)
+      # print(d_L0_sems_long %>% filter(domain==domain, item==item) %>%
+      #   mutate(scale=scale))
+    }
+  }
+}
+d_L0_scales <- d_L0_scales %>%
+  mutate(scale=as.factor(scale)) %>%
+  gather(stars, sems, -c(domain, item, scale)) %>%
+  select(domain, scale, item, stars, sems) %>%
+  rowwise %>%
+  mutate(word_type=map_word_type(item)) %>%
+  arrange(domain, scale, word_type, item, stars, sems)
+```
+
+Normalized semantics plot
+```{r L0_plot}
+d_L0_scales <- d_L0_scales %>% mutate(stars=as.numeric(stars))
+
+d_L0_scales %>%
+  ggplot(aes(x=stars, y=sems, col=item)) +
+    geom_line() +
+    facet_grid(scale~domain)
+```
+
 -- `depth=1`, `alpha=1` 2-alt vs 3-alt vs 4-alt vs 5-alt models
 
 -- Standard theory predicts that listeners need only consider entailment alternatives in order to generate the implicature (2-alt model)
 
 -- Test: do we see better model fit (correlation) by adding more alternatives and tuning hyper-parameters?
 ```{r basic_rsa_test}
-# rsa.runDf_grouped()
+d_L0_scales <- d_L0_scales %>% mutate(stars=as.character(stars))
+plyr::ddply(.data=d_L0_scales, .fun=rsa.runDf, 
+            .variables=c("domain", "scale"), quantityVarName="stars",
+            semanticsVarName="sems", itemVarName="item")
+
+ plyr::ddply(data, .fun = rsa.runDf, 
+                  .variables = c(groupName), quantityVarName = quantityVarName, 
+                  semanticsVarName = semanticsVarName, itemVarName = itemVarName, 
+                  costsVarName = costsVarName, priorsVarName = priorsVarName, 
+                  depth = d, alpha = a, usePriorEveryRecurse = usePriorEveryRecurse)
 ```
 
 ## Tuned RSA
