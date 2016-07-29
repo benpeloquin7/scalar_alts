@@ -56,7 +56,7 @@ function shuffle (a) {
 // ----------
 
 // Set current domain
-var DOMAIN = "restaurant"; // Change this between expt's
+var DOMAIN = "album"; // Change this between expt's
 var NUM_ITEMS = 21;
 var NUM_TRAINING_TRIALS = 2;
 var TOTAL_TRIALS = NUM_ITEMS + NUM_TRAINING_TRIALS;
@@ -224,5 +224,4 @@ var experiment = {
     	}
 		experiment.end();
     }
-    //###:-------------Log debrief data-------------:###
 };
