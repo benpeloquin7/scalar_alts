@@ -82,13 +82,16 @@ Helpers
 ## -------------------------
 ## read in a single file from L0
 ##
-get_data_single_L0_file <- function(file, domain=NA) {
+get_data_single_file <- function(file, domain=NA, study_type="L0") {
   if (is.na(domain)) error("Must enter domain")
   d_raw <- fromJSON(file=file)
   d_answers <- data.frame(d_raw$answers)
   pattern <- "data\\."
   colnames(d_answers) <- sub(pattern, "", colnames(d_answers))
-  d_answers <- d_answers %>%
+  
+  ## Literal listener data
+  if (study_type == "L0") {
+    d_answers <- d_answers %>%
     mutate(study="L0",
            language=as.character(language),
            domain=domain,
@@ -97,9 +100,26 @@ get_data_single_L0_file <- function(file, domain=NA) {
            stars=as.numeric(as.character(stars))/20,
            judgment=as.numeric(judgment)-1,
            worker_id=d_raw$WorkerId)
-  d_answers$word_type <- sapply(d_answers$item, map_word_type)
-  d_answers <- d_answers %>%
-    select(worker_id, study, domain, word_type, item, stars, judgment, age, gender, expt_aim, expt_gen, language)
+    d_answers$word_type <- sapply(d_answers$item, map_word_type)
+    d_answers <- d_answers %>%
+      select(worker_id, study, domain, word_type, item, stars, judgment, age, gender, expt_aim, expt_gen, language)
+  }
+  ## Pragmatic listener data
+  else if (study_type == "L1") {
+    d_answers <- d_answers %>%
+    mutate(study="L1",
+           language=as.character(language),
+           domain=domain,
+           item=as.character(item),
+           age=as.numeric(as.character(age)),
+           judgment=as.numeric(judgment),
+           worker_id=d_raw$WorkerId)
+    d_answers$word_type <- sapply(d_answers$item, map_word_type)
+    d_answers <- d_answers %>%
+      select(worker_id, study, domain, word_type, item, judgment, age, gender, expt_aim, expt_gen, language)
+  }
+  else error("Incorrect study type")
+  
   d_answers
 }
 ```
@@ -134,12 +154,25 @@ Response is a binary `yes`/`no` response if the target word is compatible with t
 ## -----------
 ## filtered literal semantics df
 ##
-filter_df <- function(d, verbose=TRUE) {
-  bad_ids <- d %>%
-    filter(word_type == "training") %>%
-    group_by(worker_id) %>%
-    summarise(training_perf=sum(judgment)) %>%
-    filter(training_perf != 2) ## filter out anyone who doesn't pass both training trials or took the study mult times
+filter_df <- function(d, study_type=NA, verbose=TRUE) {
+  if (is.na(study_type)) error("Please input valid study_type; `L0` or `L1`")
+    
+  if (study_type == "L0") {
+    bad_ids <- d %>%
+      filter(word_type == "training") %>%
+      group_by(worker_id) %>%
+      summarise(training_perf=sum(judgment)) %>%
+      filter(training_perf != 2,
+             tolower(language) != "english") ## filter out anyone who doesn't pass both
+                                             ## training trials or took the study mult times
+  } else if (study_type == "L1") {
+    ## Do more here
+    bad_ids <- d %>%
+      filter(word_type == "training") %>%
+      group_by(worker_id, item) %>%
+      filter(((item=="high" & judgment < 4) | (item=="low" & judgment > 2)),
+             tolower(language) != "english")
+  } else error("Incorrect study_type; should be `L0` or `L1`")
   ## Filtered data
   d_filtered <- d %>%
     filter(!(worker_id %in% bad_ids$worker_id),
@@ -155,11 +188,55 @@ filter_df <- function(d, verbose=TRUE) {
 }
 # head(filter_df(d_L0))
 
-## create_domain_df() 
-## ------------------
-## create a single domain level df
+## construct_dir_path()
+## --------------------
+## Construct path to data dir for literal listener or pragmatic listener judgments
 ##
-create_domain_df <- function(domain=NA, dir_path=NA, filter=TRUE, verbose=TRUE) {
+create_dir_path <- function(domain, study_type=NA) {
+  if (is.na(study_type)) error("Please enter a study_type; either `L0` or `L1`")
+  if (study_type == "L0") paste0("/Users/benpeloquin/Desktop/Projects/scalar_alts/data/L0_data/", domain, "/")
+  else if (study_type == "L1") paste0("/Users/benpeloquin/Desktop/Projects/scalar_alts/data/L1_data/", domain, "/")
+  else error("Bad `study_type` arg")
+}
+
+## create_L0_domain_df()
+## ---------------------
+##
+create_L1_domain_df <- function(domain=NA, dir_path=NA, filter=TRUE, verbose=TRUE) {
+  if (is.na(domain) | is.na(dir_path)) error("Need to pass `domain` and `dir_path` args")
+  
+  ## Data hold
+  d <- data.frame(worker_id=c(),
+                   study=c(),
+                   domain=c(),
+                   word_type=c(),
+                   item=c(),
+                   judgment=c(),
+                   age=c(),
+                   gender=c(),
+                   expt_aim=c(),
+                   expt_gen=c(),
+                   language=c())
+  dir_path <- paste0("/Users/benpeloquin/Desktop/Projects/scalar_alts/data/L1_data/", domain, "/")
+  
+  ## Add files
+  files <- list.files(dir_path)
+  if (verbose) warning(paste0("Currently reading in files for ", domain, "..."))
+  for (file in files) {
+    d <- rbind(d, get_data_single_file(paste0(dir_path, file), domain, study_type="L1"))
+  }
+  
+  ## Check for filtering
+  if (filter) return_df <- filter_df(d, study_type="L1", verbose=verbose)
+  else return_df <- d
+  
+  return_df
+}
+
+## create_L0_domain_df()
+## ---------------------
+##
+create_L0_domain_df <- function(domain=NA, dir_path=NA, filter=TRUE, verbose=TRUE) {
   if (is.na(domain) | is.na(dir_path)) error("Need to pass `domain` and `dir_path` args")
   
   ## Data hold
@@ -181,7 +258,7 @@ create_domain_df <- function(domain=NA, dir_path=NA, filter=TRUE, verbose=TRUE) 
   files <- list.files(dir_path)
   if (verbose) warning(paste0("Currently reading in files for ", domain, "..."))
   for (file in files) {
-    d <- rbind(d, get_data_single_L0_file(paste0(dir_path, file), domain))
+    d <- rbind(d, get_data_single_file(paste0(dir_path, file), domain, study_type="L0"))
   }
   
   ## Check for filtering
@@ -191,26 +268,35 @@ create_domain_df <- function(domain=NA, dir_path=NA, filter=TRUE, verbose=TRUE) 
   return_df
 }
 
-## construct_dir_path()
-## --------------------
-## Construct path to data dir for literal listener or pragmatic listener judgments
+## create_domain_df() 
+## ------------------
+## create a single domain level df
 ##
-create_dir_path <- function(domain, L0=TRUE) {
-  if (L0) paste0("/Users/benpeloquin/Desktop/Projects/scalar_alts/data/L0_data/", domain, "/")
-  else paste0("/Users/benpeloquin/Desktop/Projects/scalar_alts/data/L1_data/", domain, "/")
+create_domain_df <- function(domain=NA, dir_path=NA, study_type=NA, filter=TRUE, verbose=TRUE) {
+  if (is.na(domain) | is.na(dir_path)) error("Need to pass `domain` and `dir_path` args")
+  if (is.na(study_type)) error("Pass in study type; either `L0` or `L1`")
+  
+  if (study_type == "L0") {
+    ## L0
+    return(create_L0_domain_df(domain=domain, dir_path=dir_path, filter=filter, verbose=verbose))
+  } else {
+    ## L1
+    return(create_L1_domain_df(domain=domain, dir_path=dir_path, filter=filter, verbose=verbose))
+  }
 }
 ```
 
 ## Data pre-processing (combine domains, data-typing).
 ```{r L0_data_preprocessing}
-d_album <- create_domain_df("album", dir_path=create_dir_path("album"), filter=TRUE, verbose=TRUE)
-d_book <- create_domain_df("book", dir_path=create_dir_path("book"), filter=TRUE, verbose=TRUE)
-d_game <- create_domain_df("game", dir_path=create_dir_path("game"), filter=TRUE, verbose=TRUE)
-# d_movie <- create_domain_df("movie", dir_path=create_dir_path("movie"), filter=TRUE, verbose=TRUE)
-d_play <- create_domain_df("play", dir_path=create_dir_path("play"), filter=TRUE, verbose=TRUE)
-d_restaurant <- create_domain_df("restaurant", dir_path=create_dir_path("restaurant"), filter=TRUE, verbose=TRUE)
+d_album <- create_domain_df("album", dir_path=create_dir_path("album", "L0"), study_type="L0", filter=TRUE, verbose=TRUE)
+d_book <- create_domain_df("book", dir_path=create_dir_path("book", "L0"), study_type="L0", filter=TRUE, verbose=TRUE)
+d_game <- create_domain_df("game", dir_path=create_dir_path("game", "L0"), study_type="L0", filter=TRUE, verbose=TRUE)
+d_movie <- create_domain_df("movie", dir_path=create_dir_path("movie", "L0"), study_type="L0", filter=TRUE, verbose=TRUE)
+d_play <- create_domain_df("play", dir_path=create_dir_path("play", "L0"), study_type="L0", filter=TRUE, verbose=TRUE)
+d_restaurant <- create_domain_df("restaurant",
+                                 dir_path=create_dir_path("restaurant", "L0"), study_type="L0", filter=TRUE, verbose=TRUE)
 
-d_agg <- rbind(d_album, d_book, d_game, d_play, d_restaurant)
+d_agg <- rbind(d_album, d_book, d_game, d_movie, d_play, d_restaurant)
 ```
 
 Literal semantics plot
@@ -264,11 +350,11 @@ Is `domain` a sigificant predictor of response.
 
 Null hypothesis is there are no differences between domain (i.e. domain should not significantly predict response after controlling for `target_word`).
 ```{r L0_domain_differences_test}
-d_agg <- d_agg %>%
+d_agg_test <- d_agg %>%
   mutate(worker_id=as.factor(worker_id),
          item=as.factor(item))
-summary(glm(judgment~item+domain, family="binomial", data=d_agg))
-summary(glmer(judgment~domain+(1|item)+(1|worker_id), data=d_agg))
+summary(glm(judgment~item+domain, family="binomial", data=d_agg_test))
+summary(glmer(judgment~domain+(1|item)+(1|worker_id), family="binomial", data=d_agg_test))
 ```
 
 ## Secondary analysis -- word level differences
@@ -320,14 +406,32 @@ Response is a rating between 1-5 stars.
 
 ## Data pre-processing (combine domains, data-typing).
 ```{r L1_data_preprocessing}
-# read.csv()
+d_album <- create_domain_df("album", dir_path=create_dir_path("album", "L1"), study_type="L1", filter=TRUE, verbose=TRUE)
+# d_book <- create_domain_df("book", dir_path=create_dir_path("book", "L0"), study_type="L0", filter=TRUE, verbose=TRUE)
+# d_game <- create_domain_df("game", dir_path=create_dir_path("game", "L0"), study_type="L0", filter=TRUE, verbose=TRUE)
+# d_movie <- create_domain_df("movie", dir_path=create_dir_path("movie", "L0"), study_type="L0", filter=TRUE, verbose=TRUE)
+# d_play <- create_domain_df("play", dir_path=create_dir_path("play", "L0"), study_type="L0", filter=TRUE, verbose=TRUE)
+# d_restaurant <- create_domain_df("restaurant",
+#                                  dir_path=create_dir_path("restaurant", "L0"), study_type="L0", filter=TRUE, verbose=TRUE)
+# 
+# d_agg <- rbind(d_album, d_book, d_game, d_movie, d_play, d_restaurant)
 ```
 
 ## Primary analysis -- domain level differences
 
 ### Plots by scalar pairs and domains
 ```{r L1_domain_differences_plot}
-# ggplot()
+d_album %>% View
+  group_by(item, judgment) %>%
+  summarise(counts=n()) %>%
+  ggplot(aes(x=judgment, y=counts)) +
+    geom_bar(position="dodge", stat="identity") +
+    facet_wrap(~item)
+ggplot(d_album, aes(x=judgment, y=avg_judgment, col=domain)) +
+  geom_line() +
+  geom_errorbar(aes(ymax=ci_high, ymin=ci_low), width=0) +
+  # geom_pointrange(aes(ymax=ci_high, ymin=ci_low)) +
+  facet_wrap(~item)
 ```
 
 ### Does domain predict response?
@@ -440,16 +544,30 @@ d_L0_scales %>%
 
 -- Test: do we see better model fit (correlation) by adding more alternatives and tuning hyper-parameters?
 ```{r basic_rsa_test}
-d_L0_scales <- d_L0_scales %>% mutate(stars=as.character(stars))
-plyr::ddply(.data=d_L0_scales, .fun=rsa.runDf, 
+d_L0_scales <- d_L0_scales %>% mutate(stars=as.character(stars)) 
+d_L0_scales_2alt <- d_L0_scales %>%
+  mutate(stars=as.character(stars)) %>%
+  filter(word_type=="hi1" | word_type=="h2")
+  
+plyr::ddply(.data=d_L0_scales_2alt, .fun=rsa.runDf, 
             .variables=c("domain", "scale"), quantityVarName="stars",
-            semanticsVarName="sems", itemVarName="item")
+            semanticsVarName="sems", itemVarName="item", alpha=10) %>%
+  filter((word_type=="hi1" | word_type=="hi2"),
+         scale=="good_excellent")
 
- plyr::ddply(data, .fun = rsa.runDf, 
-                  .variables = c(groupName), quantityVarName = quantityVarName, 
-                  semanticsVarName = semanticsVarName, itemVarName = itemVarName, 
-                  costsVarName = costsVarName, priorsVarName = priorsVarName, 
-                  depth = d, alpha = a, usePriorEveryRecurse = usePriorEveryRecurse)
+d_L0_movies <- d_L0_scales %>%
+  filter(domain=="movie")
+         # (word_type=="hi1" | word_type=="hi2"))
+movie_preds <- plyr::ddply(.data=d_L0_movies, .fun=rsa.runDf, 
+                           .variables=c("scale"), quantityVarName="stars",
+                           semanticsVarName="sems", itemVarName="item", alpha=3)
+movie_preds %>% filter(scale == "memorable_unforgettable")
+  
+ # plyr::ddply(data, .fun = rsa.runDf, 
+ #                  .variables = c(groupName), quantityVarName = quantityVarName, 
+ #                  semanticsVarName = semanticsVarName, itemVarName = itemVarName, 
+ #                  costsVarName = costsVarName, priorsVarName = priorsVarName, 
+ #                  depth = d, alpha = a, usePriorEveryRecurse = usePriorEveryRecurse)
 ```
 
 ## Tuned RSA
