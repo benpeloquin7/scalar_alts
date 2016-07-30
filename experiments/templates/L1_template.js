@@ -56,7 +56,7 @@ function shuffle (a) {
 // ----------
 
 // Set current domain
-var DOMAIN = "book"; // Change this between expt's
+var DOMAIN = "game"; // Change this between expt's
 var NUM_ITEMS = 21;
 var NUM_TRAINING_TRIALS = 2;
 var TOTAL_TRIALS = NUM_ITEMS + NUM_TRAINING_TRIALS;
