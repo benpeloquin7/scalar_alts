@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-30T22:26:18Z",
+    "AutoApprovalTime": "2016-07-30T22:25:24Z",
+    "AssignmentId": "3U088ZLJVKT9EAB8M80X7MHTX5Y0WB",
+    "WorkerId": "A273VNFKVU57QS",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "58"
+            ],
+            "expt_aim": [
+                "The perception of star ratings."
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "item": [
+                "high",
+                "low",
+                "memorable",
+                "liked",
+                "excellent",
+                "hated",
+                "average",
+                "unforgettable",
+                "tolerated",
+                "disliked",
+                "boring",
+                "great",
+                "unique",
+                "ordinary",
+                "bad",
+                "common",
+                "special",
+                "forgettable",
+                "good",
+                "terrible",
+                "okay",
+                "different",
+                "loved"
+            ],
+            "judgment": [
+                4,
+                2,
+                4,
+                3,
+                5,
+                1,
+                3,
+                2,
+                1,
+                1,
+                1,
+                5,
+                4,
+                3,
+                1,
+                3,
+                4,
+                2,
+                3,
+                1,
+                3,
+                3,
+                4
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-30T22:17:56Z",
+    "HITId": "37ZQELHEQ0YD7AB7TAR6KGGSXO8MNO",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-30T22:20:24Z"
+}

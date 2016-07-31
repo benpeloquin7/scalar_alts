@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-29T22:51:18Z",
+    "AutoApprovalTime": "2016-07-29T22:50:25Z",
+    "AssignmentId": "3ZWFC4W1UU7V3I9CQW9CNUWGBRPRFI",
+    "WorkerId": "A1SLJKNSNHOJRN",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "33"
+            ],
+            "expt_aim": [
+                "How words and ratings are comparatively used. "
+            ],
+            "expt_gen": [
+                "none"
+            ],
+            "item": [
+                "high",
+                "low",
+                "okay",
+                "tolerated",
+                "loved",
+                "excellent",
+                "great",
+                "terrible",
+                "average",
+                "forgettable",
+                "common",
+                "different",
+                "special",
+                "liked",
+                "memorable",
+                "disliked",
+                "hated",
+                "unique",
+                "unforgettable",
+                "bad",
+                "good",
+                "ordinary",
+                "boring"
+            ],
+            "judgment": [
+                5,
+                2,
+                3,
+                3,
+                5,
+                5,
+                5,
+                1,
+                3,
+                2,
+                2,
+                4,
+                5,
+                4,
+                5,
+                1,
+                1,
+                4,
+                5,
+                1,
+                3,
+                3,
+                2
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-29T22:42:32Z",
+    "HITId": "3AQN9REUTFG4FF98NJ1EI6R5SUGYD4",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-29T22:45:25Z"
+}

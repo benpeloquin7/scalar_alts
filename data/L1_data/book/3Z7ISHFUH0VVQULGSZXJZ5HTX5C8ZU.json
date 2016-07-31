@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-30T17:13:18Z",
+    "AutoApprovalTime": "2016-07-30T17:12:55Z",
+    "AssignmentId": "3Z7ISHFUH0VVQULGSZXJZ5HTX5C8ZU",
+    "WorkerId": "A1UFMQDQXFVAJL",
+    "answers": {
+        "data": {
+            "language": [
+                "english"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "39"
+            ],
+            "expt_aim": [
+                "how a person perceives star ratings in relation to certain descriptive words used."
+            ],
+            "expt_gen": [
+                "interesting"
+            ],
+            "item": [
+                "high",
+                "low",
+                "special",
+                "memorable",
+                "ordinary",
+                "boring",
+                "common",
+                "excellent",
+                "unique",
+                "okay",
+                "hated",
+                "forgettable",
+                "terrible",
+                "bad",
+                "different",
+                "liked",
+                "average",
+                "disliked",
+                "tolerated",
+                "great",
+                "good",
+                "unforgettable",
+                "loved"
+            ],
+            "judgment": [
+                5,
+                2,
+                4,
+                3,
+                2,
+                1,
+                2,
+                5,
+                3,
+                2,
+                1,
+                1,
+                1,
+                1,
+                2,
+                4,
+                3,
+                1,
+                1,
+                4,
+                4,
+                5,
+                5
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-30T17:05:22Z",
+    "HITId": "3ZTE0JGGCESIG9ZSH0X5W9BLTK9OCN",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-30T17:07:55Z"
+}

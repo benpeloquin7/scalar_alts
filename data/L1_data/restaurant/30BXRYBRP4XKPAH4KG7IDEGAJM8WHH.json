@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-31T02:09:18Z",
+    "AutoApprovalTime": "2016-07-31T02:09:07Z",
+    "AssignmentId": "30BXRYBRP4XKPAH4KG7IDEGAJM8WHH",
+    "WorkerId": "A28LE67Q1YR9TV",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "32"
+            ],
+            "expt_aim": [
+                "Collecting data on the level of good/bad implied by certain words"
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "item": [
+                "high",
+                "low",
+                "hated",
+                "average",
+                "unforgettable",
+                "different",
+                "unique",
+                "loved",
+                "terrible",
+                "liked",
+                "special",
+                "great",
+                "forgettable",
+                "boring",
+                "bad",
+                "tolerated",
+                "okay",
+                "excellent",
+                "memorable",
+                "common",
+                "ordinary",
+                "disliked",
+                "good"
+            ],
+            "judgment": [
+                5,
+                2,
+                1,
+                3,
+                5,
+                4,
+                4,
+                5,
+                1,
+                3,
+                5,
+                4,
+                2,
+                3,
+                2,
+                3,
+                3,
+                5,
+                5,
+                3,
+                3,
+                2,
+                4
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-31T02:01:32Z",
+    "HITId": "3UQVX1UPFSHKFAF7IM6OUV6HJQJ023",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-31T02:04:07Z"
+}

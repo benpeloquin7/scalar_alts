@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-30T22:28:18Z",
+    "AutoApprovalTime": "2016-07-30T22:27:40Z",
+    "AssignmentId": "3PZDLQMM0TL7WM8HK44AEG352NZ2CN",
+    "WorkerId": "A3S8TCGE1CVC1P",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "40"
+            ],
+            "expt_aim": [
+                "To see what rating we thought each statement was given."
+            ],
+            "expt_gen": [
+                "It was easy to do and the instructions told you exactly what you needed to do."
+            ],
+            "item": [
+                "high",
+                "low",
+                "great",
+                "forgettable",
+                "average",
+                "liked",
+                "memorable",
+                "okay",
+                "loved",
+                "boring",
+                "ordinary",
+                "bad",
+                "unforgettable",
+                "disliked",
+                "tolerated",
+                "good",
+                "special",
+                "excellent",
+                "different",
+                "hated",
+                "unique",
+                "common",
+                "terrible"
+            ],
+            "judgment": [
+                5,
+                1,
+                3,
+                1,
+                2,
+                2,
+                3,
+                1,
+                4,
+                1,
+                1,
+                1,
+                5,
+                1,
+                1,
+                2,
+                3,
+                4,
+                3,
+                1,
+                3,
+                2,
+                1
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-30T22:18:28Z",
+    "HITId": "37ZQELHEQ0YD7AB7TAR6KGGSXO8MNO",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-30T22:22:40Z"
+}

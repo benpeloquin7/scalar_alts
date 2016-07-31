@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-29T22:25:18Z",
+    "AutoApprovalTime": "2016-07-29T22:24:35Z",
+    "AssignmentId": "37Z929RLG98HN2RQ05E6U8GDO2FSTE",
+    "WorkerId": "A2HGAQ9WOEU9PN",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "24"
+            ],
+            "expt_aim": [
+                "Seeing how people relate words to ratings. "
+            ],
+            "expt_gen": [
+                "Thanks!"
+            ],
+            "item": [
+                "high",
+                "low",
+                "excellent",
+                "good",
+                "memorable",
+                "tolerated",
+                "terrible",
+                "ordinary",
+                "common",
+                "disliked",
+                "different",
+                "forgettable",
+                "boring",
+                "bad",
+                "special",
+                "hated",
+                "unforgettable",
+                "liked",
+                "okay",
+                "unique",
+                "average",
+                "great",
+                "loved"
+            ],
+            "judgment": [
+                5,
+                2,
+                5,
+                3,
+                3,
+                2,
+                1,
+                2,
+                2,
+                1,
+                3,
+                3,
+                2,
+                1,
+                4,
+                1,
+                4,
+                4,
+                3,
+                3,
+                3,
+                4,
+                5
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-29T22:17:50Z",
+    "HITId": "3AQN9REUTFG4FF98NJ1EI6R5SUGYD4",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-29T22:19:35Z"
+}

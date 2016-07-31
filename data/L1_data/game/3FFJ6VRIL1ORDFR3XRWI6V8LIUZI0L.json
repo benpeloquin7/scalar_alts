@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-30T22:25:18Z",
+    "AutoApprovalTime": "2016-07-30T22:24:24Z",
+    "AssignmentId": "3FFJ6VRIL1ORDFR3XRWI6V8LIUZI0L",
+    "WorkerId": "A3TDA1NWHNQFE3",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "28"
+            ],
+            "expt_aim": [
+                "How we perceive phrases"
+            ],
+            "expt_gen": [
+                "no"
+            ],
+            "item": [
+                "high",
+                "low",
+                "liked",
+                "unforgettable",
+                "bad",
+                "boring",
+                "unique",
+                "memorable",
+                "okay",
+                "forgettable",
+                "different",
+                "common",
+                "loved",
+                "ordinary",
+                "great",
+                "good",
+                "average",
+                "excellent",
+                "special",
+                "terrible",
+                "hated",
+                "tolerated",
+                "disliked"
+            ],
+            "judgment": [
+                4,
+                2,
+                3,
+                5,
+                1,
+                2,
+                4,
+                4,
+                3,
+                2,
+                3,
+                2,
+                4,
+                2,
+                4,
+                3,
+                3,
+                5,
+                5,
+                1,
+                1,
+                2,
+                2
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-30T22:17:46Z",
+    "HITId": "37ZQELHEQ0YD7AB7TAR6KGGSXO8MNO",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-30T22:19:24Z"
+}

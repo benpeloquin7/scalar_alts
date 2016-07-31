@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-29T23:33:18Z",
+    "AutoApprovalTime": "2016-07-29T23:33:17Z",
+    "AssignmentId": "3ZQIG0FLQEGP7BCOP5OMSF7JR0SWVE",
+    "WorkerId": "A3E4TBBYCJYZQD",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "47"
+            ],
+            "expt_aim": [
+                "Perception of adjectives"
+            ],
+            "expt_gen": [
+                "no"
+            ],
+            "item": [
+                "high",
+                "low",
+                "great",
+                "average",
+                "liked",
+                "forgettable",
+                "excellent",
+                "ordinary",
+                "hated",
+                "unforgettable",
+                "terrible",
+                "okay",
+                "good",
+                "unique",
+                "special",
+                "loved",
+                "different",
+                "tolerated",
+                "disliked",
+                "common",
+                "memorable",
+                "boring",
+                "bad"
+            ],
+            "judgment": [
+                5,
+                2,
+                5,
+                3,
+                5,
+                1,
+                5,
+                3,
+                1,
+                5,
+                1,
+                2,
+                4,
+                3,
+                4,
+                5,
+                3,
+                2,
+                1,
+                2,
+                5,
+                1,
+                1
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-29T23:22:48Z",
+    "HITId": "3K3G488TR280203TH321780BG42Q5M",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-29T23:28:17Z"
+}

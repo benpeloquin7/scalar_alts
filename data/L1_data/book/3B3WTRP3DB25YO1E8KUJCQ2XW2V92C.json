@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-30T17:17:18Z",
+    "AutoApprovalTime": "2016-07-30T17:16:24Z",
+    "AssignmentId": "3B3WTRP3DB25YO1E8KUJCQ2XW2V92C",
+    "WorkerId": "A130P4M9JPT4YA",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "46"
+            ],
+            "expt_aim": [
+                "Testing how different words, although synonyms, affect my perception of what was meant by the person writing."
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "item": [
+                "high",
+                "low",
+                "ordinary",
+                "great",
+                "common",
+                "terrible",
+                "hated",
+                "average",
+                "special",
+                "memorable",
+                "boring",
+                "tolerated",
+                "unforgettable",
+                "excellent",
+                "unique",
+                "disliked",
+                "forgettable",
+                "liked",
+                "good",
+                "different",
+                "okay",
+                "loved",
+                "bad"
+            ],
+            "judgment": [
+                4,
+                2,
+                3,
+                5,
+                3,
+                1,
+                1,
+                3,
+                4,
+                4,
+                2,
+                1,
+                5,
+                5,
+                4,
+                2,
+                2,
+                4,
+                4,
+                4,
+                3,
+                5,
+                1
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-30T17:09:26Z",
+    "HITId": "3ZTE0JGGCESIG9ZSH0X5W9BLTK9OCN",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-30T17:11:24Z"
+}

@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-29T23:32:18Z",
+    "AutoApprovalTime": "2016-07-29T23:31:36Z",
+    "AssignmentId": "3SLE99ER0NDESSJNVBHTQ77U5AGBZD",
+    "WorkerId": "A36969E5PID5YY",
+    "answers": {
+        "data": {
+            "language": [
+                "english"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "19"
+            ],
+            "expt_aim": [
+                "Testing for how people perceive a given word"
+            ],
+            "expt_gen": [
+                "none"
+            ],
+            "item": [
+                "high",
+                "low",
+                "disliked",
+                "tolerated",
+                "liked",
+                "average",
+                "bad",
+                "ordinary",
+                "loved",
+                "okay",
+                "memorable",
+                "forgettable",
+                "excellent",
+                "different",
+                "unique",
+                "unforgettable",
+                "special",
+                "common",
+                "terrible",
+                "great",
+                "hated",
+                "good",
+                "boring"
+            ],
+            "judgment": [
+                4,
+                2,
+                1,
+                3,
+                4,
+                3,
+                1,
+                3,
+                5,
+                3,
+                5,
+                1,
+                5,
+                3,
+                4,
+                5,
+                5,
+                3,
+                1,
+                5,
+                1,
+                4,
+                2
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-29T23:22:42Z",
+    "HITId": "3K3G488TR280203TH321780BG42Q5M",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-29T23:26:36Z"
+}

@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-31T02:12:18Z",
+    "AutoApprovalTime": "2016-07-31T02:11:53Z",
+    "AssignmentId": "333U7HK6I9FH7AC3RL5DX374PY6DJU",
+    "WorkerId": "A1AKFZF27I60MQ",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "25"
+            ],
+            "expt_aim": [
+                "Relationship between adjectives and their magnitude on a good to bad scale."
+            ],
+            "expt_gen": [
+                "No."
+            ],
+            "item": [
+                "high",
+                "low",
+                "great",
+                "okay",
+                "ordinary",
+                "different",
+                "special",
+                "unique",
+                "bad",
+                "common",
+                "loved",
+                "terrible",
+                "memorable",
+                "unforgettable",
+                "disliked",
+                "tolerated",
+                "forgettable",
+                "boring",
+                "hated",
+                "average",
+                "liked",
+                "good",
+                "excellent"
+            ],
+            "judgment": [
+                4,
+                2,
+                4,
+                3,
+                3,
+                3,
+                3,
+                3,
+                1,
+                3,
+                5,
+                1,
+                4,
+                5,
+                1,
+                2,
+                2,
+                2,
+                1,
+                3,
+                4,
+                3,
+                5
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-31T02:04:03Z",
+    "HITId": "3UQVX1UPFSHKFAF7IM6OUV6HJQJ023",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-31T02:06:53Z"
+}

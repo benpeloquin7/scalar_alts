@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-31T01:09:18Z",
+    "AutoApprovalTime": "2016-07-31T01:09:13Z",
+    "AssignmentId": "333U7HK6I9FH7AC3RL5DX374PY1DJP",
+    "WorkerId": "A28HYRF3QXFAXL",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "27"
+            ],
+            "expt_aim": [
+                "Maybe it's about what it seems to be about: how people relate star ratings relate to descriptions or characterizations. "
+            ],
+            "expt_gen": [
+                "I hope your research can prove, once and for all, that five-star ratings systems are useless and should be replaced (with force of law) by three-star systems corresponding to something like \"unacceptable,\" \"acceptable,\" and \"excellent.\""
+            ],
+            "item": [
+                "high",
+                "low",
+                "loved",
+                "memorable",
+                "common",
+                "bad",
+                "unique",
+                "ordinary",
+                "unforgettable",
+                "special",
+                "liked",
+                "good",
+                "different",
+                "forgettable",
+                "great",
+                "tolerated",
+                "average",
+                "hated",
+                "excellent",
+                "okay",
+                "disliked",
+                "boring",
+                "terrible"
+            ],
+            "judgment": [
+                4,
+                2,
+                5,
+                4,
+                3,
+                2,
+                3,
+                3,
+                5,
+                5,
+                3,
+                4,
+                3,
+                2,
+                5,
+                2,
+                3,
+                1,
+                5,
+                3,
+                2,
+                2,
+                1
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-31T00:49:01Z",
+    "HITId": "3ZURAPD288N4NTC120PVSJJGXMU1FR",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-31T01:04:13Z"
+}

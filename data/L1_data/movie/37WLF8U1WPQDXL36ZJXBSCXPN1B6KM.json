@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-30T23:17:18Z",
+    "AutoApprovalTime": "2016-07-30T23:16:41Z",
+    "AssignmentId": "37WLF8U1WPQDXL36ZJXBSCXPN1B6KM",
+    "WorkerId": "A1DNJ3C38BJ0MJ",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "58"
+            ],
+            "expt_aim": [
+                "language and word definitions"
+            ],
+            "expt_gen": [
+                "just to send me more hits on mturk"
+            ],
+            "item": [
+                "high",
+                "low",
+                "liked",
+                "terrible",
+                "okay",
+                "loved",
+                "average",
+                "unique",
+                "disliked",
+                "tolerated",
+                "unforgettable",
+                "forgettable",
+                "different",
+                "good",
+                "hated",
+                "great",
+                "excellent",
+                "special",
+                "common",
+                "memorable",
+                "bad",
+                "ordinary",
+                "boring"
+            ],
+            "judgment": [
+                4,
+                2,
+                3,
+                1,
+                3,
+                5,
+                3,
+                4,
+                1,
+                3,
+                4,
+                1,
+                3,
+                4,
+                1,
+                5,
+                5,
+                4,
+                3,
+                4,
+                1,
+                3,
+                1
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-30T23:09:24Z",
+    "HITId": "3TC2K6WK9G22XZKADQJ3NACZ2OT28Q",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-30T23:11:41Z"
+}

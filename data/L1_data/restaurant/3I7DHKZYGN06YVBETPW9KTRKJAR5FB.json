@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-31T02:12:18Z",
+    "AutoApprovalTime": "2016-07-31T02:11:50Z",
+    "AssignmentId": "3I7DHKZYGN06YVBETPW9KTRKJAR5FB",
+    "WorkerId": "A1HAUHRSK9158F",
+    "answers": {
+        "data": {
+            "language": [
+                "english"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "26"
+            ],
+            "expt_aim": [
+                "to see what words influence people"
+            ],
+            "expt_gen": [
+                "no"
+            ],
+            "item": [
+                "high",
+                "low",
+                "unforgettable",
+                "loved",
+                "unique",
+                "terrible",
+                "great",
+                "bad",
+                "forgettable",
+                "tolerated",
+                "boring",
+                "disliked",
+                "good",
+                "hated",
+                "okay",
+                "excellent",
+                "common",
+                "different",
+                "average",
+                "memorable",
+                "ordinary",
+                "liked",
+                "special"
+            ],
+            "judgment": [
+                5,
+                1,
+                5,
+                5,
+                3,
+                1,
+                5,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3,
+                1,
+                2,
+                5,
+                3,
+                3,
+                3,
+                4,
+                3,
+                3,
+                4
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-31T02:05:16Z",
+    "HITId": "3UQVX1UPFSHKFAF7IM6OUV6HJQJ023",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-31T02:06:50Z"
+}

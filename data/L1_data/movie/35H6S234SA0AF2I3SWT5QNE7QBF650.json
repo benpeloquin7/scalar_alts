@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-30T23:35:18Z",
+    "AutoApprovalTime": "2016-07-30T23:35:02Z",
+    "AssignmentId": "35H6S234SA0AF2I3SWT5QNE7QBF650",
+    "WorkerId": "A3TVT3X7ROYZYN",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "30"
+            ],
+            "expt_aim": [
+                "The experiment looks like it wants the taker to use past experiences with words to gauge a rating that a movie would receive."
+            ],
+            "expt_gen": [
+                "I thought it was interesting"
+            ],
+            "item": [
+                "high",
+                "low",
+                "unique",
+                "great",
+                "good",
+                "boring",
+                "average",
+                "disliked",
+                "excellent",
+                "memorable",
+                "terrible",
+                "forgettable",
+                "special",
+                "ordinary",
+                "different",
+                "loved",
+                "common",
+                "unforgettable",
+                "hated",
+                "liked",
+                "tolerated",
+                "bad",
+                "okay"
+            ],
+            "judgment": [
+                4,
+                2,
+                3,
+                4,
+                3,
+                2,
+                3,
+                1,
+                5,
+                4,
+                1,
+                2,
+                4,
+                3,
+                3,
+                5,
+                3,
+                4,
+                1,
+                4,
+                2,
+                2,
+                3
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-30T23:26:17Z",
+    "HITId": "3TC2K6WK9G22XZKADQJ3NACZ2OT28Q",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-30T23:30:02Z"
+}

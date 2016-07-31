@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-31T02:11:18Z",
+    "AutoApprovalTime": "2016-07-31T02:10:43Z",
+    "AssignmentId": "3MHW492WW0DT2ZIAL3IZJH5STZ4VME",
+    "WorkerId": "A3VVR8NR3ED04C",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "27"
+            ],
+            "expt_aim": [
+                "Some type of experiment related to synonyms and how we apply it to ratings."
+            ],
+            "expt_gen": [
+                "This was fun."
+            ],
+            "item": [
+                "high",
+                "low",
+                "ordinary",
+                "common",
+                "boring",
+                "bad",
+                "loved",
+                "forgettable",
+                "different",
+                "unforgettable",
+                "excellent",
+                "tolerated",
+                "special",
+                "disliked",
+                "liked",
+                "good",
+                "hated",
+                "unique",
+                "average",
+                "memorable",
+                "terrible",
+                "great",
+                "okay"
+            ],
+            "judgment": [
+                4,
+                2,
+                3,
+                3,
+                2,
+                1,
+                5,
+                2,
+                3,
+                5,
+                5,
+                3,
+                4,
+                2,
+                4,
+                4,
+                1,
+                3,
+                3,
+                4,
+                1,
+                5,
+                3
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-31T02:04:07Z",
+    "HITId": "3UQVX1UPFSHKFAF7IM6OUV6HJQJ023",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-31T02:05:43Z"
+}

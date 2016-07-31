@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-30T22:33:18Z",
+    "AutoApprovalTime": "2016-07-30T22:32:39Z",
+    "AssignmentId": "3HOSI13XHZO44OCBHPJ2U5CRKE0DD7",
+    "WorkerId": "A3JY1UZ9YEOR33",
+    "answers": {
+        "data": {
+            "language": [
+                "English "
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "41"
+            ],
+            "expt_aim": [
+                "Quantifying customer ratings into numbers of stars.  "
+            ],
+            "expt_gen": [
+                "This was fun!"
+            ],
+            "item": [
+                "high",
+                "low",
+                "forgettable",
+                "okay",
+                "bad",
+                "unique",
+                "average",
+                "different",
+                "loved",
+                "terrible",
+                "common",
+                "boring",
+                "great",
+                "tolerated",
+                "liked",
+                "unforgettable",
+                "excellent",
+                "memorable",
+                "special",
+                "good",
+                "hated",
+                "ordinary",
+                "disliked"
+            ],
+            "judgment": [
+                4,
+                2,
+                1,
+                3,
+                1,
+                4,
+                3,
+                3,
+                5,
+                1,
+                3,
+                2,
+                4,
+                2,
+                4,
+                1,
+                5,
+                4,
+                4,
+                4,
+                1,
+                3,
+                1
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-30T22:23:17Z",
+    "HITId": "37ZQELHEQ0YD7AB7TAR6KGGSXO8MNO",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-30T22:27:39Z"
+}

@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-30T23:16:18Z",
+    "AutoApprovalTime": "2016-07-30T23:15:23Z",
+    "AssignmentId": "3XUHV3NRVKYQCR2KOFK9NE3XZPV5H0",
+    "WorkerId": "A1THXHPVWVEWNZ",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "25"
+            ],
+            "expt_aim": [
+                "Perception of movie ratings"
+            ],
+            "expt_gen": [
+                "No"
+            ],
+            "item": [
+                "high",
+                "low",
+                "great",
+                "good",
+                "disliked",
+                "loved",
+                "unforgettable",
+                "terrible",
+                "boring",
+                "unique",
+                "excellent",
+                "liked",
+                "ordinary",
+                "different",
+                "forgettable",
+                "average",
+                "hated",
+                "bad",
+                "memorable",
+                "okay",
+                "tolerated",
+                "common",
+                "special"
+            ],
+            "judgment": [
+                4,
+                2,
+                4,
+                3,
+                2,
+                5,
+                5,
+                1,
+                2,
+                4,
+                5,
+                4,
+                3,
+                4,
+                2,
+                3,
+                1,
+                1,
+                4,
+                3,
+                2,
+                3,
+                4
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-30T23:08:55Z",
+    "HITId": "3TC2K6WK9G22XZKADQJ3NACZ2OT28Q",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-30T23:10:23Z"
+}

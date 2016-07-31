@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-30T23:31:19Z",
+    "AutoApprovalTime": "2016-07-30T23:31:10Z",
+    "AssignmentId": "3WT783CTPBH1KZ8D3XXLF969WTCBCY",
+    "WorkerId": "A1S8DYWNS59XWB",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "31"
+            ],
+            "expt_aim": [
+                "How I interpret certain words of criticism."
+            ],
+            "expt_gen": [
+                "This was fun."
+            ],
+            "item": [
+                "high",
+                "low",
+                "unique",
+                "different",
+                "forgettable",
+                "good",
+                "unforgettable",
+                "bad",
+                "memorable",
+                "hated",
+                "special",
+                "disliked",
+                "okay",
+                "common",
+                "ordinary",
+                "great",
+                "tolerated",
+                "loved",
+                "liked",
+                "terrible",
+                "average",
+                "excellent",
+                "boring"
+            ],
+            "judgment": [
+                4,
+                2,
+                4,
+                3,
+                2,
+                4,
+                5,
+                2,
+                4,
+                1,
+                5,
+                2,
+                3,
+                3,
+                3,
+                5,
+                3,
+                5,
+                4,
+                1,
+                3,
+                5,
+                2
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-30T23:23:35Z",
+    "HITId": "3TC2K6WK9G22XZKADQJ3NACZ2OT28Q",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-30T23:26:10Z"
+}

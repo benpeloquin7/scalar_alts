@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-31T02:13:18Z",
+    "AutoApprovalTime": "2016-07-31T02:12:39Z",
+    "AssignmentId": "3IFS6Q0HJIJREOBF6TF2G1E4DMRISH",
+    "WorkerId": "AYJ4UEKIN5DGF",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "22"
+            ],
+            "expt_aim": [
+                "Translating words and emotions into star ratings"
+            ],
+            "expt_gen": [
+                "It was very quick and fun"
+            ],
+            "item": [
+                "high",
+                "low",
+                "okay",
+                "boring",
+                "forgettable",
+                "memorable",
+                "terrible",
+                "common",
+                "special",
+                "ordinary",
+                "great",
+                "average",
+                "hated",
+                "bad",
+                "loved",
+                "tolerated",
+                "different",
+                "excellent",
+                "disliked",
+                "unique",
+                "unforgettable",
+                "liked",
+                "good"
+            ],
+            "judgment": [
+                4,
+                2,
+                3,
+                2,
+                2,
+                4,
+                1,
+                3,
+                5,
+                3,
+                5,
+                3,
+                1,
+                2,
+                5,
+                2,
+                3,
+                5,
+                2,
+                4,
+                5,
+                4,
+                4
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-31T02:02:25Z",
+    "HITId": "3UQVX1UPFSHKFAF7IM6OUV6HJQJ023",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-31T02:07:39Z"
+}

@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-31T02:05:18Z",
+    "AutoApprovalTime": "2016-07-31T02:04:53Z",
+    "AssignmentId": "3SKRO2GZ71RIQZ29TDLUXG68FQ21KQ",
+    "WorkerId": "A2YSL37G4UUOWC",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "38"
+            ],
+            "expt_aim": [
+                "How we relate words to star ratings"
+            ],
+            "expt_gen": [
+                "No"
+            ],
+            "item": [
+                "high",
+                "low",
+                "average",
+                "different",
+                "boring",
+                "unforgettable",
+                "great",
+                "special",
+                "ordinary",
+                "unique",
+                "loved",
+                "disliked",
+                "terrible",
+                "hated",
+                "excellent",
+                "good",
+                "memorable",
+                "common",
+                "tolerated",
+                "bad",
+                "forgettable",
+                "okay",
+                "liked"
+            ],
+            "judgment": [
+                4,
+                2,
+                3,
+                3,
+                2,
+                5,
+                4,
+                5,
+                3,
+                4,
+                5,
+                1,
+                1,
+                1,
+                5,
+                4,
+                5,
+                3,
+                2,
+                1,
+                2,
+                3,
+                4
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-31T01:57:33Z",
+    "HITId": "3UQVX1UPFSHKFAF7IM6OUV6HJQJ023",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-31T01:59:53Z"
+}

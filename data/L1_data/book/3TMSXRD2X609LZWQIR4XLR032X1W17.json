@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-30T17:49:18Z",
+    "AutoApprovalTime": "2016-07-30T17:48:45Z",
+    "AssignmentId": "3TMSXRD2X609LZWQIR4XLR032X1W17",
+    "WorkerId": "A2COVA7FSAIH3D",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "27"
+            ],
+            "expt_aim": [
+                "Determining how much faith people put in words in relation to ratings"
+            ],
+            "expt_gen": [
+                "Good luck in your further research!"
+            ],
+            "item": [
+                "high",
+                "low",
+                "bad",
+                "disliked",
+                "okay",
+                "unforgettable",
+                "loved",
+                "tolerated",
+                "common",
+                "forgettable",
+                "special",
+                "ordinary",
+                "different",
+                "memorable",
+                "good",
+                "liked",
+                "hated",
+                "great",
+                "unique",
+                "excellent",
+                "average",
+                "terrible",
+                "boring"
+            ],
+            "judgment": [
+                4,
+                1,
+                1,
+                2,
+                3,
+                5,
+                5,
+                2,
+                2,
+                2,
+                4,
+                2,
+                3,
+                4,
+                4,
+                4,
+                2,
+                5,
+                3,
+                5,
+                3,
+                1,
+                2
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-30T17:32:06Z",
+    "HITId": "3ZTE0JGGCESIG9ZSH0X5W9BLTK9OCN",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-30T17:43:45Z"
+}

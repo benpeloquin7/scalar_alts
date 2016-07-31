@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-29T23:32:18Z",
+    "AutoApprovalTime": "2016-07-29T23:32:01Z",
+    "AssignmentId": "38F5OAUN5NC5ZVG3C8Z6LYHTQU97HY",
+    "WorkerId": "A17T6TVHCLK3MH",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "54"
+            ],
+            "expt_aim": [
+                "To study how people make ratings."
+            ],
+            "expt_gen": [
+                "none"
+            ],
+            "item": [
+                "high",
+                "low",
+                "forgettable",
+                "loved",
+                "ordinary",
+                "good",
+                "liked",
+                "special",
+                "average",
+                "tolerated",
+                "terrible",
+                "memorable",
+                "different",
+                "disliked",
+                "hated",
+                "okay",
+                "common",
+                "unforgettable",
+                "boring",
+                "bad",
+                "great",
+                "excellent",
+                "unique"
+            ],
+            "judgment": [
+                4,
+                1,
+                1,
+                5,
+                3,
+                3,
+                4,
+                5,
+                3,
+                1,
+                1,
+                4,
+                2,
+                1,
+                1,
+                3,
+                3,
+                4,
+                2,
+                1,
+                4,
+                5,
+                4
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-29T23:23:52Z",
+    "HITId": "3K3G488TR280203TH321780BG42Q5M",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-29T23:27:01Z"
+}

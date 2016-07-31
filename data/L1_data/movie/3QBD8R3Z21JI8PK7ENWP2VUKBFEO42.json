@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-30T23:26:18Z",
+    "AutoApprovalTime": "2016-07-30T23:25:42Z",
+    "AssignmentId": "3QBD8R3Z21JI8PK7ENWP2VUKBFEO42",
+    "WorkerId": "A1QK2HXCXG7YHP",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "26"
+            ],
+            "expt_aim": [
+                "Comparing what the same numerical rating means for different people."
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "item": [
+                "high",
+                "low",
+                "tolerated",
+                "okay",
+                "disliked",
+                "average",
+                "loved",
+                "great",
+                "liked",
+                "ordinary",
+                "forgettable",
+                "special",
+                "different",
+                "common",
+                "terrible",
+                "good",
+                "hated",
+                "unique",
+                "memorable",
+                "boring",
+                "unforgettable",
+                "excellent",
+                "bad"
+            ],
+            "judgment": [
+                4,
+                2,
+                1,
+                3,
+                1,
+                3,
+                5,
+                4,
+                3,
+                2,
+                1,
+                5,
+                3,
+                3,
+                1,
+                3,
+                1,
+                3,
+                4,
+                2,
+                5,
+                5,
+                2
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-30T23:15:20Z",
+    "HITId": "3TC2K6WK9G22XZKADQJ3NACZ2OT28Q",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-30T23:20:42Z"
+}

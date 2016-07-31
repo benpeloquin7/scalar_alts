@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-31T02:08:18Z",
+    "AutoApprovalTime": "2016-07-31T02:07:45Z",
+    "AssignmentId": "3FE7TXL1LINBQNI0PM55YLSM6292Q1",
+    "WorkerId": "AVD6HMIO1HLFI",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "27"
+            ],
+            "expt_aim": [
+                "To see how extremely we interpret certain positive/negative words."
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "item": [
+                "high",
+                "low",
+                "tolerated",
+                "good",
+                "excellent",
+                "memorable",
+                "special",
+                "boring",
+                "loved",
+                "hated",
+                "disliked",
+                "average",
+                "unique",
+                "common",
+                "unforgettable",
+                "okay",
+                "terrible",
+                "different",
+                "liked",
+                "great",
+                "forgettable",
+                "ordinary",
+                "bad"
+            ],
+            "judgment": [
+                4,
+                2,
+                3,
+                4,
+                5,
+                4,
+                5,
+                1,
+                5,
+                1,
+                2,
+                3,
+                4,
+                3,
+                5,
+                3,
+                1,
+                4,
+                4,
+                5,
+                2,
+                3,
+                2
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-31T01:57:18Z",
+    "HITId": "3UQVX1UPFSHKFAF7IM6OUV6HJQJ023",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-31T02:02:45Z"
+}

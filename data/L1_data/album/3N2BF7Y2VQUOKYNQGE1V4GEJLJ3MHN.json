@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-29T23:31:18Z",
+    "AutoApprovalTime": "2016-07-29T23:31:08Z",
+    "AssignmentId": "3N2BF7Y2VQUOKYNQGE1V4GEJLJ3MHN",
+    "WorkerId": "A2TY6V6T6FYVGX",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "29"
+            ],
+            "expt_aim": [
+                "How people express their feelings with visual star ratings"
+            ],
+            "expt_gen": [
+                "None"
+            ],
+            "item": [
+                "high",
+                "low",
+                "forgettable",
+                "memorable",
+                "disliked",
+                "special",
+                "okay",
+                "great",
+                "liked",
+                "good",
+                "tolerated",
+                "different",
+                "boring",
+                "unique",
+                "common",
+                "excellent",
+                "terrible",
+                "loved",
+                "unforgettable",
+                "ordinary",
+                "hated",
+                "bad",
+                "average"
+            ],
+            "judgment": [
+                4,
+                2,
+                1,
+                5,
+                1,
+                5,
+                3,
+                4,
+                4,
+                3,
+                2,
+                3,
+                1,
+                4,
+                3,
+                5,
+                1,
+                5,
+                5,
+                2,
+                1,
+                1,
+                3
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-29T23:23:17Z",
+    "HITId": "3K3G488TR280203TH321780BG42Q5M",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-29T23:26:08Z"
+}

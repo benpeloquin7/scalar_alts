@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-30T23:23:18Z",
+    "AutoApprovalTime": "2016-07-30T23:22:52Z",
+    "AssignmentId": "3NGI5ARFTT5J1QZP65Q2TXS79011PK",
+    "WorkerId": "A24APYGPICROST",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "62"
+            ],
+            "expt_aim": [
+                "Translating words into symbols"
+            ],
+            "expt_gen": [
+                "Interesting"
+            ],
+            "item": [
+                "high",
+                "low",
+                "unforgettable",
+                "great",
+                "special",
+                "bad",
+                "different",
+                "unique",
+                "average",
+                "tolerated",
+                "okay",
+                "excellent",
+                "ordinary",
+                "memorable",
+                "forgettable",
+                "good",
+                "loved",
+                "liked",
+                "boring",
+                "hated",
+                "disliked",
+                "common",
+                "terrible"
+            ],
+            "judgment": [
+                5,
+                1,
+                5,
+                4,
+                3,
+                1,
+                3,
+                3,
+                3,
+                2,
+                2,
+                5,
+                4,
+                5,
+                1,
+                3,
+                5,
+                4,
+                2,
+                1,
+                1,
+                2,
+                1
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-30T23:15:57Z",
+    "HITId": "3TC2K6WK9G22XZKADQJ3NACZ2OT28Q",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-30T23:17:52Z"
+}

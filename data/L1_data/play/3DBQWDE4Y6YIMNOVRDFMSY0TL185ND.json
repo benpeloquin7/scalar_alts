@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-31T00:59:19Z",
+    "AutoApprovalTime": "2016-07-31T00:59:09Z",
+    "AssignmentId": "3DBQWDE4Y6YIMNOVRDFMSY0TL185ND",
+    "WorkerId": "A1DVNAQ217BZJF",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "57"
+            ],
+            "expt_aim": [
+                "Interpreting peoples words and expressing them through ratings."
+            ],
+            "expt_gen": [
+                "I have no general comments. "
+            ],
+            "item": [
+                "high",
+                "low",
+                "good",
+                "terrible",
+                "excellent",
+                "unforgettable",
+                "okay",
+                "hated",
+                "ordinary",
+                "memorable",
+                "loved",
+                "different",
+                "average",
+                "great",
+                "boring",
+                "liked",
+                "tolerated",
+                "special",
+                "common",
+                "bad",
+                "disliked",
+                "forgettable",
+                "unique"
+            ],
+            "judgment": [
+                4,
+                2,
+                3,
+                1,
+                5,
+                5,
+                2,
+                1,
+                2,
+                4,
+                5,
+                3,
+                3,
+                4,
+                1,
+                4,
+                2,
+                4,
+                2,
+                1,
+                1,
+                1,
+                4
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-31T00:51:19Z",
+    "HITId": "3ZURAPD288N4NTC120PVSJJGXMU1FR",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-31T00:54:09Z"
+}

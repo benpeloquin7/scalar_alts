@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-30T22:32:18Z",
+    "AutoApprovalTime": "2016-07-30T22:32:16Z",
+    "AssignmentId": "34Q075JO1XDGD9V5PKBCEWRZ1SO01B",
+    "WorkerId": "A2B05EQS417FF0",
+    "answers": {
+        "data": {
+            "language": [
+                "english"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "40"
+            ],
+            "expt_aim": [
+                "ratings"
+            ],
+            "expt_gen": [
+                ""
+            ],
+            "item": [
+                "high",
+                "low",
+                "okay",
+                "bad",
+                "loved",
+                "good",
+                "liked",
+                "common",
+                "tolerated",
+                "excellent",
+                "unique",
+                "terrible",
+                "disliked",
+                "ordinary",
+                "boring",
+                "forgettable",
+                "unforgettable",
+                "memorable",
+                "hated",
+                "special",
+                "different",
+                "average",
+                "great"
+            ],
+            "judgment": [
+                4,
+                2,
+                3,
+                1,
+                5,
+                4,
+                4,
+                3,
+                3,
+                5,
+                5,
+                1,
+                2,
+                3,
+                2,
+                2,
+                5,
+                5,
+                1,
+                5,
+                4,
+                3,
+                5
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-30T22:24:58Z",
+    "HITId": "37ZQELHEQ0YD7AB7TAR6KGGSXO8MNO",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-30T22:27:16Z"
+}

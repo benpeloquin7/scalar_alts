@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-31T00:57:19Z",
+    "AutoApprovalTime": "2016-07-31T00:57:15Z",
+    "AssignmentId": "3II4UPYCOJ7YTXGGMBPMU4JQ3TTDQG",
+    "WorkerId": "A3RVICAY4DBNJS",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "21"
+            ],
+            "expt_aim": [
+                "Seeing if we can determine a correspondence between star ratings and words used"
+            ],
+            "expt_gen": [
+                "Thanks!"
+            ],
+            "item": [
+                "high",
+                "low",
+                "hated",
+                "common",
+                "liked",
+                "tolerated",
+                "loved",
+                "terrible",
+                "disliked",
+                "forgettable",
+                "memorable",
+                "average",
+                "great",
+                "special",
+                "unique",
+                "okay",
+                "ordinary",
+                "unforgettable",
+                "excellent",
+                "bad",
+                "good",
+                "boring",
+                "different"
+            ],
+            "judgment": [
+                4,
+                2,
+                1,
+                2,
+                4,
+                3,
+                5,
+                1,
+                2,
+                2,
+                4,
+                3,
+                4,
+                4,
+                4,
+                3,
+                3,
+                5,
+                5,
+                2,
+                4,
+                2,
+                3
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-31T00:50:04Z",
+    "HITId": "3ZURAPD288N4NTC120PVSJJGXMU1FR",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-31T00:52:15Z"
+}

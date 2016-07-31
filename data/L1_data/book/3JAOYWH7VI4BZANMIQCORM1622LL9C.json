@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-30T17:13:18Z",
+    "AutoApprovalTime": "2016-07-30T17:12:42Z",
+    "AssignmentId": "3JAOYWH7VI4BZANMIQCORM1622LL9C",
+    "WorkerId": "AXCHXAV1Y1WN8",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "male"
+            ],
+            "age": [
+                "26"
+            ],
+            "expt_aim": [
+                "How people subjectively perceive the five star rating system"
+            ],
+            "expt_gen": [
+                "TY"
+            ],
+            "item": [
+                "high",
+                "low",
+                "bad",
+                "hated",
+                "unique",
+                "excellent",
+                "average",
+                "terrible",
+                "tolerated",
+                "good",
+                "forgettable",
+                "ordinary",
+                "memorable",
+                "common",
+                "boring",
+                "special",
+                "okay",
+                "disliked",
+                "great",
+                "different",
+                "unforgettable",
+                "liked",
+                "loved"
+            ],
+            "judgment": [
+                4,
+                1,
+                1,
+                1,
+                4,
+                5,
+                3,
+                1,
+                2,
+                3,
+                1,
+                2,
+                3,
+                3,
+                1,
+                5,
+                2,
+                2,
+                4,
+                3,
+                5,
+                4,
+                5
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-30T17:06:02Z",
+    "HITId": "3ZTE0JGGCESIG9ZSH0X5W9BLTK9OCN",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-30T17:07:42Z"
+}

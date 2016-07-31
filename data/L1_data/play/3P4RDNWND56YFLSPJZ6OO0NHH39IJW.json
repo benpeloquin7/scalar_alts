@@ -1,0 +1,80 @@
+{
+    "ApprovalTime": "2016-07-31T00:55:18Z",
+    "AutoApprovalTime": "2016-07-31T00:54:41Z",
+    "AssignmentId": "3P4RDNWND56YFLSPJZ6OO0NHH39IJW",
+    "WorkerId": "A3IB7YJHP04OHI",
+    "answers": {
+        "data": {
+            "language": [
+                "English"
+            ],
+            "gender": [
+                "female"
+            ],
+            "age": [
+                "64"
+            ],
+            "expt_aim": [
+                "How people feel about certain things and rate them."
+            ],
+            "expt_gen": [
+                "no"
+            ],
+            "item": [
+                "high",
+                "low",
+                "okay",
+                "liked",
+                "good",
+                "bad",
+                "loved",
+                "hated",
+                "great",
+                "boring",
+                "average",
+                "memorable",
+                "different",
+                "forgettable",
+                "special",
+                "unique",
+                "unforgettable",
+                "tolerated",
+                "terrible",
+                "excellent",
+                "common",
+                "ordinary",
+                "disliked"
+            ],
+            "judgment": [
+                5,
+                2,
+                3,
+                4,
+                4,
+                1,
+                5,
+                1,
+                5,
+                2,
+                3,
+                4,
+                3,
+                2,
+                5,
+                5,
+                5,
+                3,
+                1,
+                5,
+                3,
+                2,
+                1
+            ]
+        }
+    },
+    "AcceptTime": "2016-07-31T00:46:14Z",
+    "HITId": "3ZURAPD288N4NTC120PVSJJGXMU1FR",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-07-31T00:49:41Z"
+}
