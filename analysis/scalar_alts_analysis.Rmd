@@ -167,7 +167,7 @@ d_agg_L0_test <- d_agg_L0 %>%
          item=as.factor(item))
 
 # knitr::kable(summary(glm(judgment~item+domain+word_type, family="binomial", data=d_agg_L0_test)))
-summary(glmer(judgment~domain+word_type+(1|item)+(1|worker_id), family="binomial", data=d_agg_L0_test))
+summary(glmer(judgment~domain + (1|item) + (1|worker_id), family="binomial", data=d_agg_L0_test))
 ```
 
 ## Secondary analysis -- word level differences
@@ -261,7 +261,7 @@ Is `domain` a sigificant predictor of response.
 
 Null hypothesis is there are no differences between domain (i.e. domain should not significantly predict response).
 ```{r L1_domain_differences_test}
-summary(lmer(judgment~domain+word_type+(1|worker_id)+(1|item), data=d_agg_L1))
+summary(lmer(judgment~domain + (1|worker_id) + (1|item), data=d_agg_L1))
 ```
 
 ## Secondary analysis -- word level differences
@@ -290,7 +290,12 @@ We don't expect to see any statistical differences.
 
 # 3) RSA comparison with human judgments
 
-```{r}
+```{r rsa_read_df}
+
+## rsa_read_df()
+## ------------
+## Write a data frame that is read to run through rsa.runDf
+##
 rsa_read_df <- function(d_L0, d_L1) {
   
   ## Normalize L0
@@ -388,7 +393,7 @@ rsa_read_df <- function(d_L0, d_L1) {
 ```
 
 
-```{r create_model_dfs, warning=FALSE, message=FALSE}
+```{r create_model_dfs, warning=FALSE, message=FALSE, eval=FALSE}
 ## two-alts model
 d_agg_sems_2alt <- d_agg_sems %>% filter(word_type == "hi1" | word_type == "hi2")
 d_agg_prags_2alt <- d_agg_prags %>% filter(word_type == "hi1" | word_type == "hi2")
@@ -409,106 +414,7 @@ five_alt_m <- d_rsa_df <- rsa_read_df(d_agg_sems, d_agg_prags)
 ```
 
 
-Normalize L0 semantics 
-```{r}
-# normalize_semantics <- function(d) {
-#   norm_vec(d$avg_judgment)
-# }
-# pattern <- "V([1-5])"
-# d_L0_sems <- plyr::ddply(.data=d_agg_sems, .variables=c("domain", "word_type", "item"), .fun=normalize_semantics) %>%
-#   gather(stars, sems, -c(domain, word_type, item)) %>%
-#   arrange(domain, item, stars, word_type) %>%
-#   rowwise %>%
-#   mutate(stars=as.numeric(gsub(pattern, "\\1", stars)))
-```
-
-Combine L0 and L1 data. Do this step prior to normalizing L1 because `join` implicitly creates missing rows (NA's) for pragmatic responses. That is, sometime there is no data (i.e. 'excellent' was never selected at 1-3 stars so we want to create rows there).
-```{r}
-# d_agg_L0_merge <- d_L0_sems
-# d_agg_L1_merge <- d_agg_prags %>%
-#   mutate(stars=judgment) %>%
-#   select(domain, word_type, item, stars, counts)
-# 
-# d_agg_join <- plyr::join(d_agg_L0_merge, d_agg_L1_merge, by=c("domain", "word_type", "item", "stars"))
-# d_agg_join[is.na(d_agg_join)] <- 0
-```
-
-Normalize L1 data 
-```{r}
-# normalize_pragmatics <- function(d) {
-#   norm_vec(d$counts)
-# }
-# pattern <- "V([1-5])"
-# normed_prags <- plyr::ddply(.data=d_agg_join, .variables=c("domain", "word_type", "item"), .fun=normalize_pragmatics) %>%
-#   gather(key=stars, value=prags, c(V1, V2, V3, V4, V5)) %>%
-#   rowwise %>%
-#   mutate(stars=as.numeric(gsub(pattern, "\\1", stars))) %>%
-#   arrange(domain, item, stars)
-```
-
-Final data set with normalized semantics and pragmatics - long form
-```{r}
-# d_agg_final <- plyr::join(d_agg_join, normed_prags, by=c("domain", "word_type", "item", "stars"))
-```
-
-Convert to scalar_alts data frame for running RSA
-```{r}
-## Data in wide format
-# sems_wide <- d_agg_final %>% select(domain, word_type, item, stars, sems) %>%
-#   spread(stars, sems)
-# prags_wide <- d_agg_final %>% select(domain, word_type, item, stars, prags) %>%
-#   spread(stars, prags)
-# 
-# ## Data holds for separate semantics and pragmatics
-# sems_scales_df <- data.frame(domain=c(),
-#                           item=c(),
-#                           scale=c(),
-#                           "1"=c(),
-#                           "2"=c(),
-#                           "3"=c(),
-#                           "4"=c(),
-#                           "5"=c())
-# prags_scales_df <- data.frame(domain=c(),
-#                           item=c(),
-#                           scale=c(),
-#                           "1"=c(),
-#                           "2"=c(),
-#                           "3"=c(),
-#                           "4"=c(),
-#                           "5"=c())
-# ## Populate data holds
-# for (domain in DOMAINS) {
-#   for (scale in names(all_scales)) {
-#     for (item in all_scales[[scale]]) {
-#       # print("item:")
-#       # print(item)
-#       # print("----------------------")
-#       curr_sems_row <- sems_wide[which(sems_wide$item==item & sems_wide$domain==domain),] %>%
-#         mutate(scale=scale)
-#       curr_prags_row <- prags_wide[which(prags_wide$item==item & prags_wide$domain==domain),] %>%
-#         mutate(scale=scale)
-#       sems_scales_df <- rbind(sems_scales_df, curr_sems_row)
-#       prags_scales_df <- rbind(prags_scales_df, curr_prags_row)
-#     }
-#   }
-# }
-# sems_scales_df <- sems_scales_df %>%
-#   arrange(domain, scale, word_type, item) %>%
-#   gather(stars, sems, -c(domain, scale, word_type, item))
-# prags_scales_df <- prags_scales_df %>%
-#   arrange(domain, scale, word_type, item) %>%
-#   gather(stars, prags, -c(domain, scale, word_type, item))
-# 
-# ## Quick check
-# nrow(sems_scales_df) == nrow(prags_scales_df)
-# 
-# sems_scales_df[1:10,]
-# prags_scales_df[1:10,]
-# 
-# d_rsa_df <- plyr::join(sems_scales_df, prags_scales_df)
-```
-
-```{r}
+```{r eval=FALSE}
 two_alt_m %>%
   ggplot(aes(x=stars, y=sems, col="sems")) +
     geom_line(group=1) +
@@ -520,7 +426,26 @@ two_alt_m %>%
 
 ## Basic RSA
 
-```{r models}
+```{r models, eval=FALSE}
+curr_domain <- "book"
+
+two_alt_m_book <- two_alt_m %>% filter(domain==curr_domain)
+three_alt_m_book <- three_alt_m %>% filter(domain==curr_domain)
+four_alt_m_book <- four_alt_m %>% filter(domain==curr_domain)
+five_alt_m_book <- five_alt_m %>% filter(domain==curr_domain)
+
+
+get_compare_indices(d) {
+  which((d$scale == "bad_terrible" &
+           (d$item == "" | d$item == "")) | 
+          (d$scale != "bad_terrible" &
+              (d$word_type == "hi1" | d$word_type == "hi2")))
+}
+two_alt_indices <- 
+
+rsa.tuneDepthAlpha(two_alt_m_book
+
+
 two_alt_preds <- plyr::ddply(two_alt_m,
             .fun=rsa.runDf,
             .variables=c("domain", "scale"),
@@ -553,8 +478,9 @@ five_alt_preds <- plyr::ddply(five_alt_m,
             alpha=1)
 ```
 
+
 What's happening with model runs
-```{r}
+```{r eval=FALSE}
 ## good_excellent + restaurant
 five_alt_practice_sems <- five_alt_preds %>%
   filter(domain=="restaurant", scale=="good_excellent") %>%
@@ -569,7 +495,7 @@ rsa.reason(as.matrix(five_alt_practice_sems))
 ```
 
 
-```{r}
+```{r eval=FALSE}
 model_preds_test <- function(model_preds, test=cor) {
   filtered_preds <- model_preds %>% filter(word_type=="hi1" | word_type=="hi2")
   test(filtered_preds$prags, filtered_preds$preds)
@@ -597,7 +523,7 @@ View(two_alt_preds)
 ```
 
 ## 2-alt model
-```{r}
+```{r eval=FALSE}
 d_L0_scales <- d_L0_scales %>% mutate(stars=as.character(stars)) 
 d_L0_scales_2alt <- d_L0_scales %>%
   mutate(stars=as.character(stars)) %>%
@@ -608,20 +534,10 @@ two_alt_preds <- plyr::ddply(d_L0_scales_2alt,
             quantityVarName="stars",
             semanticsVarName="sems",
             itemVarName="item")
-View(two_alt_preds)
-```
-
-```{r}
-two_alt_preds %>% View
-two_alt_preds %>%
-  ggplot(aes(x=stars, y=preds, fill=word_type)) +
-    geom_bar(stat="identity", position="dodge") +
-    facet_grid(domain~scale)
-
 ```
 
 ## 3-alt model
-```{r}
+```{r eval=FALSE}
 d_L0_scales <- d_L0_scales %>% mutate(stars=as.character(stars)) 
 d_L0_scales_3alt <- d_L0_scales %>%
   mutate(stars=as.character(stars)) %>%
@@ -634,7 +550,7 @@ three_alt_preds <- plyr::ddply(d_L0_scales_3alt,
             itemVarName="item")
 ```
 
-```{r}
+```{r eval=FALSE}
 three_alt_preds %>% View
 three_alt_preds %>%
   ggplot(aes(x=stars, y=preds, fill=word_type)) +
@@ -643,7 +559,7 @@ three_alt_preds %>%
 ```
 
 ## 4-alt model
-```{r}
+```{r eval=FALSE}
 d_L0_scales <- d_L0_scales %>% mutate(stars=as.character(stars)) 
 d_L0_scales_4alt <- d_L0_scales %>%
   mutate(stars=as.character(stars)) %>%
@@ -656,7 +572,7 @@ four_alt_preds <- plyr::ddply(d_L0_scales_4alt,
             itemVarName="item")
 ```
 
-```{r}
+```{r eval=FALSE}
 d_L0_scales_5alt <- d_L0_scales %>% mutate(stars=as.character(stars)) 
 five_alt_preds <- plyr::ddply(d_L0_scales_5alt,
             .fun=rsa.runDf,
@@ -667,14 +583,14 @@ five_alt_preds <- plyr::ddply(d_L0_scales_5alt,
 ```
 
 
-```{r}
+```{r eval=FALSE}
 two_alt_preds %>% View()
 three_alt_preds %>% head(n=10)
 four_alt_preds %>% head(n=10)
 five_alt_preds %>% head(n=25)
 ```
 
-```{r}
+```{r eval=FALSE}
 plyr::ddply(peloquinFrank_2Alts,
             .variables=c("scale"),
             .fun=rsa.runDf,
