@@ -1,3 +1,10 @@
+
+## norm_vec()
+## ----------
+## normalize vector
+##
+norm_vec <- function(v) v / sum(v)
+
 ## get_data_single_L0_file()
 ## -------------------------
 ## read in a single file from L0 or L1
