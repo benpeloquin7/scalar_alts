@@ -620,6 +620,60 @@ ggplot(d_practice, aes(x=reorder(scale1, jsd), y=jsd, col=domain2)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+# Network - Aggregate across domains - work from cogsci
+```{r}
+alts_df <- aggregate_df %>%
+  select(response, counts, scalar_pair) %>%
+  group_by(scalar_pair, response) %>%
+  summarise(counts=sum(counts))
+
+alts_m <- alts_df %>%
+  spread(scalar_pair, counts)
+alts_m[is.na(alts_m)] <- 0
+```
+
+practice
+```{r}
+?igraph
+g <- graph_from_literal( A--B, C--D, E--F, G--H, I, J, K )
+
+str(as.matrix(alts_m))
+
+igraph_m <- Matrix(as.matrix(alts_m[,-1], nrow=5))
+graph_from_adjacency_matrix(igraph_m)
+
+actors <- data.frame(name=c("Alice", "Bob", "Cecil", "David",
+                            "Esmeralda"),
+                     age=c(48,33,45,34,21),
+                     gender=c("F","M","F","M","F"))
+relations <- data.frame(from=c("Bob", "Cecil", "Cecil", "David",
+                               "David", "Esmeralda"),
+                        to=c("Alice", "Bob", "Alice", "Alice", "Bob", "Alice"),
+                        same.dept=c(FALSE,FALSE,TRUE,FALSE,FALSE,TRUE),
+                        friendship=c(4,5,5,2,1,1), advice=c(4,5,5,4,2,3))
+g <- graph_from_data_frame(relations, directed=TRUE, vertices=actors)
+
+
+alts_df_nonzero <- alts_df %>%
+  filter(counts > 0) %>%
+  ungroup %>%
+  mutate(scalar_pair=as.character(scalar_pair))
+words <- data.frame(words=c(unique(as.character(alts_df_nonzero$scalar_pair)),
+                            unique(as.character(alts_df_nonzero$response))))
+relations <- data.frame(from=as.character(alts_df_nonzero$scalar_pair),
+                        to=as.character(alts_df_nonzero$response),
+                        weight=alts_df_nonzero$counts)
+g <- graph_from_data_frame(relations, vertices=words)
+plot(g, edge.arrow.size=.4,vertex.label=NA)
+E(g)$width <- log(E(g)$weight)/10
+V(g)$size <- 3
+E(g)$arrow.mode <- 0
+E(g)$color <- "blue"
+l <- layout_with_fr(g)
+l <- norm_coords(l, ymin=-1, ymax=1, xmin=-1, xmax=1)
+plot(g, vertex.label=NA, rescale=F, layout=l*1.0)
+```
+
 # R version
 ```{r}
 R.Version()
