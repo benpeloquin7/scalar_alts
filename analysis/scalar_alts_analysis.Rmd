@@ -63,6 +63,8 @@ all_scales <- data.frame("bad_terrible"=bad_terrible,
                          "good_excellent"=good_excellent,
                          "memorable_unforgettable"=memorable_unforgettable,
                          "special_unique"=special_unique)
+weaker <- c("bad", "liked", "good", "memorable", "special")
+stronger <- c("terrible", "loved", "excellent", "unforgettable", "unique")
 
 ## valence
 map_word_type <- function(word) {
@@ -164,10 +166,13 @@ Null hypothesis is there are no differences between domain (i.e. domain should n
 ## L0 listener data for glmer and glm
 d_agg_L0_test <- d_agg_L0 %>%
   mutate(worker_id=as.factor(worker_id),
-         item=as.factor(item))
-
+         study=as.factor(study),
+         domain=as.factor(domain),
+         word_type=as.factor(word_type),
+         item=as.character(item))
 # knitr::kable(summary(glm(judgment~item+domain+word_type, family="binomial", data=d_agg_L0_test)))
-summary(glmer(judgment~domain + (1|item) + (1|worker_id), family="binomial", data=d_agg_L0_test))
+summary(glmer(judgment ~ item + (1|worker_id), family="binomial", data=d_agg_L0_test))
+summary(glm(judgment ~ item*domain + stars, family="binomial", data=d_agg_L0_test))
 ```
 
 ## Secondary analysis -- word level differences
@@ -392,41 +397,285 @@ rsa_read_df <- function(d_L0, d_L1) {
 
 ```
 
-
-```{r create_model_dfs, warning=FALSE, message=FALSE, eval=FALSE}
-## two-alts model
-d_agg_sems_2alt <- d_agg_sems %>% filter(word_type == "hi1" | word_type == "hi2")
-d_agg_prags_2alt <- d_agg_prags %>% filter(word_type == "hi1" | word_type == "hi2")
-two_alt_m <- rsa_read_df(d_agg_sems_2alt, d_agg_prags_2alt)
-
-## three-alts model
-d_agg_sems_3alt <- d_agg_sems %>% filter(word_type == "hi1" | word_type == "hi2" | word_type == "low1")
-d_agg_prags_3alt <- d_agg_prags %>% filter(word_type == "hi1" | word_type == "hi2" | word_type == "low1")
-three_alt_m <- rsa_read_df(d_agg_sems_3alt, d_agg_prags_3alt)
-
-## four-alts model
-d_agg_sems_4alt <- d_agg_sems %>% filter(word_type=="hi1" | word_type=="hi2" | word_type=="low1" | word_type=="low2")
-d_agg_prags_4alt <- d_agg_prags %>% filter(word_type=="hi1" | word_type=="hi2" | word_type=="low1" | word_type=="low2")
-four_alt_m <- rsa_read_df(d_agg_sems_4alt, d_agg_prags_4alt)
-
-## five-alts model
-five_alt_m <- d_rsa_df <- rsa_read_df(d_agg_sems, d_agg_prags)
+Get model indices
+```{r}
+## get_compare_indices()
+## ----------------------
+## map word valence labels by model type
+##
+get_compare_indices <- function(d, model=NA) {
+  
+  if (model=="2") {
+    indices <- which((d$scale=="bad_terrible" &
+                        (d$word_type=="low1" |  d$word_type=="low2")) |
+                       (d$scale!="bad_terrible" &
+                          (d$word_type=="hi1" |  d$word_type=="hi2")))
+  } else if (model=="3") {
+    indices <- which((d$scale=="bad_terrible" &
+                        (d$word_type=="low1" |  d$word_type=="low2" | d$word_type=="hi1")) |
+                       (d$scale!="bad_terrible" &
+                          (d$word_type=="hi1" |  d$word_type=="hi2" | d$word_type=="low1")))
+  } else if (model=="4") {
+    indices <- which((d$scale=="bad_terrible" &
+                        (d$word_type=="low1" |  d$word_type=="low2" | d$word_type=="hi1" | d$word_type=="hi2")) |
+                       (d$scale!="bad_terrible" &
+                          (d$word_type=="hi1" |  d$word_type=="hi2" | d$word_type=="low1" | d$word_type=="low2")))
+    
+  } else if (model=="5") {
+    indices <- seq(nrow(d))
+  } else error("Please specify model; one of '2', '3', '4', or '5'")
+  
+  indices
+}
 ```
 
+Combined df with sems and prags
+```{r}
+d_joined_m <- rsa_read_df(d_agg_sems, d_agg_prags)
+```
 
-```{r eval=FALSE}
-two_alt_m %>%
-  ggplot(aes(x=stars, y=sems, col="sems")) +
-    geom_line(group=1) +
-    geom_line(aes(x=stars, y=prags, col="prags"), group=1) +
-    facet_grid(scale~word_type+domain)
+Two-alt model
+```{r create_model_dfs, warning=FALSE, message=FALSE}
+two_alt_m <- d_joined_m[get_compare_indices(d_joined_m, model="2"), ]
+three_alt_m <- d_joined_m[get_compare_indices(d_joined_m, model="3"), ]
+four_alt_m <- d_joined_m[get_compare_indices(d_joined_m, model="4"), ]
+five_alt_m <- d_joined_m[get_compare_indices(d_joined_m, model="5"), ]
 ```
 
 -- Using L0 literal semantics as input to RSA how well can we fit the L1 pragmatic listener judgments varying the alternative sets available to the model?
 
 ## Basic RSA
 
+Tune models aggregating over `domain`
+```{r}
+## tune_alpha_depth()
+## ------------
+## tune alphas for model against taregt indices
+##
+tune_alpha_depth <- function(d_model,
+                             tune_indices=seq(nrow(d_model)),
+                             alphas=seq(1, 4, by=0.1),
+                             depths=seq(1,3)) {
+  cors <- data.frame(cor=c(), alpha=c(), depth=c())
+  for (alpha in alphas) {
+    for (depth in depths) {
+      out <- plyr::ddply(d_model,
+                     .fun=rsa.runDf,
+                     .variables=c("domain", "scale"),
+                     quantityVarName="stars",
+                     semanticsVarName="sems",
+                     itemVarName="item",
+                     alpha=alpha, depth=depth)
+      out_check <- out[tune_indices,]
+      curr_cor <- cor(out_check$preds, out_check$prags)
+      cors <- rbind(cors, data.frame(cor=curr_cor, alpha=alpha, depth=depth)) 
+    }
+  }
+  cors
+}
+```
+
+Two-alt model tuning
+```{r}
+two_alt_res <- tune_alpha_depth(two_alt_m, alphas=seq(0, 6, by=0.2))
+best_two_alpha <- two_alt_res[which.max(two_alt_res$cor), ]
+```
+
+Three-alt model tuning
+```{r}
+compare_indices <- get_compare_indices(three_alt_m, model="2")
+three_alt_res <- tune_alpha_depth(three_alt_m, tune_indices=compare_indices, depths=seq(1, 3))
+best_three_alpha <- three_alt_res[which.max(three_alt_res$cor), ]
+```
+
+Four-alt model tuning
+```{r}
+compare_indices <- get_compare_indices(four_alt_m, model="2")
+four_alt_res <- tune_alpha_depth(four_alt_m, tune_indices=compare_indices, depths=seq(1, 3))
+best_four_alpha <- four_alt_res[which.max(four_alt_res$cor), ]
+```
+
+Five-alt model tuning
+```{r}
+compare_indices <- get_compare_indices(five_alt_m, model="2")
+five_alt_res <- tune_alpha_depth(five_alt_m, tune_indices=compare_indices, depths=seq(1, 3))
+best_five_alpha <- five_alt_res[which.max(five_alt_res$cor), ]
+```
+
+## Investigating wonkiness
+```{r}
+plot_matrix <- function(m, check_words) {
+  df <- m %>%
+    as.data.frame %>%
+    mutate(stars=seq(1,5)) %>%
+    gather(words, sems, -c(stars)) %>%
+    filter(words %in% check_words)
+  
+  ggplot(df, aes(x=stars, y=sems, col=words)) +
+    geom_line()
+}
+
+p1 <- five_alt_m %>%
+  filter(domain=="album", scale=="liked_loved")
+
+## Looking at alpha level
+p1_m <- p1 %>%
+  select(item, stars, sems) %>%
+  spread(item, sems)
+p1_m <- as.matrix(p1_m[,-1])
+alpha_runs <- lapply(seq(0, 10), FUN=function(alpha) {
+  rsa.reason(p1_m, alpha=alpha)
+})
+alpha_runs_agg <- data.frame(stars=c(), alpha=c(), disliked=c(), hated=c(), liked=c(), loved=c(), tolerated=c())
+for (alpha in seq(1, length(alpha_runs))) {
+  curr_alpha_df <- alpha_runs[[alpha]] %>%
+    as.data.frame %>%
+    mutate(alpha=alpha-1, stars=seq(1,5))
+  alpha_runs_agg <- rbind(alpha_runs_agg, curr_alpha_df)  
+}
+alpha_runs_agg_df <- alpha_runs_agg %>%
+  gather(words, sems, -c(alpha, stars))
+
+alpha_runs_agg_df %>%
+  filter(words %in% c("liked", "loved")) %>%
+  ggplot(aes(x=stars, y=sems, col=as.factor(alpha))) +
+    geom_line() +
+    facet_wrap(~words)
+
+## Looking at depth level
+##
+depth_runs <- lapply(seq(0, 5), FUN=function(depth) {
+  rsa.reason(p1_m, depth=depth)
+})
+depth_runs_agg <- data.frame(stars=c(), depth=c(), disliked=c(), hated=c(), liked=c(), loved=c(), tolerated=c())
+for (depth in seq(1, length(depth_runs))) {
+  curr_depth_df <- depth_runs[[depth]] %>%
+    as.data.frame %>%
+    mutate(depth=depth-1, stars=seq(1,5))
+  depth_runs_agg <- rbind(depth_runs_agg, curr_depth_df)  
+}
+depth_runs_agg_df <- depth_runs_agg %>%
+  gather(words, sems, -c(depth, stars))
+
+depth_runs_agg_df %>%
+  filter(words %in% c("liked", "loved")) %>%
+  ggplot(aes(x=stars, y=sems, col=as.factor(depth))) +
+    geom_line() +
+    facet_wrap(~words)
+```
+
+
+Tuned model runs
+```{r eval=FALSE}
+best_two_alt_preds <- plyr::ddply(two_alt_m,
+                     .fun=rsa.runDf,
+                     .variables=c("domain", "scale"),
+                     quantityVarName="stars",
+                     semanticsVarName="sems",
+                     itemVarName="item",
+                     alpha=best_two_alpha$alpha) %>%
+  mutate(model="2")
+best_three_alt_preds <- plyr::ddply(three_alt_m,
+                     .fun=rsa.runDf,
+                     .variables=c("domain", "scale"),
+                     quantityVarName="stars",
+                     semanticsVarName="sems",
+                     itemVarName="item",
+                     alpha=best_three_alpha$alpha) %>%
+  mutate(model="3")
+best_four_alt_preds <- plyr::ddply(four_alt_m,
+                     .fun=rsa.runDf,
+                     .variables=c("domain", "scale"),
+                     quantityVarName="stars",
+                     semanticsVarName="sems",
+                     itemVarName="item",
+                     alpha=best_four_alpha$alpha) %>%
+  mutate(model="4")
+best_five_alt_preds <- plyr::ddply(five_alt_m,
+                     .fun=rsa.runDf,
+                     .variables=c("domain", "scale"),
+                     quantityVarName="stars",
+                     semanticsVarName="sems",
+                     itemVarName="item",
+                     alpha=best_five_alpha$alpha) %>%
+  mutate(model="5")
+
+best_preds_agg <- rbind(best_two_alt_preds,
+                        best_three_alt_preds,
+                        best_four_alt_preds,
+                        best_five_alt_preds)
+
+compare_indices <- get_compare_indices(best_preds_agg, model="2")
+best_preds_agg <- best_preds_agg[compare_indices, ] %>%
+  mutate(entailment_type=ifelse(item %in% weaker, "low", "high"))
+
+best_preds_agg %>%
+  filter(scale=="good_excellent") %>%
+  gather(type, value, c(prags, preds)) %>%
+  ggplot(aes(x=as.numeric(stars), y=value, col=entailment_type, lty=type)) +
+    geom_line() +
+    facet_grid(model~domain)
+peloquinFrank_5Alts %>% filter(scale=="good_excellent") %>% head(n=20)
+best_preds_agg %>% filter(domain=="restaurant", scale=="good_excellent", model=="5") %>% arrange(item)
+
+ge_rest5 <- five_alt_m %>% filter(domain=="restaurant", scale=="good_excellent")
+ge_rest5_preds <- plyr::ddply(ge_rest5, .variables=c("scale"), .fun=rsa.runDf,
+            quantityVarName="stars", itemVarName="item", semanticsVarName="sems", alpha=5.2) %>% arrange(item)
+ge_rest5_preds %>%
+  gather(type, value, c(preds, prags)) %>%
+  filter(word_type=="hi1" | word_type=="hi2") %>%
+  ggplot(aes(x=as.numeric(stars), y=value, lty=type, col=word_type)) +
+    geom_line()
+
+ge_rest5_preds %>%
+  filter(word_type=="hi1" | word_type=="hi2") %>%
+  select(item, prags, preds)
+cor(ge_rest5_preds$preds, ge_rest5_preds$prags)
+
+ge_original <- plyr::ddply(.data=peloquinFrank_5Alts, .variables=c("scale"), .fun=rsa.runDf,
+          quantityVarName="stars", semanticsVarName="speaker.p", itemVarName="words", alpha=3.8) %>%
+  filter(scale=="good_excellent", (words=="good" | words=="excellent"))
+
+ge_original %>%
+  gather(type, value, c(preds, e11)) %>%
+  ggplot(aes(x=as.numeric(stars), y=value, lty=type, col=words)) +
+    geom_line()
+
+ge_m1 <- peloquinFrank_5Alts %>%
+  filter(scale=="good_excellent") %>%
+  select(stars, words, speaker.p) %>%
+  spread(words, speaker.p) %>% as.matrix
+
+ge_m2_preds <- five_alt_m %>% filter(domain=="restaurant", scale=="good_excellent") %>%
+  select(stars, item, sems) %>%
+  mutate(stars=as.numeric(stars)) %>%
+  spread(item, sems) %>% as.matrix
+
+ge_m2_prags <- five_alt_m %>% filter(domain=="restaurant", scale=="good_excellent") %>%
+  select(stars, item, prags) %>%
+  mutate(stars=as.numeric(stars)) %>%
+  spread(item, prags) %>% as.matrix
+
+
+### This is interesting to work off of!!!
+## --------------------------------------
+ge_m2_preds1 <- rsa.reason(m=ge_m2_preds[,-c(1)], depth=2, alpha=3.9) %>%
+  as.data.frame %>%
+  mutate(stars=row.names(.)) %>%
+  gather(item, preds, -c(stars))
+
+ge_m2_preds1 %>%
+  filter(item=="good" | item=="excellent") %>%
+  ggplot(aes(x=as.numeric(stars), y=preds, col=item)) +
+    geom_line()
+
+ge_join <- plyr::join(ge_m2_prags, ge_m2_preds1)
+cor(ge_join$prags, ge_join$preds)
+```
+
+
 ```{r models, eval=FALSE}
+
 curr_domain <- "book"
 
 two_alt_m_book <- two_alt_m %>% filter(domain==curr_domain)
