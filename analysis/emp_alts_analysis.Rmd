@@ -20,6 +20,7 @@ set.seed(1)
 library(lsa)
 library(stringr)
 library(rjson)
+library(igraph)
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -633,7 +634,7 @@ alts_m[is.na(alts_m)] <- 0
 ```
 
 practice
-```{r}
+```{r eval=FALSE}
 ?igraph
 g <- graph_from_literal( A--B, C--D, E--F, G--H, I, J, K )
 
@@ -652,8 +653,9 @@ relations <- data.frame(from=c("Bob", "Cecil", "Cecil", "David",
                         same.dept=c(FALSE,FALSE,TRUE,FALSE,FALSE,TRUE),
                         friendship=c(4,5,5,2,1,1), advice=c(4,5,5,4,2,3))
 g <- graph_from_data_frame(relations, directed=TRUE, vertices=actors)
+```
 
-
+```{r network_stuff}
 alts_df_nonzero <- alts_df %>%
   filter(counts > 0) %>%
   ungroup %>%
@@ -664,15 +666,28 @@ relations <- data.frame(from=as.character(alts_df_nonzero$scalar_pair),
                         to=as.character(alts_df_nonzero$response),
                         weight=alts_df_nonzero$counts)
 g <- graph_from_data_frame(relations, vertices=words)
-plot(g, edge.arrow.size=.4,vertex.label=NA)
-E(g)$width <- log(E(g)$weight)/10
+## appearance
+E(g)$width <- (log(E(g)$weight) + 1)/2
 V(g)$size <- 3
 E(g)$arrow.mode <- 0
 E(g)$color <- "blue"
 l <- layout_with_fr(g)
 l <- norm_coords(l, ymin=-1, ymax=1, xmin=-1, xmax=1)
-plot(g, vertex.label=NA, rescale=F, layout=l*1.0)
+# plot(g, vertex.label=NA, rescale=F, layout=l*1.0)
+plot(g, vertex.label=NA, layout=layout_nicely)
 ```
+
+heatmap
+```{r}
+
+h_map <- get.adjacency(g, attr="weight", sparse=F)
+colnames(netm) <- V(net)$media
+rownames(netm) <- V(net)$media
+palf <- colorRampPalette(c("gold", "dark orange"))
+heatmap(netm[,17:1], Rowv = NA, Colv = NA, col = palf(100),
+scale="none", margins=c(10,10) )
+```
+
 
 # R version
 ```{r}

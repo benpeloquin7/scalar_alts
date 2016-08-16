@@ -502,7 +502,7 @@ five_alt_res <- tune_alpha_depth(five_alt_m, tune_indices=compare_indices, depth
 best_five_alpha <- five_alt_res[which.max(five_alt_res$cor), ]
 ```
 
-## Investigating wonkiness
+## Investigating wonkiness in plane ride back from CogSci 7.14.16
 ```{r}
 plot_matrix <- function(m, check_words) {
   df <- m %>%
@@ -518,6 +518,42 @@ plot_matrix <- function(m, check_words) {
 p1 <- five_alt_m %>%
   filter(domain=="album", scale=="liked_loved")
 
+all_pf <- rbind(peloquinFrank_2Alts,
+                peloquinFrank_3Alts,
+                peloquinFrank_4Alts,
+                peloquinFrank_5Alts)
+
+all_pf %>%
+  mutate(stars=as.character(stars)) %>%
+  split(list(.$exp, .$scale)) %>%
+  map_df(~rsa.runDf(data=.x,
+         quantityVarName="stars",
+         semanticsVarName="speaker.p",
+         itemVarName="words"))
+
+five_album <- five_alt_m %>% filter(domain=="album")
+t_old <- plyr::ddply(peloquinFrank_5Alts,
+            .variables=c("scale"),
+            .fun=rsa.runDf,
+            quantityVarName="stars",
+            semanticsVarName="speaker.p",
+            itemVarName="words")
+
+## Using purrr
+t_new <- peloquinFrank_5Alts %>%
+  mutate(stars=as.character(stars))%>%
+  split(.$scale) %>%
+  map_df(~rsa.runDf(data=.x,
+                 quantityVarName="stars",
+                 semanticsVarName="speaker.p",
+                 itemVarName="words"))
+preds_old <- t_old$preds
+preds_new <- t_new$preds
+preds_old[31:40]
+preds_new[31:40]
+all(preds_old - preds_new < 0.001)
+
+  
 ## Looking at alpha level
 p1_m <- p1 %>%
   select(item, stars, sems) %>%
