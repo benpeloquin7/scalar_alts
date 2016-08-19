@@ -564,17 +564,30 @@ generic_tune <- function(data, curr_scale, alphas=seq(0, 4, by=0.2), depths=seq(
   }
   cor_store
 }
-ge_res <- generic_tune(data=five_alt_m, curr_scale="good_excellent", alphas=seq(0, 5, by=0.2), depths=seq(1,6))
+ge_res <- generic_tune(data=five_alt_m, curr_scale="good_excellent", alphas=seq(0, 5, by=0.2), depths=seq(0,5))
 ge_res[which.max(ge_res$r),]
-ll_res <- generic_tune(data=five_alt_m, curr_scale="liked_loved", alphas=seq(0, 5, by=0.2), depths=seq(1,6))
+ll_res <- generic_tune(data=five_alt_m, curr_scale="liked_loved", alphas=seq(0, 5, by=0.2), depths=seq(0,5))
 ll_res[which.max(ll_res$r),]
-mu_res <- generic_tune(data=five_alt_m, curr_scale="memorable_unforgettable", alphas=seq(0, 5, by=0.2), depths=seq(1,6))
+mu_res <- generic_tune(data=five_alt_m, curr_scale="memorable_unforgettable", alphas=seq(0, 8, by=0.2), depths=seq(0,5))
 mu_res[which.max(mu_res$r),]
-bt_res <- generic_tune(data=five_alt_m, curr_scale="bad_terrible", alphas=seq(0, 5, by=0.2), depths=seq(1,6))
+bt_res <- generic_tune(data=five_alt_m, curr_scale="bad_terrible", alphas=seq(0, 5, by=0.2), depths=seq(0,5))
 bt_res[which.max(bt_res$r),]
-su_res <- generic_tune(data=five_alt_m, curr_scale="special_unique", alphas=seq(0, 5, by=0.2), depths=seq(1,6))
+su_res <- generic_tune(data=five_alt_m, curr_scale="special_unique", alphas=seq(0, 5, by=0.2), depths=seq(0,5))
 su_res[which.max(su_res$r),]
 ```
+
+```{r}
+plot_tuning_curves <- function(d) {
+  ggplot(d, aes(x=alpha, y=r, col=as.factor(depth))) +
+    geom_line()
+}
+plot_tuning_curves(ge_res)
+plot_tuning_curves(ll_res)
+plot_tuning_curves(mu_res)
+plot_tuning_curves(bt_res)
+plot_tuning_curves(su_res)
+```
+
 
 Combine all domains and just look at scales
 ```{r}
