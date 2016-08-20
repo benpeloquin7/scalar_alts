@@ -435,7 +435,7 @@ Combined df with sems and prags
 d_joined_m <- rsa_read_df(d_agg_sems, d_agg_prags)
 ```
 
-Two-alt model
+Individual models
 ```{r create_model_dfs, warning=FALSE, message=FALSE}
 two_alt_m <- d_joined_m[get_compare_indices(d_joined_m, model="2"), ]
 three_alt_m <- d_joined_m[get_compare_indices(d_joined_m, model="3"), ]
@@ -447,32 +447,7 @@ five_alt_m <- d_joined_m[get_compare_indices(d_joined_m, model="5"), ]
 
 ## Basic RSA
 
-Aggregate literal listener semantics over domains
-```{r}
-
-head(d_agg_L0)
-
-## Combine across domains
-d_L0 <- d_agg_L0 %>%
-  group_by(item, word_type, stars) %>%
-  summarise(avg_judgment=mean(judgment),
-            ci_low=binom.confint(sum(judgment), length(judgment))$lower[3],
-            ci_high=binom.confint(sum(judgment), length(judgment))$upper[3])
-
-sems_wide <- d_L0 %>% select(word_type, item, stars, avg_judgment) %>%
-    spread(stars, sems)
-
-
-
-ggplot(d_L0, aes(x=stars, y=avg_judgment, col=word_type)) +
-  geom_line() +
-  geom_errorbar(aes(ymax=ci_high, ymin=ci_low), width=0)
-```
-
-
-
-
-
+### Experiment 1: Tune depth alpha for each model aggregating over `scale` and `domain`
 
 Tune models aggregating over `domain`
 ```{r eval=FALSE}
@@ -506,34 +481,156 @@ tune_alpha_depth <- function(d_model,
   }
   cors
 }
+debug(tune_alpha_depth)
+```
+
+
+Basic RSA functionality debugging
+```{r eval=FALSE}
+## BP work 8.19.16
+## build off this framework
+
+ge_models <- rbind(five_alt_m %>% mutate(model="5"),
+                   four_alt_m %>% mutate(model="4"),
+                   three_alt_m %>% mutate(model="3"),
+                   two_alt_m %>% mutate(model="2")) %>%
+  filter(scale=="memorable_unforgettable")
+ge_res <- data.frame(r=c(), model=c(), domain=c(), alpha=c(), depth=c())
+
+ALPHAS <- seq(0, 2, by=0.1)
+DEPHS <- seq(0, 2)
+MODELS <- as.character(seq(2, 5))
+
+f <- function() {
+  for (model_num in MODELS) {
+    for (domain_type in DOMAINS) {
+      for (alpha in ALPHAS) {
+        for (depth in DEPTHS) {
+          out1 <- ge_models %>%
+            filter(model==model_num, 
+                   domain==domain_type)
+          curr_r <- rsa.runDf(out1,
+                   quantityVarName="stars",
+                   semanticsVarName="sems",
+                   itemVarName="item",
+                   alpha=alpha,
+                   depth=depth) %>%
+            filter(item=="memorable" | item=="unforgettable") %>%
+            select(preds, prags) %>%
+            cor
+          
+          new_d <- data.frame(r=curr_r[1,2], model=model_num, domain=domain_type, alpha=alpha, depth=depth)
+          ge_res <- rbind(ge_res, new_d)
+        }
+      }
+    }  
+  }
+}
+
+ge_res %>%
+  group_by(model, domain) %>%
+  summarise(max_r=max(r),
+            max_alpha=alpha[which.max(r)],
+            max_depth=depth[which.max(r)]) %>% View
+
+debug(f)
+f()
+
+
+album5 <- five_alt_m %>% filter(domain=="album")
+
+album5 %>%
+  split(.$scale) %>%
+  map_df(~rsa.runDf(
+    data=.x,
+    quantityVarName="stars",
+    semanticsVarName="sems",
+    itemVarName="item")) %>%
+  filter(item=="good")
+
+
+## ge depth=2, alpha=3
+five_alt_m %>%
+  split(list(.$domain, .$scale)) %>%
+  map_df(~rsa.runDf(
+    data=.x,
+    quantityVarName="stars",
+    semanticsVarName="sems",
+    itemVarName="item",
+    depth=1,
+    alpha=16)) %>%
+  filter(scale=="liked_loved", (item=="liked"|item=="loved")) %>%
+  # select(preds, prags) %>%
+  # cor()
+  # 
+  gather(type, value, c(preds, prags)) %>%
+  ggplot(aes(x=as.numeric(stars), y=value, lty=as.factor(type), col=as.factor(item))) +
+  geom_line() +
+  facet_wrap(~domain)
+
+```
+
+
+# Now old code
+
+```{r alphas_depths}
+ALPHAS <- seq(0, 6, by=0.2)
+DEPTHS <- seq(0, 4)
 ```
 
 Two-alt model tuning
 ```{r eval=FALSE}
-two_alt_res <- tune_alpha_depth(two_alt_m, alphas=seq(0, 6, by=0.2))
-best_two_alpha <- two_alt_res[which.max(two_alt_res$cor), ]
+two_alt_res <- tune_alpha_depth(two_alt_m, alphas=ALPHAS, depths=DEPTHS)
+nbest_two_alpha <- two_alt_res[which.max(two_alt_res$cor), ]
 ```
 
 Three-alt model tuning
 ```{r eval=FALSE}
 compare_indices <- get_compare_indices(three_alt_m, model="2")
-three_alt_res <- tune_alpha_depth(three_alt_m, tune_indices=compare_indices, depths=seq(1, 3))
+three_alt_res <- tune_alpha_depth(three_alt_m, tune_indices=compare_indices, alphas=ALPHAS, depths=DEPTHS)
 best_three_alpha <- three_alt_res[which.max(three_alt_res$cor), ]
 ```
 
 Four-alt model tuning
 ```{r eval=FALSE}
 compare_indices <- get_compare_indices(four_alt_m, model="2")
-four_alt_res <- tune_alpha_depth(four_alt_m, tune_indices=compare_indices, depths=seq(1, 3))
+four_alt_res <- tune_alpha_depth(four_alt_m, tune_indices=compare_indices, alphas=ALPHAS, depths=DEPTHS)
 best_four_alpha <- four_alt_res[which.max(four_alt_res$cor), ]
 ```
 
 Five-alt model tuning
 ```{r eval=FALSE}
 compare_indices <- get_compare_indices(five_alt_m, model="2")
-five_alt_res <- tune_alpha_depth(five_alt_m, tune_indices=compare_indices, depths=seq(1, 3))
+five_alt_res <- tune_alpha_depth(five_alt_m, tune_indices=compare_indices, alphas=ALPHAS, depths=DEPTHS)
 best_five_alpha <- five_alt_res[which.max(five_alt_res$cor), ]
 ```
+
+```{r}
+## Combine across domains
+d_L0 <- d_agg_L0 %>%
+  group_by(item, word_type, stars) %>%
+  summarise(avg_judgment=mean(judgment),
+            ci_low=binom.confint(sum(judgment), length(judgment))$lower[3],
+            ci_high=binom.confint(sum(judgment), length(judgment))$upper[3])
+
+sems_wide <- d_L0 %>% select(word_type, item, stars, avg_judgment) %>%
+    spread(stars, sems)
+
+
+
+ggplot(d_L0, aes(x=stars, y=avg_judgment, col=word_type)) +
+  geom_line() +
+  geom_errorbar(aes(ymax=ci_high, ymin=ci_low), width=0)
+```
+
+
+
+
+
+
+
+
+
 
 
 5-alt model, scale specific tuning
