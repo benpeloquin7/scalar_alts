@@ -122,6 +122,7 @@ d_restaurant_L0 <- create_domain_df("restaurant",
 d_agg_L0 <- rbind(d_album_L0, d_book_L0, d_game_L0, d_movie_L0, d_play_L0, d_restaurant_L0)
 ```
 
+Non-normalized literal semantics with CI intervals
 ```{r L0_data_prep, warning=FALSE, message=FALSE}
 ## Literal semantics
 d_agg_sems <- d_agg_L0 %>%
@@ -163,7 +164,6 @@ Is `domain` a sigificant predictor of response.
 
 Null hypothesis is there are no differences between domain (i.e. domain should not significantly predict response after controlling for `target_word`).
 ```{r L0_domain_differences_test}
-
 ## L0 listener data for glmer and glm
 d_agg_L0_test <- d_agg_L0 %>%
   mutate(worker_id=as.factor(worker_id),
@@ -236,6 +236,7 @@ d_restaurant_L1 <- create_domain_df("restaurant",
 d_agg_L1 <- rbind(d_album_L1, d_book_L1, d_game_L1, d_movie_L1, d_play_L1, d_restaurant_L1)
 ```
 
+Pragmatic judgment counts
 ```{r L1_data_prep}
 d_agg_prags <-  d_agg_L1 %>%
   group_by(domain, word_type, item, judgment) %>%
@@ -391,7 +392,7 @@ rsa_read_df <- function(d_L0, d_L1) {
   sems_scales_df[1:10,]
   prags_scales_df[1:10,]
   
-  d_rsa_df <- plyr::join(sems_scales_df, prags_scales_df)
+  d_rsa_df <- dplyr::full_join(sems_scales_df, prags_scales_df)
   
   d_rsa_df
 }
@@ -399,7 +400,7 @@ rsa_read_df <- function(d_L0, d_L1) {
 ```
 
 Get model indices
-```{r}
+```{r get_compare_indices}
 ## get_compare_indices()
 ## ----------------------
 ## map word valence labels by model type
@@ -431,7 +432,7 @@ get_compare_indices <- function(d, model=NA) {
 ```
 
 Combined df with sems and prags
-```{r}
+```{r combine_sems_prags}
 d_joined_m <- rsa_read_df(d_agg_sems, d_agg_prags)
 ```
 
@@ -450,16 +451,16 @@ five_alt_m <- d_joined_m[get_compare_indices(d_joined_m, model="5"), ]
 ### Experiment 1: Tune depth alpha for each model aggregating over `scale` and `domain`
 
 Tune models aggregating over `domain`
-```{r eval=FALSE}
+```{r tuning_helpers}
 ## tune_alpha_depth()
 ## ------------
 ## tune alphas for model against taregt indices
 ##
 tune_alpha_depth <- function(d_model,
-                             tune_indices=seq(nrow(d_model)),
                              alphas=seq(1, 4, by=0.1),
                              depths=seq(1,3)) {
-  cors <- data.frame(cor=c(), alpha=c(), depth=c())
+  
+  cors <- data.frame(r=c(), alpha=c(), depth=c())
   for (alpha in alphas) {
     for (depth in depths) {
       
@@ -474,15 +475,136 @@ tune_alpha_depth <- function(d_model,
           depth=depth,
           alpha=alpha))
       
+      tune_indices <- get_compare_indices(out, model="2")
       out_check <- out[tune_indices,]
       curr_cor <- cor(out_check$preds, out_check$prags)
-      cors <- rbind(cors, data.frame(cor=curr_cor, alpha=alpha, depth=depth)) 
+      cors <- rbind(cors, data.frame(r=curr_cor, alpha=alpha, depth=depth)) 
     }
   }
   cors
 }
 debug(tune_alpha_depth)
+
+ALPHAS <- seq(0, 6, by=0.2)
+DEPTHS <- seq(0, 4)
+MODELS <- as.character(seq(2, 5))
+
+plot_tuning_curves <- function(d) {
+  ggplot(d, aes(x=alpha, y=r, col=as.factor(depth))) +
+    geom_line()
+}
 ```
+
+```{r }
+two_alt_res <- tune_alpha_depth(two_alt_m, alphas=ALPHAS, depths=DEPTHS)
+best_two_alpha <- two_alt_res[which.max(two_alt_res$r), ]
+plot_tuning_curves(two_alt_res)
+```
+
+Three-alt model tuning
+```{r eval=FALSE}
+three_alt_res <- tune_alpha_depth(three_alt_m, alphas=ALPHAS, depths=DEPTHS)
+best_three_alpha <- three_alt_res[which.max(three_alt_res$r), ]
+plot_tuning_curves(three_alt_res)
+```
+
+Four-alt model tuning
+```{r eval=FALSE}
+four_alt_res <- tune_alpha_depth(four_alt_m, alphas=ALPHAS, depths=DEPTHS)
+best_four_alpha <- four_alt_res[which.max(four_alt_res$r), ]
+plot_tuning_curves(four_alt_res)
+```
+
+Five-alt model tuning
+```{r eval=FALSE}
+five_alt_res <- tune_alpha_depth(five_alt_m, alphas=ALPHAS, depths=DEPTHS)
+best_five_alpha <- five_alt_res[which.max(five_alt_res$r), ]
+plot_tuning_curves(five_alt_res)
+```
+
+```{r agg_over_scale_domain_res}
+best_two_alpha
+best_three_alpha
+best_four_alpha
+best_five_alpha
+```
+This is interesting -- aggregating over scale and domain, our 2-, 3- and 4-alt listeners would be more effective by avoiding inference and simply considering the literal semantics. Only once we get to 5-alts does RSA provide any benefits.
+
+### Experiment 2: Tune depth alpha for each `model` and `scale` aggregating `domain`
+```{r}
+tune_alpha_depth_over_domain <- function(d_model,
+                                         alphas=seq(1, 4, by=0.1),
+                                         depths=seq(1,3)) {
+  
+  cors <- data.frame(r=c(), scale=c(), alpha=c(), depth=c())
+  for (curr_scale in names(all_scales)) {
+    for (alpha in alphas) {
+      for (depth in depths) {
+        ## Run on each alpha/depth
+        out <- d_model %>%
+          filter(scale==curr_scale) %>%
+          split(list(.$domain)) %>%
+          map_df(~rsa.runDf(
+            data=.x,
+            quantityVarName="stars",
+            semanticsVarName="sems",
+            itemVarName="item",
+            depth=depth,
+            alpha=alpha))
+        
+        tune_indices <- get_compare_indices(out, model="2")
+        out_check <- out[tune_indices,]
+        curr_cor <- cor(out_check$preds, out_check$prags)
+        cors <- rbind(cors, data.frame(r=curr_cor, scale=curr_scale, alpha=alpha, depth=depth)) 
+      }
+    }
+  }
+  
+  cors
+}
+```
+
+```{r}
+two_alt_res <- tune_alpha_depth_over_domain(two_alt_m, alphas=ALPHAS, depths=DEPTHS)
+two_alt_res %>%
+  group_by(scale) %>%
+  summarise(best_r=max(r),
+            best_alpha=alpha[which.max(r)],
+            best_depth=depth[which.max(r)])
+two_alt_m %>%
+  gather(type, value, c(sems, prags)) %>%
+  ggplot(aes(x=as.numeric(stars), y=value, lty=type, col=item)) +
+           geom_line() +
+  facet_grid(domain~scale)
+```
+
+```{r}
+three_alt_res <- tune_alpha_depth_over_domain(three_alt_m, alphas=ALPHAS, depths=DEPTHS)
+three_alt_res %>%
+  group_by(scale) %>%
+  summarise(best_r=max(r),
+            best_alpha=alpha[which.max(r)],
+            best_depth=depth[which.max(r)])
+```
+
+```{r}
+four_alt_res <- tune_alpha_depth_over_domain(four_alt_m, alphas=ALPHAS, depths=DEPTHS)
+four_alt_res %>%
+  group_by(scale) %>%
+  summarise(best_r=max(r),
+            best_alpha=alpha[which.max(r)],
+            best_depth=depth[which.max(r)])
+```
+
+```{r}
+five_alt_res <- tune_alpha_depth_over_domain(five_alt_m, alphas=ALPHAS, depths=DEPTHS)
+five_alt_res %>%
+  group_by(scale) %>%
+  summarise(best_r=max(r),
+            best_alpha=alpha[which.max(r)],
+            best_depth=depth[which.max(r)])
+```
+Here again, it appears that some scales are differentially sensitive to the need for pragmatics and alternatives. 
 
 
 Basic RSA functionality debugging
@@ -578,32 +700,6 @@ ALPHAS <- seq(0, 6, by=0.2)
 DEPTHS <- seq(0, 4)
 ```
 
-Two-alt model tuning
-```{r eval=FALSE}
-two_alt_res <- tune_alpha_depth(two_alt_m, alphas=ALPHAS, depths=DEPTHS)
-nbest_two_alpha <- two_alt_res[which.max(two_alt_res$cor), ]
-```
-
-Three-alt model tuning
-```{r eval=FALSE}
-compare_indices <- get_compare_indices(three_alt_m, model="2")
-three_alt_res <- tune_alpha_depth(three_alt_m, tune_indices=compare_indices, alphas=ALPHAS, depths=DEPTHS)
-best_three_alpha <- three_alt_res[which.max(three_alt_res$cor), ]
-```
-
-Four-alt model tuning
-```{r eval=FALSE}
-compare_indices <- get_compare_indices(four_alt_m, model="2")
-four_alt_res <- tune_alpha_depth(four_alt_m, tune_indices=compare_indices, alphas=ALPHAS, depths=DEPTHS)
-best_four_alpha <- four_alt_res[which.max(four_alt_res$cor), ]
-```
-
-Five-alt model tuning
-```{r eval=FALSE}
-compare_indices <- get_compare_indices(five_alt_m, model="2")
-five_alt_res <- tune_alpha_depth(five_alt_m, tune_indices=compare_indices, alphas=ALPHAS, depths=DEPTHS)
-best_five_alpha <- five_alt_res[which.max(five_alt_res$cor), ]
-```
 
 ```{r}
 ## Combine across domains
@@ -674,10 +770,7 @@ su_res[which.max(su_res$r),]
 ```
 
 ```{r}
-plot_tuning_curves <- function(d) {
-  ggplot(d, aes(x=alpha, y=r, col=as.factor(depth))) +
-    geom_line()
-}
+
 plot_tuning_curves(ge_res)
 plot_tuning_curves(ll_res)
 plot_tuning_curves(mu_res)
