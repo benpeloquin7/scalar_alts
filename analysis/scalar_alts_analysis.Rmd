@@ -456,7 +456,7 @@ Tune models aggregating over `domain`
 ## ------------
 ## tune alphas for model against taregt indices
 ##
-tune_alpha_depth <- function(d_model,
+tune_alpha_depth_over_domain_scale <- function(d_model,
                              alphas=seq(1, 4, by=0.1),
                              depths=seq(1,3)) {
   
@@ -483,7 +483,6 @@ tune_alpha_depth <- function(d_model,
   }
   cors
 }
-debug(tune_alpha_depth)
 
 ALPHAS <- seq(0, 6, by=0.2)
 DEPTHS <- seq(0, 4)
@@ -495,38 +494,59 @@ plot_tuning_curves <- function(d) {
 }
 ```
 
+
+Reproduce original tests (assume one level of recursion and tune alpha)
 ```{r }
-two_alt_res <- tune_alpha_depth(two_alt_m, alphas=ALPHAS, depths=DEPTHS)
+two_alt_res <- tune_alpha_depth_over_domain_scale(two_alt_m, alphas=ALPHAS, depths=1)
 best_two_alpha <- two_alt_res[which.max(two_alt_res$r), ]
 plot_tuning_curves(two_alt_res)
 ```
 
 Three-alt model tuning
 ```{r eval=FALSE}
-three_alt_res <- tune_alpha_depth(three_alt_m, alphas=ALPHAS, depths=DEPTHS)
+three_alt_res <- tune_alpha_depth_over_domain_scale(three_alt_m, alphas=ALPHAS, depths=1)
 best_three_alpha <- three_alt_res[which.max(three_alt_res$r), ]
 plot_tuning_curves(three_alt_res)
 ```
 
 Four-alt model tuning
 ```{r eval=FALSE}
-four_alt_res <- tune_alpha_depth(four_alt_m, alphas=ALPHAS, depths=DEPTHS)
+four_alt_res <- tune_alpha_depth_over_domain_scale(four_alt_m, alphas=ALPHAS, depths=1)
 best_four_alpha <- four_alt_res[which.max(four_alt_res$r), ]
 plot_tuning_curves(four_alt_res)
 ```
 
 Five-alt model tuning
 ```{r eval=FALSE}
-five_alt_res <- tune_alpha_depth(five_alt_m, alphas=ALPHAS, depths=DEPTHS)
+five_alt_res <- tune_alpha_depth_over_domain_scale(five_alt_m, alphas=ALPHAS, depths=1)
 best_five_alpha <- five_alt_res[which.max(five_alt_res$r), ]
 plot_tuning_curves(five_alt_res)
 ```
 
 ```{r agg_over_scale_domain_res}
-best_two_alpha
-best_three_alpha
-best_four_alpha
-best_five_alpha
+rbind(best_two_alpha %>% mutate(model="2"),
+          best_three_alpha %>% mutate(model="3"),
+          best_four_alpha %>% mutate(model="4"),
+          best_five_alpha %>% mutate(model="5")) %>%
+  ggplot(aes(x=model, y=r)) +
+    geom_bar(stat="identity", position="dodge")
+```
+In this case we see substantial improvment in model fit when we include a negative valence alt...
+
+Now tune both depth an alpha aggregating over scale and domain
+```{r}
+two_alt_res <- tune_alpha_depth_over_domain_scale(two_alt_m, alphas=ALPHAS, depths=DEPTHS)
+three_alt_res <- tune_alpha_depth_over_domain_scale(three_alt_m, alphas=ALPHAS, depths=DEPTHS)
+four_alt_res <- tune_alpha_depth_over_domain_scale(four_alt_m, alphas=ALPHAS, depths=DEPTHS)
+five_alt_res <- tune_alpha_depth_over_domain_scale(five_alt_m, alphas=ALPHAS, depths=DEPTHS)
+rbind(two_alt_res %>% mutate(model="2"),
+          three_alt_res %>% mutate(model="3"),
+          four_alt_res %>% mutate(model="4"),
+          five_alt_res %>% mutate(model="5")) %>%
+  group_by(model) %>%
+  summarise(best_r=max(r),
+            best_alpha=alpha[which.max(r)],
+            best_depth=depth[which.max(r)])
 ```
 This is interesting -- aggregating over scale and domain, our 2-, 3- and 4-alt listeners would be more effective by avoiding inference and simply considering the literal semantics. Only once we get to 5-alts does RSA provide any benefits.
 
@@ -564,9 +584,10 @@ tune_alpha_depth_over_domain <- function(d_model,
 }
 ```
 
+M2
 ```{r}
 two_alt_res <- tune_alpha_depth_over_domain(two_alt_m, alphas=ALPHAS, depths=DEPTHS)
-two_alt_res %>%
+best_2 <- two_alt_res %>%
   group_by(scale) %>%
   summarise(best_r=max(r),
             best_alpha=alpha[which.max(r)],
@@ -578,33 +599,144 @@ two_alt_m %>%
   facet_grid(domain~scale)
 ```
 
+M3
 ```{r}
 three_alt_res <- tune_alpha_depth_over_domain(three_alt_m, alphas=ALPHAS, depths=DEPTHS)
-three_alt_res %>%
+best_3 <- three_alt_res %>%
   group_by(scale) %>%
   summarise(best_r=max(r),
             best_alpha=alpha[which.max(r)],
             best_depth=depth[which.max(r)])
 ```
 
+M4
 ```{r}
 four_alt_res <- tune_alpha_depth_over_domain(four_alt_m, alphas=ALPHAS, depths=DEPTHS)
-four_alt_res %>%
+best_4 <- four_alt_res %>%
   group_by(scale) %>%
   summarise(best_r=max(r),
             best_alpha=alpha[which.max(r)],
             best_depth=depth[which.max(r)])
 ```
 
+M5
 ```{r}
 five_alt_res <- tune_alpha_depth_over_domain(five_alt_m, alphas=ALPHAS, depths=DEPTHS)
-five_alt_res %>%
+best_5 <- five_alt_res %>%
   group_by(scale) %>%
   summarise(best_r=max(r),
             best_alpha=alpha[which.max(r)],
             best_depth=depth[which.max(r)])
 ```
 Here again, it appears that some scales are differentially sensitive to the need for pragmatics and alternatives. 
+
+```{r}
+d_best <- rbind(best_2 %>% mutate(model="2"),
+      best_3 %>% mutate(model="3"),
+      best_4 %>% mutate(model="4"),
+      best_5 %>% mutate(model="5"))
+
+ggplot(d_best, aes(x=model, y=best_r)) +
+  geom_bar(stat="identity", position="dodge") +
+  ylim(0, 1) +
+  facet_wrap(~scale)
+```
+
+### Experiment 3: Tune depth alpha for each `model`, `scale` and `domain`
+```{r}
+tune_alpha_depth <- function(d_model,
+                             alphas=seq(1, 4, by=0.1),
+                             depths=seq(1,3)) {
+  
+  cors <- data.frame(r=c(), scale=c(), domain=c(), alpha=c(), depth=c())
+
+  for (curr_domain in DOMAINS) {
+    for (curr_scale in names(all_scales)) {
+      for (alpha in alphas) {
+        for (depth in depths) {
+          ## Run on each alpha/depth
+          curr_d <- d_model %>%
+            filter(scale==curr_scale, domain==curr_domain)
+          ## No need to use map_df here
+          out <- rsa.runDf(data=curr_d,
+                    quantityVarName="stars",
+                    semanticsVarName="sems",
+                    itemVarName="item",
+                    depth=depth,
+                    alpha=alpha)
+          tune_indices <- get_compare_indices(out, model="2")
+          out_check <- out[tune_indices,]
+          ## Check if RSA predicts uniform probability across responses (then correlation is 0)
+          curr_cor <- ifelse(sd(out_check$preds) != 0, cor(out_check$preds, out_check$prags), 0)
+          cors <- rbind(cors, data.frame(r=curr_cor, scale=curr_scale, domain=curr_domain, alpha=alpha, depth=depth)) 
+        }
+      }
+    }
+  }
+  cors
+}
+
+debug(tune_alpha_depth)
+```
+
+When there are no 0 value semantics (a word eg "memorable" is compatible at every star-rating then rsa returns uniform probability)
+
+M2
+```{r}
+two_alt_res <- tune_alpha_depth(two_alt_m, alphas=ALPHAS, depths=DEPTHS)
+best_2 <- two_alt_res %>%
+  group_by(domain, scale) %>%
+  summarise(best_r=max(r),
+            best_alpha=alpha[which.max(r)],
+            best_depth=depth[which.max(r)])
+mean(best_2$best_r)
+```
+
+M3
+```{r}
+three_alt_res <- tune_alpha_depth(three_alt_m, alphas=ALPHAS, depths=DEPTHS)
+best_3 <- three_alt_res %>%
+  group_by(domain, scale) %>%
+  summarise(best_r=max(r),
+            best_alpha=alpha[which.max(r)],
+            best_depth=depth[which.max(r)]) %>% View
+mean(best_3$best_r)
+```
+
+M4
+```{r}
+four_alt_res <- tune_alpha_depth(four_alt_m, alphas=ALPHAS, depths=DEPTHS)
+best_4 <- four_alt_res %>%
+  group_by(domain, scale) %>%
+  summarise(best_r=max(r),
+            best_alpha=alpha[which.max(r)],
+            best_depth=depth[which.max(r)])
+
+mean(best_4$best_r)
+```
+
+M5
+```{r}
+five_alt_res <- tune_alpha_depth(five_alt_m, alphas=ALPHAS, depths=DEPTHS)
+best_5 <- five_alt_res %>%
+  group_by(domain, scale) %>%
+  summarise(best_r=max(r),
+            best_alpha=alpha[which.max(r)],
+            best_depth=depth[which.max(r)])
+mean(best_five$best_r)
+```
+
+Combine results
+```{r}
+d_best <- rbind(best_2 %>% mutate(model="2"),
+      best_3 %>% mutate(model="3"),
+      best_4 %>% mutate(model="4"),
+      best_5 %>% mutate(model="5"))
+ggplot(d_best, aes(x=model, y=best_r)) +
+  geom_bar(stat="identity", position="dodge") +
+  ylim(0, 1) +
+  facet_grid(domain~scale)
+```
 
 
 Basic RSA functionality debugging
