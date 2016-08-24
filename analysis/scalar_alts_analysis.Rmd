@@ -576,11 +576,24 @@ if (!("curves" %in% ls(envir=.GlobalEnv))) {
 }
 curves %>%
   ggplot(aes(x=alpha, y=r, col=as.character(model))) +
-    geom_line()
+    geom_line() +
+    ggtitle("Correlation curves\ntuned alpha\ndepth=1") +
+    theme_bw()
 ```
-With a single recursion (depth=1) and tuning `alpha` we see substantial improvement in model fit with the inclusion of more alts. Note that our best correlation in each case is a bit lower than in our first study. In this case we are aggregating over domain, however.
 
-```{r agg_over_scale_domain_res, eval=FALSE}
+With a single recursion (depth=1) and tuning `alpha` we see substantial improvement in model fit with the inclusion of more alts. This is consistent with findings from our original study.
+
+```{r best_r_res, results='asis'}
+curves %>%
+  group_by(model) %>%
+  summarise(best_r=max(r),
+            best_alpha=alpha[which.max(r)]) %>%
+  knitr::kable()
+```
+
+Our best correlation in each case is lower than in our first study. We are aggregating over both `domain` and `scale`, however.
+
+```{r agg_over_scale_domain_res}
 if (!("m_test1" %in% ls(envir=.GlobalEnv))) {
   m_test1 <- rbind(best_two_alpha %>% mutate(model="2"),
                    best_three_alpha %>% mutate(model="3"),
@@ -588,35 +601,41 @@ if (!("m_test1" %in% ls(envir=.GlobalEnv))) {
                    best_five_alpha %>% mutate(model="5"))
   write.csv(m_test1, "/Users/benpeloquin/Desktop/Projects/scalar_alts/analysis/cache/m_test1.csv")
 }
-m_test1 %>%
-  group_by(model) %>%
-  summarise(num_run_recurse=sum(best_depth > 0),
-            avg_r_delta=mean(best_r-L0_r)) %>%
-  knitr::kable()
 
 ggplot(m_test1, aes(x=model, y=r)) +
   geom_bar(stat="identity", position="dodge") +
   ggtitle("Highest model correlation\nwith tuned alpha and depth=1")
 ```
+
 In this case we see substantial improvment in model fit when we include a negative valence alt...
 
-Now tune both depth an alpha aggregating over scale and domain
-```{r exp1a_, eval=FALSE}
-two_alt_res <- tune_alpha_depth_over_domain_scale(two_alt_m, alphas=ALPHAS, depths=DEPTHS)
-three_alt_res <- tune_alpha_depth_over_domain_scale(three_alt_m, alphas=ALPHAS, depths=DEPTHS)
-four_alt_res <- tune_alpha_depth_over_domain_scale(four_alt_m, alphas=ALPHAS, depths=DEPTHS)
-five_alt_res <- tune_alpha_depth_over_domain_scale(five_alt_m, alphas=ALPHAS, depths=DEPTHS)
-rbind(two_alt_res %>% mutate(model="2"),
-          three_alt_res %>% mutate(model="3"),
-          four_alt_res %>% mutate(model="4"),
-          five_alt_res %>% mutate(model="5")) %>%
+Now tune both depth an alpha aggregating over scale and domain.
+```{r exp1b, results='asis'}
+m_test1b <- read.csv("/Users/benpeloquin/Desktop/Projects/scalar_alts/analysis/cache/m_test1b.csv")
+if (!("m_test1b" %in% ls(envir=.GlobalEnv))) {
+  two_alt_res <- tune_alpha_depth_over_domain_scale(two_alt_m, alphas=ALPHAS, depths=DEPTHS)
+  three_alt_res <- tune_alpha_depth_over_domain_scale(three_alt_m, alphas=ALPHAS, depths=DEPTHS)
+  four_alt_res <- tune_alpha_depth_over_domain_scale(four_alt_m, alphas=ALPHAS, depths=DEPTHS)
+  five_alt_res <- tune_alpha_depth_over_domain_scale(five_alt_m, alphas=ALPHAS, depths=DEPTHS)
+  m_test1b <- rbind(two_alt_res %>% mutate(model="2"),
+                    three_alt_res %>% mutate(model="3"),
+                    four_alt_res %>% mutate(model="4"),
+                    five_alt_res %>% mutate(model="5"))
+  write.csv(m_test1b, "/Users/benpeloquin/Desktop/Projects/scalar_alts/analysis/cache/m_test1b.csv")
+}
+
+m_test1b %>%
   group_by(model) %>%
+  mutate(L0_r=r[which(depth==0 & alpha==0)]) %>%
+  group_by(model, L0_r) %>%
   summarise(best_r=max(r),
             best_alpha=alpha[which.max(r)],
             best_depth=depth[which.max(r)]) %>%
+  mutate(diff=best_r-L0_r) %>%
   knitr::kable()
 ```
-This is interesting -- aggregating over scale and domain, our 2-, 3- and 4-alt listeners would be more effective by avoiding inference and simply considering the literal semantics. Only once we get to 5-alts does RSA provide any benefits.
+
+This is interesting - aggregating over scale and domain, our 2-, 3- and 4-alt listeners would be more effective (accurate) by avoiding inference and simply considering the literal semantics. Only once we get to 5-alts does RSA provide any benefits at they're not too much.
 
 ### Experiment 2: Tune depth alpha for each `model` and `scale` aggregating over `domain`
 
@@ -730,14 +749,16 @@ if (!("m_test2" %in% ls(envir=.GlobalEnv))) {
 
 m_test2 %>%
   group_by(model) %>%
-  summarise(num_run_recurse=sum(best_depth > 0),
+  summarise(num_runs=n(),
+            num_run_recurse=sum(best_depth > 0),
+            avg_alhpa=mean(best_alpha),
             avg_r_delta=mean(best_r-L0_r)) %>%
   knitr::kable()
 # ggplot(m_test2, aes(x=scale, y=best_r, fill=model)) +
 #   geom_bar(stat="identity", position="dodge") +
 #   theme(axis.text.x=element_text(angle=45, hjust=1))
 ```
-Interesting, again looks like the benefits inference really only begins when there is a full set of alternatives.
+Here I'm showing the total number of times that the model needed to recurse at least once with `num_run_recurse` (out of `num_runs`) as well as the average `alpha` level for each model. So out of 30 runs, 26 in the 5-model case required recursion with an average overall alpha level. This supports the (emerging story), it really only makes sense to reason about a speaker if you have alternatives available. Does this start to fit into a developmental story (Rose's study)?
 
 ### Experiment 3: Tune depth alpha for each `model`, `scale` and `domain`
 ```{r exp3_helpers}
@@ -773,8 +794,6 @@ tune_alpha_depth <- function(d_model,
   cors
 }
 ```
-
-When there are no 0 value semantics (a word eg "memorable" is compatible at every star-rating then rsa returns uniform probability)
 
 Check for cached data...
 ```{r exp3_load_cache}
@@ -839,8 +858,8 @@ if (!("m_test3" %in% ls(envir = .GlobalEnv))) {
 }
 ```
 
-Combine results
-```{r eval=FALSE}
+Summary results
+```{r m3_summary, results='asis'}
 if (!("m_test3" %in% ls(envir = .GlobalEnv))) {
   m_test3 <- rbind(best_2 %>% mutate(model="2"),
                    best_3 %>% mutate(model="3"),
@@ -853,6 +872,8 @@ m_test3 %>%
   group_by(model) %>%
   summarise(num_run_recurse=sum(best_depth > 0),
             num_comparisons=n(),
+            avg_best_r=mean(best_r),
+            avg_L0_r=mean(L0_r),
             avg_r_delta=mean(best_r-L0_r)) %>%
   knitr::kable()
 ```
@@ -912,20 +933,64 @@ d_best_models[compare_indices, ] %>%
     theme_bw()
 ```
 
-This plot is really too hard to read... Take away is that at 5 alternatives RSA pushes most of the weaker terms to 1 or 0.
+-- `good_excellent` and `liked_loved`: 5-alt model pushes pragmatic judgments to 1 and 0, which leads to improved fit over semantics. 
+
+-- `memorable_unforfettable`: high fit with L0 and really only improves at M3.
+
+-- `bad_terrible` is difficult in part because there really isn't an implicature.
+
+-- `special_unique`
+
 ```{r best_model_line_plot, eval=FALSE}
 d_best_models[compare_indices, ] %>%
+  filter(domain=="book") %>%
   gather(type, value, c(prags, preds)) %>%
   ggplot(aes(x=as.numeric(stars), y=value, lty=type, col=word_type)) +
     geom_line() +
     xlab("Stars") +
     ylab("Proportion choosing target /\n Model predictions") +
-    facet_grid(model~scale+domain) +
+    facet_grid(model~scale) +
     theme_bw()
 ```
 
 Which models move furthest away from literal semantics?
 ```{r best_models_summary1}
+# d_best_models[compare_indices,] %>%
+#   group_by(model, scale, domain) %>%
+#   summarise(avg_num_recurse=mean(depth),
+#             avg_alpha=mean(alpha),
+#             avg_r=cor(preds, prags)) %>%
+#   gather(param_type, param_value, c(avg_num_recurse, avg_alpha)) %>%
+#   ggplot(aes(x=avg_r, y=param_value, col=as.factor(param_type))) +
+#     geom_point(alpha=0.6) +
+#     facet_wrap(~model)
+# 
+# d_best_models[compare_indices,] %>%
+#   group_by(model, scale, domain) %>%
+#   summarise(avg_num_recurse=mean(depth),
+#             avg_alpha=mean(alpha),
+#             avg_r=cor(preds, prags)) %>%
+#   gather(param_type, param_value, c(avg_num_recurse, avg_alpha, model)) %>%
+#   ggplot(aes(x=param_value, y=avg_r, col=scale, shape=domain)) +
+#     geom_jitter(width = 0.25, alpha=0.6) +
+#     facet_wrap(~param_type, scales="free")
+  
+
+d_best_models[compare_indices,] %>%
+  group_by(model, scale, domain) %>%
+  summarise(avg_num_recurse=mean(depth),
+            avg_alpha=mean(alpha),
+            avg_r=cor(preds, prags)) %>%
+  gather(param_type, param_value, c(avg_num_recurse, avg_alpha)) %>%
+  ggplot(aes(x=param_value, y=avg_r, col=scale, shape=domain)) +
+    geom_jitter(width = 0.25, alpha=0.6) +
+    facet_grid(model~param_type, scales="free") +
+    theme_bw()
+```
+
+I think this is a visual that gets at the story a little -- we can see the increase impact of `alpha` and `depth` as we include more alternatives. Avg correlation (y-axis) increases while the parameter settings do as well (x-axis). The spreading off the y-axis is indicates that the model is doing work over and above the literal semantics.
+
+```{r best_models_summary2, results='asis'}
 d_best_models[compare_indices,] %>%
   group_by(model) %>%
   summarise(avg_num_recurse=mean(depth),
@@ -935,7 +1000,7 @@ d_best_models[compare_indices,] %>%
 ```
 
 Scale specific `domain`
-```{r best_models_summary2}
+```{r best_models_summary3, results='asis'}
 d_best_models[compare_indices,] %>%
   group_by(model, scale) %>%
   summarise(avg_num_recurse=mean(depth),
@@ -944,6 +1009,33 @@ d_best_models[compare_indices,] %>%
   arrange(scale, model) %>%
   knitr::kable()
 ```
+
+
+Overall story:
+
+--- If people are reasoning about one another having a rich set of alternatives is beneficial (not just entailment alts).
+
+-- Model preds are sensitive to differences in `scale` and `domain` (we get best overall performance when we fit at these levels).
+
+-- If you don't have those alternatives available, you might as well stick with the literal semantics (which will get you pretty far).
+
+-- Is this consistent with a developmental account (Rose's paper)?
+
+- i.e. inference requires both the ability to reason about others (theory of mind???).
+
+- as well as acquisition of conventionalized alternatives sets (look at wordbank ages for quantifiers and scalar adjectives)
+
+- how do depth and alpha really trade off? what is depth really getting at?
+
+Do we see this with our cogsci data?
+```{r compare_with_cogsci, results='asis'}
+peloquinFrank_2Alts %>%
+  group_by(scale) %>%
+  summarise(r=cor(speaker.p, e11)) %>%
+  knitr::kable()
+```
+
+We also see (fairly) good fit between literal semantics with cogsci L0 data nd pragmatic judgments.
 
 ## Tuned RSA
 
