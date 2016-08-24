@@ -42,7 +42,8 @@ alternatives_store <-
              "unique"="special_unique",
              "low"="low_high",
              "high"="low_high")
-
+SCALES <- c("bad_terrible", "good_excellent", "liked_loved", "memorable_unforgettable", "special_unique")
+DOMAINS <- c("album", "book", "game", "movie", "play", "restaurant")
 inGlobalEnv <- function(item) {
   item %in% ls(envir = .GlobalEnv)
 }
@@ -407,6 +408,101 @@ jsd <- function(v1, v2, smooth=TRUE) {
 }
 ```
 
+## MF suggested analysis
+
+### First compare for one scale, two domains
+
+For `good_excellent` look at `album` and `book` domain.
+```{r}
+ge_album_book <- aggregate_df %>% 
+  filter(scalar_pair == "good_excellent",
+         (domain == "album" |  domain == "book"))
+
+ge_album_book_wide <- ge_album_book %>%
+  spread(domain, counts)
+ge_album_book_wide[is.na(ge_album_book_wide)] <- 0
+
+## here's our JS distance
+
+```
+
+Permute between domains
+```{r}
+booted_jsd <- function(v1, v2, n=1000) {
+  permute_vecs <- function(v1, v2) {
+    df <- data.frame(v1=v1, v2=v2)
+    n <- nrow(df)
+    df <- df %>%
+      mutate(permute_from=rbinom(n, 1, 0.5)) %>%
+      rowwise %>%
+      mutate(v1_p=ifelse(permute_from==1, v1, v2),
+             v2_p=ifelse(permute_from==1, v2, v1))
+    df[, c(4, 5)]
+  }
+  df <- data.frame(v1=v1, v2=v2)
+  res <- parallel::mclapply(seq(1, n), FUN=function(i) {
+    curr_vec_df <- permute_vecs(df[["v1"]], df[["v2"]])
+    jsd(curr_vec_df[[1]], curr_vec_df[[2]])
+      }, mc.cores=parallel::detectCores()) %>%
+    unlist()
+  res
+}
+```
+
+
+```{r run_permuted_booted_jsd}
+## Read in cached data
+d_res <- read.csv("/Users/benpeloquin/Desktop/Projects/scalar_alts/analysis/cache/booted_permuted_jsd_ests_n5000.csv")
+d_booted <- read.csv("/Users/benpeloquin/Desktop/Projects/scalar_alts/analysis/cache/booted_permuted_jsd_n5000.csv")
+
+if (!(inGlobalEnv("d_booted") & inGlobalEnv("d_res"))) {
+  NUM_SIMS <- 5000
+  d_res <- data.frame(scale=c(), domain1=c(), domain2=c(), jsd_est=c(), threshold=c())
+  d_booted <- data.frame(scale=c(), domain1=c(), domain2=c(), jsd_est=c())
+  for (curr_scale in SCALES) {
+    curr_scale_df <- aggregate_df %>% filter(scalar_pair==curr_scale)
+    for (i in 1:(length(DOMAINS)-1)) {
+      for (j in i:length(DOMAINS)) {
+        if (i == j) next
+        
+        curr_scale_df2 <- curr_scale_df %>% 
+          filter(domain == DOMAINS[i] |  domain == DOMAINS[j])
+        curr_scale_df_wide <- curr_scale_df2 %>%
+          spread(domain, counts)
+        curr_scale_df_wide[is.na(curr_scale_df_wide)] <- 0
+        domain1 <- DOMAINS[i]
+        domain2 <- DOMAINS[j]
+        v1 <- curr_scale_df_wide[[domain1]]
+        v2 <- curr_scale_df_wide[[domain2]]
+        # v1 <- curr_scale_df[curr_scale_df$domain==DOMAINS[i], ]$counts
+        # v2 <- curr_scale_df[curr_scale_df$domain==DOMAINS[j], ]$counts
+        actual_jsd <- jsd(v1, v2)
+        boot_jsd <- booted_jsd(v1, v2, NUM_SIMS)
+        d_booted <- rbind(d_booted, data.frame(scale=rep(curr_scale, NUM_SIMS),
+                                               domain1=rep(domain1, NUM_SIMS),
+                                               domain2=rep(domain2, NUM_SIMS),
+                                               jsd_est=boot_jsd))
+        thresh <- quantile(boot_jsd, probs=c(0.975))
+        d_res <- rbind(d_res,
+                       data.frame(scale=curr_scale,
+                                  domain1=domain1,
+                                  domain2=domain2,
+                                  jsd_est=actual_jsd,
+                                  threshold=thresh))
+      }
+    }
+  }  
+}
+
+
+# write.csv(d_booted, "/Users/benpeloquin/Desktop/Projects/scalar_alts/analysis/cache/booted_permuted_jsd_n5000.csv")
+# write.csv(d_res, "/Users/benpeloquin/Desktop/Projects/scalar_alts/analysis/cache/booted_permuted_jsd_ests_n5000.csv")
+d_res %>%
+  mutate(diff=jsd_est-threshold) %>% 
+  knitr::kable()
+```
+
+
 ## Aggregate JSD across scales -- look at domains
 
 Which domains are most different from eachother?
@@ -633,28 +729,6 @@ alts_m <- alts_df %>%
 alts_m[is.na(alts_m)] <- 0
 ```
 
-practice
-```{r eval=FALSE}
-?igraph
-g <- graph_from_literal( A--B, C--D, E--F, G--H, I, J, K )
-
-str(as.matrix(alts_m))
-
-igraph_m <- Matrix(as.matrix(alts_m[,-1], nrow=5))
-graph_from_adjacency_matrix(igraph_m)
-
-actors <- data.frame(name=c("Alice", "Bob", "Cecil", "David",
-                            "Esmeralda"),
-                     age=c(48,33,45,34,21),
-                     gender=c("F","M","F","M","F"))
-relations <- data.frame(from=c("Bob", "Cecil", "Cecil", "David",
-                               "David", "Esmeralda"),
-                        to=c("Alice", "Bob", "Alice", "Alice", "Bob", "Alice"),
-                        same.dept=c(FALSE,FALSE,TRUE,FALSE,FALSE,TRUE),
-                        friendship=c(4,5,5,2,1,1), advice=c(4,5,5,4,2,3))
-g <- graph_from_data_frame(relations, directed=TRUE, vertices=actors)
-```
-
 ```{r network_stuff}
 alts_df_nonzero <- alts_df %>%
   filter(counts > 0) %>%
@@ -675,17 +749,6 @@ l <- layout_with_fr(g)
 l <- norm_coords(l, ymin=-1, ymax=1, xmin=-1, xmax=1)
 # plot(g, vertex.label=NA, rescale=F, layout=l*1.0)
 plot(g, vertex.label=NA, layout=layout_nicely)
-```
-
-heatmap
-```{r}
-
-h_map <- get.adjacency(g, attr="weight", sparse=F)
-colnames(netm) <- V(net)$media
-rownames(netm) <- V(net)$media
-palf <- colorRampPalette(c("gold", "dark orange"))
-heatmap(netm[,17:1], Rowv = NA, Colv = NA, col = palf(100),
-scale="none", margins=c(10,10) )
 ```
 
 
