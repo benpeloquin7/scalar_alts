@@ -177,6 +177,8 @@ d_agg_L0_test <- d_agg_L0 %>%
 knitr::kable(summary(glm(judgment ~ item*domain + stars, family="binomial", data=d_agg_L0_test))$coef)
 ```
 
+I'm having convergence issues with `glmer()` so I'm sticking with multiple logistic regression. We're including the interaction term `item*domain` here. I'm not seeing signs of significant differences between indiviual words and domains from this summary.
+
 ## Secondary analysis -- word level differences
 
 ### Plots by word and domains (line chart, facets by word, lines are literal semantics for each domain)
@@ -248,6 +250,21 @@ d_agg_prags <-  d_agg_L1 %>%
   rowwise %>%
   mutate(proportion_counts=counts/total_item_counts)
 ```
+
+Average ragins -- bootstrap CI's here...
+```{r}
+d_agg_prags %>%
+  mutate(judgment_times_counts=judgment*counts) %>%
+  group_by(domain, item, total_item_counts) %>%
+  summarise(total_weighted_counts=sum(judgment_times_counts)) %>%
+  mutate(avg_rating=total_weighted_counts/total_item_counts) %>%
+  ggplot(aes(x=domain, y=avg_rating)) +
+    geom_point() +
+    # geom_bar(stat="identity", position="dodge") +
+    facet_wrap(~item) +
+    theme_bw()
+```
+
 
 ## Primary analysis -- domain level differences
 
