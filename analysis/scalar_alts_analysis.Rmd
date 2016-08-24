@@ -441,9 +441,9 @@ get_compare_indices <- function(d, model=NA) {
                           (d$word_type=="hi1" |  d$word_type=="hi2")))
   } else if (model=="3") {
     indices <- which((d$scale=="bad_terrible" &
-                        (d$word_type=="low1" |  d$word_type=="low2" | d$word_type=="hi1")) |
+                        (d$word_type=="low1" |  d$word_type=="low2" | d$word_type=="hi2")) |
                        (d$scale!="bad_terrible" &
-                          (d$word_type=="hi1" |  d$word_type=="hi2" | d$word_type=="low1")))
+                          (d$word_type=="hi1" |  d$word_type=="hi2" | d$word_type=="low2")))
   } else if (model=="4") {
     indices <- which((d$scale=="bad_terrible" &
                         (d$word_type=="low1" |  d$word_type=="low2" | d$word_type=="hi1" | d$word_type=="hi2")) |
@@ -522,8 +522,32 @@ tune_alpha_depth_over_domain_scale <- function(d_model,
   cors
 }
 ```
-Reproduce original tests (assume one level of recursion and tune alpha)
 
+What happens when we simply add alternatives and assume `depth=1`, without tuning `alpha`.
+```{r exp1_reproduce}
+d_joined_models <- rbind(two_alt_m %>% mutate(model="2"),
+                         three_alt_m %>% mutate(model="3"),
+                         four_alt_m %>% mutate(model="4"),
+                         five_alt_m %>% mutate(model="5"))
+d_res <- d_joined_models %>%
+  split(list(.$model, .$domain, .$scale)) %>%
+  map_df(~rsa.runDf(data=.x,
+                    quantityVarName="stars",
+                    semanticsVarName="sems",
+                    itemVarName="item"))
+d_res[get_compare_indices(d_res, model="2"),] %>%
+  filter(domain=="restaurant") %>%
+  gather(type, value, c(prags, preds)) %>%
+  ggplot(aes(x=as.numeric(stars), y=value, lty=type, col=item)) +
+    geom_line() +
+    facet_grid(model~scale)
+
+d_res[get_compare_indices(d_res, model="2"),] %>%
+  group_by(model) %>%
+  summarise(r=cor(preds, prags))
+```
+
+Reproduce original tests (assume one level of recursion and tune alpha)
 ```{r exp1_load_cache}
 m_test1 <- read.csv("/Users/benpeloquin/Desktop/Projects/scalar_alts/analysis/cache/m_test1.csv")
 ```
@@ -606,6 +630,62 @@ ggplot(m_test1, aes(x=model, y=r)) +
   geom_bar(stat="identity", position="dodge") +
   ggtitle("Highest model correlation\nwith tuned alpha and depth=1")
 ```
+
+Using our best `alpha` tuned with `depth=1` take a lookt at our data...
+```{r}
+d_best_models <- data.frame(domain=c(),
+                            word_type=c(),
+                            item=c(),
+                            scale=c(),
+                            stars=c(),
+                            sems=c(),
+                            prags=c(),
+                            preds=c(),
+                            alpha=c(),
+                            depth=c(),
+                            model=c())
+
+for (i in 1:nrow(m_test1)) {
+  curr_alpha <- m_test1[i, ]$alpha
+  curr_depth <- m_test1[i, ]$depth
+  curr_model_num <- m_test1[i, ]$model
+  
+  curr_d <- d_joined_models %>%
+    filter(model==curr_model_num) %>%
+    split(list(.$domain, .$scale)) %>%
+    map_df(~rsa.runDf(data=.x,
+                      quantityVarName="stars",
+                      semanticsVarName="sems",
+                      itemVarName="item",
+                      alpha=curr_alpha,
+                      depth=curr_depth)) %>%
+    mutate(alpha=curr_alpha,
+           depth=curr_depth)
+  
+  # curr_model_indices <- get_compare_indices(curr_d, as.character(curr_model_num))
+  # curr_model_d <- curr_d[curr_model_indices, ]
+
+  d_best_models <- rbind(d_best_models, curr_d)
+}
+
+d_best_models[get_compare_indices(d_best_models, model="2"),] %>%
+  filter(domain=="restaurant") %>%
+  gather(type, value, c(prags, preds)) %>%
+  ggplot(aes(x=as.numeric(stars), y=value, lty=type, col=item)) +
+    geom_line() +
+    facet_grid(model~scale)
+
+d_best_models[get_compare_indices(d_best_models, model="2"),] %>%
+  group_by(model, domain, scale) %>%
+  summarise(r=cor(preds, prags)) %>%
+  arrange(domain, scale, model)
+
+d_best_models[get_compare_indices(d_best_models, model="2"),] %>%
+  group_by(model) %>%
+  summarise(r=cor(preds, prags))
+```
+
+
 
 In this case we see substantial improvment in model fit when we include a negative valence alt...
 
