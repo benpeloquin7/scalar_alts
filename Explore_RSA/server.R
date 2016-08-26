@@ -32,7 +32,6 @@ shinyServer(function(input, output) {
              model==curr_model) %>%
       mutate(domain=as.character(domain))
     
-    print(is.factor(d_processed$domain))
     if (length(curr_domain) > 1) {
       d_prags <- d_processed %>%
         split(.$domain) %>%
@@ -54,10 +53,11 @@ shinyServer(function(input, output) {
     overall_r <<- cor(d_res$preds, d_res$prags) 
     
     d_prags %>%
-      gather(type, value, c(preds, prags)) %>%
+      # gather(type, value, c(prags, preds)) %>%
       filter(word_type %in% c("hi1", "hi2")) %>%
-      ggplot(aes(x=stars, y=value, lty=type, col=item)) +
-      geom_line() +
+      ggplot(aes(x=stars, y=prags, col=item)) +
+      geom_line(lty="dashed", size=1, alpha=0.8) +
+      geom_line(aes(x=stars, y=preds, col=item), lty="solid", size=3) +
       ylim(0, 1) +
       xlab("Stars") +
       ylab("Model predictions/\nHuman judgments") +
