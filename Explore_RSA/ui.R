@@ -8,15 +8,16 @@ library(shiny)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
-  
+
   ## Left header
   titlePanel("Exploring RSA"),
-  
+
   ## Sidebar for parameter tuning
   sidebarLayout(
     sidebarPanel(
       ## Domain
-      selectInput("domain", "Choose domain(s):",
+      selectInput(inputId="domain",
+                  label="Choose domain(s):",
                   choices=c("album"="album",
                             "book"="book",
                             "game"="game",
@@ -24,9 +25,10 @@ shinyUI(fluidPage(
                             "play"="play",
                             "restaurant"="restaurant"),
                   selected="restaurant",
-                  multiple=TRUE), 
+                  multiple=TRUE),
       ## Scale
-      selectInput("scale", "Choose scale(s):",
+      selectInput(inputId="scale",
+                  label="Choose scale(s):",
                   choices=c("bad terrible"="bad_terrible",
                             "good excellent"="good_excellent",
                             "liked loved"="liked_loved",
@@ -34,14 +36,17 @@ shinyUI(fluidPage(
                             "special unique"="special_unique"),
                   selected="good_excellent"),
       ## Depth
-      sliderInput("depth", "Recursive reasoning depth",
+      sliderInput(inputId="depth",
+                  label="Recursive reasoning depth",
                   min=0, max=6, value=1, step=1),
       ## Alpha
-      sliderInput("alpha", "Alpha degree of rationality",
+      sliderInput(inputId="alpha",
+                  label="Alpha degree of rationality",
                   min=0, max=10, value=1, step=0.1),
       ## Number of alternatives
-      sliderInput("model", "Number of alternatives",
-                  min=2, max=5, value=1, step=1),  
+      sliderInput(inputId="model",
+                  label="Number of alternatives",
+                  min=2, max=5, value=1, step=1),
       ## Comparison group (L1 vs L0)
       selectInput(inputId="comparison_group",
                   label="Comparison group:",
@@ -58,8 +63,8 @@ shinyUI(fluidPage(
       plotOutput("pragmatics_plot"),
       br(),
       fluidRow(
-        column(4, 
-               h4("RSA"),
+        column(4,
+               h4(textOutput("RSA_title")),
                tableOutput("preds_table")),
         column(4, offset=1,
               h4(textOutput("comparison_group")),
