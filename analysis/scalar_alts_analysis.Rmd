@@ -469,6 +469,11 @@ two_alt_m <- d_joined_m[get_compare_indices(d_joined_m, model="2"), ]
 three_alt_m <- d_joined_m[get_compare_indices(d_joined_m, model="3"), ]
 four_alt_m <- d_joined_m[get_compare_indices(d_joined_m, model="4"), ]
 five_alt_m <- d_joined_m[get_compare_indices(d_joined_m, model="5"), ]
+d_joined_model <- rbind(two_alt_m %>% mutate(model="2"),
+                        three_alt_m %>% mutate(model="3"),
+                        four_alt_m %>% mutate(model="4"),
+                        five_alt_m %>% mutate(model="5"))
+# write.csv(d_joined_model, "/Users/benpeloquin/Desktop/Projects/scalar_alts/analysis/full_data.csv")
 ```
 
 -- Using L0 literal semantics as input to RSA how well can we fit the L1 pragmatic listener judgments varying the alternative sets available to the model?
@@ -631,7 +636,7 @@ ggplot(m_test1, aes(x=model, y=r)) +
   ggtitle("Highest model correlation\nwith tuned alpha and depth=1")
 ```
 
-Using our best `alpha` tuned with `depth=1` take a lookt at our data...
+Using our best `alpha` tuned with `depth=1` take a look at our data...
 ```{r}
 d_best_models <- data.frame(domain=c(),
                             word_type=c(),
@@ -684,7 +689,6 @@ d_best_models[get_compare_indices(d_best_models, model="2"),] %>%
   group_by(model) %>%
   summarise(r=cor(preds, prags))
 ```
-
 
 
 In this case we see substantial improvment in model fit when we include a negative valence alt...
